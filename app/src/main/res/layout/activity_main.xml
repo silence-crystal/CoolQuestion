@@ -1,17 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.czz.coolquestion.MainActivity">
+    tools:context="com.coolproject.activity.MainActivity"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="11">
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/host_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_vertical"
+            android:layout_weight="1.0">
+
+            <TextView
+                android:id="@+id/tab_host_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tab_host_img"
+                android:layout_centerHorizontal="true"
+                android:textColor="#1296DB"
+                android:text="首页"/>
+
+            <ImageView
+                android:id="@+id/tab_host_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@mipmap/host_select"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/knowledge_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_vertical"
+            android:layout_weight="1.0">
+            <ImageView
+                android:id="@+id/tab_knowledge_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:src="@mipmap/knowledge_normal"/>
+            <TextView
+                android:id="@+id/tab_knowledge_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tab_knowledge_img"
+                android:layout_centerHorizontal="true"
+                android:text="知识"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/question_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_vertical"
+            android:layout_weight="1.0">
+            <ImageView
+                android:id="@+id/tab_question_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:src="@mipmap/question_normal"/>
+            <TextView
+                android:id="@+id/tab_question_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tab_question_img"
+                android:layout_centerHorizontal="true"
+                android:text="答题"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/personal_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_vertical"
+            android:layout_weight="1.0">
+            <ImageView
+                android:id="@+id/tab_personal_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                android:src="@mipmap/personal_normal"/>
+            <TextView
+                android:id="@+id/tab_personal_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tab_personal_img"
+                android:layout_centerHorizontal="true"
+                android:text="我的"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

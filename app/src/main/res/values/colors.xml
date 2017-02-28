@@ -3,4 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="tabcolor_select">#1296DB</color>
+    <color name="tabcolor_normal">#8A8A8A</color>
 </resources>
