@@ -3,11 +3,18 @@ package com.example.czz.coolquestion.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.czz.coolquestion.R;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -15,11 +22,41 @@ import com.example.czz.coolquestion.R;
  */
 
 public class KnowledgeFragment extends Fragment {
-
+    private FragmentPagerItemAdapter adapter;
+    private List<String> list;
+    private FragmentPagerItems.Creator creator;
+    private ViewPager vp_know;
+    private View view;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.knowledge_fra,null);
-        return  view;
+        view=inflater.inflate(R.layout.knowledge_fra,null);
+        InitData();
+        InitPager();
+        return view;
+    }
+    private void InitData(){
+        creator=FragmentPagerItems.with(getActivity());
+        list=new ArrayList<>();
+        list.add("  Java语言  ");
+        list.add("   C语言    ");
+        list.add("  C++语言   ");
+        list.add("   C#语言   ");
+        list.add(" Android语言");
+        list.add("  Php语言   ");
+        list.add(" Python语言 ");
+        list.add("  ios语言   ");
+        list.add("  Web语言   ");
+        list.add(" Html5语言  ");
+        for (int i=0;i<list.size();i++){
+            creator.add(list.get(i), KnowVpFragment.class);
+        }
+    }
+    private void InitPager(){
+        vp_know= (ViewPager) view.findViewById(R.id.vp_know);
+        adapter=new FragmentPagerItemAdapter(getFragmentManager(),creator.create());
+        vp_know.setAdapter(adapter);
+        SmartTabLayout smartTabLayou= (SmartTabLayout) view.findViewById(R.id.smarttablayout);
+        smartTabLayou.setViewPager(vp_know);
     }
 }
