@@ -15,6 +15,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.CollectionActivity" />
+        <activity android:name=".activity.KnowledgeActivity" />
+        <activity android:name=".activity.TopicActivity" />
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.NewsInfoActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RegisterActivity"></activity>
     </application>
 
 </manifest>

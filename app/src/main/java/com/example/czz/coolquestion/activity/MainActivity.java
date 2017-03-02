@@ -1,5 +1,6 @@
 package com.example.czz.coolquestion.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -24,12 +25,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tab_host_tv,tab_knowledge_tv,tab_question_tv,tab_personal_tv;
     private ImageView tab_host_img,tab_knowledge_img,tab_question_img,tab_personal_img;
     private Fragment host,knowledge,question,personal,current;
+    private TextView tv_topic,tv_study,tv_col;
+    private ImageView iv_head;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
+
+
+
         InitView();
         
         InitFragment();
@@ -51,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     //初始化所有控件
     private void InitView() {
+
+
         //初始化
         slidingmenu=new SlidingMenu(getApplicationContext());
         //滑动模式
@@ -87,7 +95,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        knowledge=new KnowledgeFragment();
 //        question=new QuestionFragment();
 //        personal=new PersonalFragment();
+
+        //头像
+        iv_head= (ImageView) view.findViewById(R.id.imageView_left_head);
+        iv_head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        //我的错题
+        tv_topic= (TextView) view.findViewById(R.id.textView_left_topic);
+        tv_topic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, TopicActivity.class);
+                startActivity(intent);
+            }
+        });
+        //知识点
+        tv_study= (TextView) view.findViewById(R.id.textView_left_study);
+        tv_study.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, KnowledgeActivity.class);
+                startActivity(intent);
+            }
+        });
+        //收藏
+        tv_col= (TextView) view.findViewById(R.id.textView_left_col);
+        tv_col.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, CollectionActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
     }
+
+
 
 
     //底部标签栏重置的方法
