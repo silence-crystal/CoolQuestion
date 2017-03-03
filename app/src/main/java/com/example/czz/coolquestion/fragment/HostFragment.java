@@ -184,10 +184,10 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
         List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
         for (int i=0;i<25;i++){
             ProgrammerNews pn=new ProgrammerNews();
-            pn.setNewsdescribe("你们尽管去浪，能赢，算我输！");
+            pn.setNewsdescribe("你们尽管去浪，能赢，算我输！我是一个粉刷匠，你是我的眼，你是真的厉害呀！");
             pn.setNewspublisher("小二哥");
             pn.setNewspublishtime("2017--03--02");
-            pn.setNewstitle("你们最棒！");
+            pn.setNewstitle("世界这么大！");
             list.add(pn);
         }
         adapter.setList(list);

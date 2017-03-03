@@ -2,7 +2,9 @@ package com.example.czz.coolquestion.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -59,4 +61,9 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
 
         }
     }
+
+
+
+
+
 }
