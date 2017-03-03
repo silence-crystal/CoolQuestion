@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.czz.coolquestion.R;
-
+//收藏界面
 public class CollectionActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView iv_back;

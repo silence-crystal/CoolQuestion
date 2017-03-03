@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.czz.coolquestion.R;
-
+//错题本
 public class TopicActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView iv_back;

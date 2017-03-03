@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.czz.coolquestion.utils.PullToRefreshScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/know_la"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<com.example.czz.coolquestion.view.MyListView
+    android:id="@+id/lv_knowVp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+</com.example.czz.coolquestion.utils.PullToRefreshScrollView>
