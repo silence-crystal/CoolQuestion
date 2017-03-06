@@ -19,7 +19,7 @@ import com.slidingmenu.lib.SlidingMenu;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private SlidingMenu slidingmenu;//侧滑菜单
+    public SlidingMenu slidingmenu;//侧滑菜单
     private RelativeLayout host_rel, knowledge_rel, question_rel, personal_rel;
     private TextView tab_host_tv,tab_knowledge_tv,tab_question_tv,tab_personal_tv;
     private ImageView tab_host_img,tab_knowledge_img,tab_question_img,tab_personal_img;
