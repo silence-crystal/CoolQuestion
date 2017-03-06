@@ -19,10 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
+
         <activity android:name=".activity.GoQuestionActivity"></activity>
         <activity android:name=".activity.ResultActivity"></activity>
-=======
         <activity android:name=".activity.CollectionActivity" />
         <activity android:name=".activity.KnowledgeActivity" />
         <activity android:name=".activity.TopicActivity" />
@@ -31,7 +30,6 @@
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisterActivity"></activity>
         <activity android:name=".activity.KnowDetailsActivity"></activity>
->>>>>>> 0f09cf41f021282c935b9ca87350b01b13759f63
     </application>
 
 </manifest>

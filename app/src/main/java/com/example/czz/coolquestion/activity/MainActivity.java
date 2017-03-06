@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //滑动距离
         slidingmenu.setBehindWidthRes(R.dimen.left_slide_distance);
         //滑动触点
-        slidingmenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        slidingmenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
         //设置侧滑页面
         View view=getLayoutInflater().inflate(R.layout.left_layout,null);
         slidingmenu.setMenu(view);
