@@ -8,15 +8,30 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"></activity>
+        <activity android:name=".activity.FlashActivity"></activity>
+        <activity android:name=".activity.GuideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".activity.GoQuestionActivity"></activity>
         <activity android:name=".activity.ResultActivity"></activity>
+=======
+        <activity android:name=".activity.CollectionActivity" />
+        <activity android:name=".activity.KnowledgeActivity" />
+        <activity android:name=".activity.TopicActivity" />
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.NewsInfoActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name=".activity.KnowDetailsActivity"></activity>
+>>>>>>> 0f09cf41f021282c935b9ca87350b01b13759f63
     </application>
 
 </manifest>
