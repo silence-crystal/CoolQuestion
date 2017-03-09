@@ -58,17 +58,10 @@ public class GuideActivity extends FragmentActivity{
         list.add(f2);
         list.add(f3);
         list.add(f4);
-<<<<<<< HEAD
-        img1.setAlpha(250);
-        img2.setAlpha(100);
-        img3.setAlpha(100);
-        img4.setAlpha(100);
-=======
         img1.setAlpha(255);
         img2.setAlpha(110);
         img3.setAlpha(110);
         img4.setAlpha(110);
->>>>>>> 46cd40dc6dcc5a78c46a167faaf4d2453a0327bf
         GuideFragmentAdapter adapter=new GuideFragmentAdapter(getSupportFragmentManager());
         vp.setAdapter(adapter);
         vp.setCurrentItem(0);
@@ -81,27 +74,6 @@ public class GuideActivity extends FragmentActivity{
             @Override
             public void onPageSelected(int position) {
                 if (position==0){
-<<<<<<< HEAD
-                    img1.setAlpha(250);
-                    img2.setAlpha(100);
-                    img3.setAlpha(100);
-                    img4.setAlpha(100);
-                }else if (position==1){
-                    img1.setAlpha(100);
-                    img2.setAlpha(250);
-                    img3.setAlpha(100);
-                    img4.setAlpha(100);
-                }else if (position==2){
-                    img1.setAlpha(100);
-                    img2.setAlpha(100);
-                    img3.setAlpha(250);
-                    img4.setAlpha(100);
-                }else if (position==3){
-                    img1.setAlpha(100);
-                    img2.setAlpha(100);
-                    img3.setAlpha(100);
-                    img4.setAlpha(250);
-=======
                     img1.setAlpha(255);
                     img2.setAlpha(90);
                     img3.setAlpha(90);
@@ -121,7 +93,6 @@ public class GuideActivity extends FragmentActivity{
                     img2.setAlpha(90);
                     img3.setAlpha(90);
                     img4.setAlpha(255);
->>>>>>> 46cd40dc6dcc5a78c46a167faaf4d2453a0327bf
                     Intent intent=new Intent(GuideActivity.this,FlashActivity.class);
                     startActivity(intent);
                     finish();

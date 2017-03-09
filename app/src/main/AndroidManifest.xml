@@ -29,18 +29,13 @@
         <activity android:name=".activity.ResultActivity"></activity>
         <activity android:name=".activity.CollectionActivity" />
         <activity android:name=".activity.KnowledgeActivity" />
-<<<<<<< HEAD
-=======
         <activity android:name=".activity.CTBActivity" />
->>>>>>> 46cd40dc6dcc5a78c46a167faaf4d2453a0327bf
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.NewsInfoActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisterActivity"></activity>
         <activity android:name=".activity.KnowDetailsActivity"></activity>
-<<<<<<< HEAD
         <activity android:name=".activity.BanquanActivity"></activity>
-        <activity android:name=".activity.CTBActivity"></activity>
         <activity android:name=".activity.PersonalInfoActivity"></activity>
         <activity android:name=".activity.PingjiaActivity"></activity>
         <activity android:name=".activity.SetActivity"></activity>
@@ -51,9 +46,7 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-=======
         <activity android:name=".activity.QuestionDetailActivity"></activity>
->>>>>>> 46cd40dc6dcc5a78c46a167faaf4d2453a0327bf
     </application>
 
 </manifest>
