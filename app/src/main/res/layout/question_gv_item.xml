@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/question_gv_item_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -11,7 +12,8 @@
         <ImageView
             android:id="@+id/question_gv_item_img"
             android:layout_width="96dp"
-            android:layout_height="96dp"/>
+            android:layout_height="96dp"
+            android:src="@mipmap/java"/>
         <TextView
             android:id="@+id/question_gv_item_tv"
             android:layout_width="wrap_content"

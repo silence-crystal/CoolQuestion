@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.GridView;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.czz.coolquestion.R;
+import com.example.czz.coolquestion.activity.CTBActivity;
 import com.example.czz.coolquestion.activity.GoQuestionActivity;
 import com.example.czz.coolquestion.activity.MainActivity;
 import com.example.czz.coolquestion.adapter.Question_GV_Adapter;
@@ -51,6 +53,18 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         question_gv_adapter=new Question_GV_Adapter(getActivity());
         go_question_btn= (Button) view.findViewById(R.id.question_go_btn);
         go_question_btn.setOnClickListener(this);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                for (int i=0;i<list.size();i++){
+                    if (i==position){
+                        list.get(position).setLanguage_select(true);
+                    }else{
+                        list.get(position).setLanguage_select(false);
+                    }
+                }
+            }
+        });
         return  view;
     }
 
@@ -68,6 +82,8 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.question_right_error_collect:
                 Toast.makeText(getActivity(),"错题本页面出来了!",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getActivity(), CTBActivity.class);
+                startActivity(intent);
                 break;
             case R.id.question_go_btn:
                 Toast.makeText(getActivity(),"前往做题页面!",Toast.LENGTH_SHORT).show();

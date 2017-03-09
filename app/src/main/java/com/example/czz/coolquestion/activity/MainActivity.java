@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getSupportFragmentManager().beginTransaction().add(R.id.content_layout,host).commit();
         }
         if (host.isAdded()){
-            getSupportFragmentManager().beginTransaction().add(R.id.content_layout,host).commit();
+            getSupportFragmentManager().beginTransaction().show(host).commit();
             InitTabColor();
             tab_host_tv.setTextColor(getResources().getColor(R.color.tabcolor_select));
             tab_host_img.setImageResource(R.mipmap.host_select);
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_topic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this, TopicActivity.class);
+                Intent intent=new Intent(MainActivity.this, CTBActivity.class);
                 startActivity(intent);
             }
         });
@@ -222,12 +222,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         if (!fragment.isAdded()){//如果当前的fragment没有被添加到Fragmeent管理类中，就添加
-            transaction.remove(current);
-            transaction.add(R.id.content_layout,fragment).commit();
+            transaction.hide(current);
+            transaction.add(R.id.content_layout,fragment).show(fragment).commit();
         }
         else
         {
-            transaction.remove(current).add(R.id.content_layout,fragment).commit();
+            transaction.hide(current).show(fragment).commit();
         }
         current=fragment;
     }
