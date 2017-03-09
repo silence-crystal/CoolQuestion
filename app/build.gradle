@@ -24,9 +24,18 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile 'com.baoyz.swipemenulistview:library:1.3.0'
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/slidingmenu.jar')
     compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
+<<<<<<< HEAD
+=======
+    compile 'com.android.volley:volley:1.0.0'
+    compile files('libs/xUtils-2.6.14.jar')
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile files('libs/universal-image-loader-1.9.5.jar')
+    compile files('libs/gson.jar')
+>>>>>>> d463e81687bedc919e1a5882c2edb32c6eb41ebc
 }

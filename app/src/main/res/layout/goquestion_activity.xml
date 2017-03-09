@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#4F5565">
+
+        <ImageView
+            android:id="@+id/act_question_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/act_question_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="做题"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/act_question_addtoctb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/addtoctb" />
+
+    </RelativeLayout>
+
+    <ViewFlipper
+        android:id="@+id/activity_question_viewflipper"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"></ViewFlipper>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#4F5565"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/act_question_previous"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/go_question_left"
+            android:text="上一题"
+            android:textColor="#20B2AA" />
+
+
+        <TextView
+            android:id="@+id/act_question_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/go_question_right"
+            android:text="下一题"
+            android:textColor="#20B2AA" />
+
+    </LinearLayout>
+
+</LinearLayout>

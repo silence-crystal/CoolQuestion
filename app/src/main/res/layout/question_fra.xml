@@ -2,6 +2,86 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF0000">
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#4F5565">
+
+        <ImageView
+            android:id="@+id/question_left_slidingmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/question_slidingmenu" />
+
+        <ImageView
+            android:id="@+id/question_right_error_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/error_collect" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="答题"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <GridView
+                android:id="@+id/question_gridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3"></GridView>
+
+            <TextView
+                android:id="@+id/question_jianjie_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="简介:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/question_description_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17sp" />
+
+            <Button
+                android:id="@+id/question_go_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/go_question_sel"
+                android:paddingBottom="8dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingTop="8dp"
+                android:text="开始答题"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+    </ScrollView>
 
 </LinearLayout>

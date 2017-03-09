@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#4f5565">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/fanhui"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:id="@+id/set_fanhui_img" />
+
+        <TextView
+            android:text="关于与设置"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="25dp"
+            android:id="@+id/textView2" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/pingjia_layout"
+        android:background="@color/white">
+
+        <TextView
+            android:text="给我评价"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/set_pingjia_tv" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/youjiantou"
+            android:layout_alignTop="@+id/set_pingjia_tv"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/set_pingjia_img" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/banquan_layout"
+        android:background="@color/white">
+
+        <TextView
+            android:text="版权信息"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/set_banquan_tv" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/youjiantou"
+            android:layout_alignTop="@+id/set_banquan_tv"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/set_banquan_img" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="3dp"
+        android:id="@+id/xieyi_layout"
+        android:background="@color/white">
+
+        <TextView
+            android:text="软件许可协议"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/set_xieyi_tv" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/youjiantou"
+            android:layout_alignTop="@+id/set_xieyi_tv"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/set_xieyi_img" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="3dp"
+        android:id="@+id/shuoming_layout"
+        android:background="@color/white">
+
+        <TextView
+            android:text="特别说明"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/set_shuoming_tv" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/youjiantou"
+            android:layout_alignTop="@+id/set_shuoming_tv"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/set_shuoming_img" />
+    </RelativeLayout>
+
+    <TextView
+        android:text="当前版本号:1.0.0（CollQuestion）"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView14" />
+</LinearLayout>

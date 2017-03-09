@@ -59,9 +59,9 @@ public class GuideActivity extends FragmentActivity{
         list.add(f3);
         list.add(f4);
         img1.setAlpha(255);
-        img2.setAlpha(10);
-        img3.setAlpha(10);
-        img4.setAlpha(10);
+        img2.setAlpha(110);
+        img3.setAlpha(110);
+        img4.setAlpha(110);
         GuideFragmentAdapter adapter=new GuideFragmentAdapter(getSupportFragmentManager());
         vp.setAdapter(adapter);
         vp.setCurrentItem(0);
@@ -75,26 +75,27 @@ public class GuideActivity extends FragmentActivity{
             public void onPageSelected(int position) {
                 if (position==0){
                     img1.setAlpha(255);
-                    img2.setAlpha(10);
-                    img3.setAlpha(10);
-                    img4.setAlpha(10);
+                    img2.setAlpha(90);
+                    img3.setAlpha(90);
+                    img4.setAlpha(90);
                 }else if (position==1){
-                    img1.setAlpha(10);
+                    img1.setAlpha(90);
                     img2.setAlpha(255);
-                    img3.setAlpha(10);
-                    img4.setAlpha(10);
+                    img3.setAlpha(90);
+                    img4.setAlpha(90);
                 }else if (position==2){
-                    img1.setAlpha(10);
-                    img2.setAlpha(10);
+                    img1.setAlpha(90);
+                    img2.setAlpha(90);
                     img3.setAlpha(255);
-                    img4.setAlpha(10);
+                    img4.setAlpha(90);
                 }else if (position==3){
-                    img1.setAlpha(10);
-                    img2.setAlpha(10);
-                    img3.setAlpha(10);
+                    img1.setAlpha(90);
+                    img2.setAlpha(90);
+                    img3.setAlpha(90);
                     img4.setAlpha(255);
                     Intent intent=new Intent(GuideActivity.this,FlashActivity.class);
                     startActivity(intent);
+                    finish();
                     SharedPreferences.Editor editor=sp.edit();
                     editor.putInt("flag",1);
                     editor.commit();

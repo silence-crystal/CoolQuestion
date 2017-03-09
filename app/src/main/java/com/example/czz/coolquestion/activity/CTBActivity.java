@@ -14,7 +14,7 @@ public class CTBActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_topic);
+        setContentView(R.layout.activity_ctb);
 
         InitView();
         InitListener();

@@ -8,15 +8,15 @@
         android:background="#4f5565">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="@mipmap/fanhui"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="11dp"
             android:layout_marginStart="11dp"
-            android:id="@+id/hand_img" />
+            android:id="@+id/know_details_hand_img" />
 
         <TextView
             android:text="知识点详情"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:textSize="35dp"
+            android:textSize="25dp"
             android:id="@+id/textView2" />
     </RelativeLayout>
 </LinearLayout>

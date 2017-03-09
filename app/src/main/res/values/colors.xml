@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="tabcolor_select">#1296DB</color>
     <color name="tabcolor_normal">#8A8A8A</color>
+    <color name="green">#20B2AA</color>
     <color name="white">#ffffff</color>
     <color name="gray">#9d9d9d</color>
 </resources>
