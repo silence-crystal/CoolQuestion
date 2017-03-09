@@ -39,7 +39,8 @@
             android:id="@+id/imageView_hp_left_top" />
     </RelativeLayout>
 
-    <ScrollView
+<com.example.czz.coolquestion.utils.PullToRefreshScrollView
+    android:id="@+id/scrollView_sv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
@@ -95,6 +96,6 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+</com.example.czz.coolquestion.utils.PullToRefreshScrollView>
 
 </LinearLayout>

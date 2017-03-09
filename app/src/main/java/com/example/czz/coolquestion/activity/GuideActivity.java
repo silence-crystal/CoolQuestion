@@ -95,6 +95,7 @@ public class GuideActivity extends FragmentActivity{
                     img4.setAlpha(255);
                     Intent intent=new Intent(GuideActivity.this,FlashActivity.class);
                     startActivity(intent);
+                    finish();
                     SharedPreferences.Editor editor=sp.edit();
                     editor.putInt("flag",1);
                     editor.commit();

@@ -12,9 +12,9 @@
         android:background="#4f5565">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@mipmap/host_normal"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/question_slidingmenu"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:textSize="35dp"
+            android:textSize="25dp"
             android:id="@+id/textView2" />
     </RelativeLayout>
 
@@ -37,14 +37,14 @@
         android:id="@+id/smarttablayout"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@android:color/holo_blue_bright"
+        android:background="#FFFFFF"
         app:stl_indicatorAlwaysInCenter="false"
         app:stl_indicatorWithoutPadding="false"
         app:stl_indicatorInFront="false"
         app:stl_indicatorInterpolation="smart"
         app:stl_indicatorGravity="bottom"
-        app:stl_indicatorColor="#40C4FF"
-        app:stl_indicatorThickness="6dp"
+        app:stl_indicatorColor="#000000"
+        app:stl_indicatorThickness="4dp"
         app:stl_indicatorWidth="auto"
         app:stl_indicatorCornerRadius="2dp"
         app:stl_overlineColor="#4D000000"

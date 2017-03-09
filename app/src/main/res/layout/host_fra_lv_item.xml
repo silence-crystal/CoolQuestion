@@ -8,8 +8,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="10dp">
 
 
         <ImageView
@@ -34,11 +34,14 @@
 
         <TextView
             android:text="描述"
+            android:paddingTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imageView_hp_newspic"
             android:layout_alignLeft="@+id/textView_hp_newstitle"
             android:layout_alignStart="@+id/textView_hp_newstitle"
+            android:layout_toLeftOf="@+id/textView_hp_newspublisher"
+            android:singleLine="true"
             android:id="@+id/textView_hp_newsdescribe" />
 
         <TextView

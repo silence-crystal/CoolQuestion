@@ -37,6 +37,14 @@ public class ProgrammerAdapter extends BaseAdapter {
         this.context = context;
         inflater=LayoutInflater.from(context);
     }
+    //上拉加载方法
+    public void addDataToFooter(List<ProgrammerNews> list){
+        this.list.addAll(list);
+    }
+    //下拉加载方法
+    public void addDataToHeader(List<ProgrammerNews> list){
+        this.list.addAll(0,list);
+    }
 
     @Override
     public int getCount() {

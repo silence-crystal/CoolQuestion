@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,9 +10,9 @@
         android:background="#4f5565">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@mipmap/host_normal"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/question_slidingmenu"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -26,74 +27,208 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:textSize="35dp"
+            android:textSize="25dp"
             android:id="@+id/textView2" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@android:color/holo_red_dark">
+        android:layout_height="80dp"
+        android:id="@+id/name_layout"
+        android:layout_marginTop="30dp"
+        android:background="@color/white">
 
         <ImageView
-            android:id="@+id/head_img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/youjiantou"
+            android:id="@+id/imageView5"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            app:srcCompat="@mipmap/touxiang"
+            android:id="@+id/touxiang_img"
+            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:background="@mipmap/host_normal"
-            android:layout_marginLeft="41dp"
-            android:layout_marginStart="41dp" />
+            android:layout_marginLeft="32dp"
+            android:layout_marginStart="32dp" />
 
         <TextView
-            android:id="@+id/name_tv"
+            android:text="用户昵称"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:id="@+id/personal_info_nichen"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/touxiang_img"
+            android:layout_toEndOf="@+id/touxiang_img"
+            android:layout_marginLeft="26dp"
+            android:layout_marginStart="26dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/white"
+        android:id="@+id/collect_layout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/col"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:id="@+id/collect_img_p" />
+
+        <TextView
+            android:text="我的收藏"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="21dp"
-            android:layout_marginStart="21dp"
-            android:layout_toEndOf="@+id/head_img"
-            android:layout_toRightOf="@+id/head_img"
-            android:text="昵称"
-            android:textSize="30dp" />
+            android:layout_toRightOf="@+id/collect_img_p"
+            android:layout_toEndOf="@+id/collect_img_p"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20dp"
+            android:id="@+id/collect_tv" />
 
         <ImageView
-            android:id="@+id/drop_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/name_tv"
-            android:layout_alignParentEnd="true"
+            app:srcCompat="@mipmap/youjiantou"
+            android:layout_alignTop="@+id/collect_tv"
             android:layout_alignParentRight="true"
-            android:background="@mipmap/host_normal"
-            android:layout_marginEnd="29dp"
-            android:layout_marginRight="29dp" />
+            android:layout_alignParentEnd="true"
+            android:id="@+id/collect_img" />
+
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/collect_tv"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@android:color/holo_blue_bright"
-        android:gravity="center"
-        android:text="我的收藏"
-        android:textSize="35dp" />
+        android:layout_height="40dp"
+        android:layout_marginTop="3dp"
+        android:background="@color/white"
+        android:id="@+id/errorbook_layout">
 
-    <TextView
-        android:id="@+id/errorbook_tv"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@android:color/holo_red_dark"
-        android:gravity="center"
-        android:text="错题本"
-        android:textSize="35dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/topic"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:id="@+id/topic_img_p" />
 
-    <TextView
-        android:id="@+id/knowledge_tv"
+        <TextView
+            android:text="我的错题"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/topic_img_p"
+            android:layout_toEndOf="@+id/topic_img_p"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20dp"
+            android:id="@+id/topic_tv" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/youjiantou"
+            android:layout_alignTop="@+id/topic_tv"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/topic_img" />
+
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@android:color/darker_gray"
-        android:gravity="center"
-        android:text="知识点"
-        android:textSize="35dp" />
+        android:layout_height="40dp"
+        android:layout_marginTop="3dp"
+        android:background="@color/white"
+        android:id="@+id/knowledges_layout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/knowledge"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:id="@+id/knowledge_img_p" />
+
+        <TextView
+            android:text="我的错题"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/knowledge_img_p"
+            android:layout_toEndOf="@+id/knowledge_img_p"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20dp"
+            android:id="@+id/knowledge_tv" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/youjiantou"
+            android:layout_alignTop="@+id/knowledge_tv"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/knowledge_img" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/white"
+        android:id="@+id/about_layout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/about"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:id="@+id/about_img_p" />
+
+        <TextView
+            android:text="关于与设置"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/about_img_p"
+            android:layout_toEndOf="@+id/about_img_p"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20dp"
+            android:id="@+id/about_tv" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/youjiantou"
+            android:layout_alignTop="@+id/about_tv"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/about_img" />
+
+    </RelativeLayout>
 
 </LinearLayout>
