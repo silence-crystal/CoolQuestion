@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.czz.coolquestion">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -24,12 +28,23 @@
         <activity android:name=".activity.ResultActivity"></activity>
         <activity android:name=".activity.CollectionActivity" />
         <activity android:name=".activity.KnowledgeActivity" />
-        <activity android:name=".activity.TopicActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.NewsInfoActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisterActivity"></activity>
         <activity android:name=".activity.KnowDetailsActivity"></activity>
+        <activity android:name=".activity.BanquanActivity"></activity>
+        <activity android:name=".activity.CTBActivity"></activity>
+        <activity android:name=".activity.PersonalInfoActivity"></activity>
+        <activity android:name=".activity.PingjiaActivity"></activity>
+        <activity android:name=".activity.SetActivity"></activity>
+        <activity android:name=".activity.ShuomingActivity"></activity>
+        <activity android:name=".activity.UpdateActivity"></activity>
+        <activity android:name=".activity.XieyiActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

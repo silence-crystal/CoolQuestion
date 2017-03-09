@@ -36,6 +36,7 @@ public class FlashActivity extends Activity{
                 //跳转到首页
                 Intent intent=new Intent(FlashActivity.this,MainActivity.class);
                 startActivity(intent);
+                finish();
             }
 
             @Override
