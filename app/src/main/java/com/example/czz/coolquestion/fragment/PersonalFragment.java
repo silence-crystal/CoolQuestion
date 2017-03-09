@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.activity.CollectionActivity;
 import com.example.czz.coolquestion.activity.KnowledgeActivity;
-import com.example.czz.coolquestion.activity.TopicActivity;
+import com.example.czz.coolquestion.activity.CTBActivity;
 
 
 /**
@@ -46,7 +46,7 @@ public class PersonalFragment extends Fragment {
         errorbook_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), TopicActivity.class);
+                Intent intent=new Intent(getActivity(), CTBActivity.class);
                 startActivity(intent);
             }
         });

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
+
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.activity.KnowDetailsActivity;
 import com.example.czz.coolquestion.adapter.KnowAdapter;
@@ -35,7 +35,6 @@ public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickL
     private int position;
     private List list;
     private int currentIndex=1;
-    private RequestQueue queue;
     private KnowAdapter adapter;
     //Java语言
     private final String Java = "";

@@ -11,7 +11,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@mipmap/host_normal"
+            android:background="@mipmap/host_normal_bai"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -41,7 +41,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:background="@mipmap/host_normal"
+            android:background="@mipmap/host_normal_bai"
             android:layout_marginLeft="41dp"
             android:layout_marginStart="41dp" />
 
@@ -64,7 +64,7 @@
             android:layout_alignBottom="@+id/name_tv"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:background="@mipmap/host_normal"
+            android:background="@mipmap/host_normal_bai"
             android:layout_marginEnd="29dp"
             android:layout_marginRight="29dp" />
     </RelativeLayout>

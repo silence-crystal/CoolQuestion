@@ -15,30 +15,44 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+//import com.android.volley.RequestQueue;
+//import com.android.volley.Response;
+//import com.android.volley.VolleyError;
+//import com.android.volley.toolbox.JsonObjectRequest;
+//import com.android.volley.toolbox.Volley;
 import com.example.czz.coolquestion.R;
+import com.example.czz.coolquestion.activity.MainActivity;
 import com.example.czz.coolquestion.activity.NewsInfoActivity;
 import com.example.czz.coolquestion.activity.SearchActivity;
 import com.example.czz.coolquestion.adapter.ProgrammerAdapter;
 import com.example.czz.coolquestion.bean.ProgrammerNews;
+import com.example.czz.coolquestion.utils.PullToRefreshBase;
+import com.example.czz.coolquestion.utils.PullToRefreshListView;
+import com.example.czz.coolquestion.utils.PullToRefreshScrollView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import org.json.JSONException;
 
 /**
  * Created by dell on 2017/2/28.
  */
 
-public class HostFragment extends Fragment implements AdapterView.OnItemClickListener{
+public class HostFragment extends Fragment implements AdapterView.OnItemClickListener,PullToRefreshBase.OnRefreshListener2{
 
 
     private ViewPager viewPager;
     private LinearLayout point_group;
     private TextView image_desc;
     private ListView lv;
+    private PullToRefreshScrollView sv;
     private ProgrammerAdapter adapter;
     private ImageView iv_search,iv_sm;
+    //private RequestQueue rq;
 
 
     // 图片资源id
@@ -55,11 +69,15 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     private boolean isRunning = true;
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
+            if (msg.what==0){
+                adapter.notifyDataSetChanged();
+                sv.onRefreshComplete();
+            }
             // 执行滑动到下一个页面
             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
             if (isRunning) {
                 // 在发一个handler延时
-                handler.sendEmptyMessageDelayed(0, 2000);
+                handler.sendEmptyMessageDelayed(0, 5000);
             }
 
         };
@@ -74,8 +92,14 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
        View view=inflater.inflate(R.layout.host_fra,null);
 
         //科技资讯
+        //lv= (ListView) view.findViewById(R.id.hp_listview);
         lv= (ListView) view.findViewById(R.id.hp_listview);
         adapter=new ProgrammerAdapter(getActivity());
+
+        //rq= Volley.newRequestQueue(getActivity());
+        sv= (PullToRefreshScrollView) view.findViewById(R.id.scrollView_sv);
+        sv.setMode(PullToRefreshBase.Mode.BOTH);
+        sv.setOnRefreshListener(this);
         lv.setOnItemClickListener(this);
         lv.setAdapter(adapter);
         AddData();
@@ -90,12 +114,17 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
             }
         });
 
+
         //进入侧滑界面
         iv_sm= (ImageView) view.findViewById(R.id.imageView_hp_left_top);
         iv_sm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (((MainActivity) getActivity()).slidingmenu.isMenuShowing()){
+                    ((MainActivity) getActivity()).slidingmenu.showContent();
+                }else {
+                    ((MainActivity) getActivity()).slidingmenu.showMenu();
+                }
             }
         });
 
@@ -171,7 +200,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
          *
          */
 
-        handler.sendEmptyMessageDelayed(0, 2000);
+        handler.sendEmptyMessageDelayed(0, 5000);
 
 
 
@@ -180,11 +209,11 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     }
 
     //科技资讯list实现方法
-    public void AddData(){
+    public void AddData() {
         List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
         for (int i=0;i<25;i++){
             ProgrammerNews pn=new ProgrammerNews();
-            pn.setNewsdescribe("你们尽管去浪，能赢，算我输！我是一个粉刷匠，你是我的眼，你是真的厉害呀！");
+            pn.setNewsdescribe("你们尽管去浪，能赢，算我输！你是我的小丫笑拉拉，怎么打你你都不哭，你好坚强！");
             pn.setNewspublisher("小二哥");
             pn.setNewspublishtime("2017--03--02");
             pn.setNewstitle("世界这么大！");
@@ -193,7 +222,31 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
         adapter.setList(list);
         adapter.notifyDataSetChanged();
 
+//        List<ProgrammerNews> list = new ArrayList<ProgrammerNews>();
+//        JsonObjectRequest jor = new JsonObjectRequest("130.0.1.251:8080/CoolTopic/GetAllNews?page=2&size=10", null, new Response.Listener<JSONObject>(){
+//
+//            @Override
+//            public void onResponse(JSONObject jsonObject) {
+//                try {
+//                    Toast.makeText(getActivity(),jsonObject.getString("news"),Toast.LENGTH_LONG).show();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError volleyError) {
+//
+//            }
+//        });
+//        rq.add(jor);
+//        rq.start();
     }
+
+
+
+
+
 
 
 
@@ -215,7 +268,53 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
         startActivity(intent);
     }
 
-    private class MyPageAdapter extends PagerAdapter {
+    //下拉
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
+                ProgrammerNews pn=new ProgrammerNews();
+                pn.setNewsdescribe("1");
+                pn.setNewstitle("1");
+                pn.setNewspublishtime("1");
+                pn.setNewspublisher("1");
+                list.add(pn);
+                adapter.addDataToHeader(list);
+                handler.sendEmptyMessage(0);
+            }
+        }).start();
+    }
+
+    //上拉
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
+                ProgrammerNews pn=new ProgrammerNews();
+                pn.setNewsdescribe("1");
+                pn.setNewstitle("1");
+                pn.setNewspublishtime("1");
+                pn.setNewspublisher("1");
+                list.add(pn);
+                adapter.addDataToFooter(list);
+                handler.sendEmptyMessage(0);
+            }
+        }).start();
+
+
+    }
+
+
+
+
+
+
+    public class MyPageAdapter extends PagerAdapter {
         // 需要实现以下四个方法
 
         @Override

@@ -20,7 +20,7 @@ import com.slidingmenu.lib.SlidingMenu;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private SlidingMenu slidingmenu;//侧滑菜单
+    public SlidingMenu slidingmenu;//侧滑菜单
     private RelativeLayout host_rel, knowledge_rel, question_rel, personal_rel;
     private TextView tab_host_tv,tab_knowledge_tv,tab_question_tv,tab_personal_tv;
     private ImageView tab_host_img,tab_knowledge_img,tab_question_img,tab_personal_img;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //滑动距离
         slidingmenu.setBehindWidthRes(R.dimen.left_slide_distance);
         //滑动触点
-        slidingmenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        slidingmenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
         //设置侧滑页面
         View view=getLayoutInflater().inflate(R.layout.left_layout,null);
         slidingmenu.setMenu(view);
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_topic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this, TopicActivity.class);
+                Intent intent=new Intent(MainActivity.this, CTBActivity.class);
                 startActivity(intent);
             }
         });
