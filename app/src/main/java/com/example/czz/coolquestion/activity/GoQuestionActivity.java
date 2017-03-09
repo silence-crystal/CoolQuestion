@@ -192,7 +192,8 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                 finish();
                 break;
             case R.id.act_question_addtoctb:
-                
+                Toast.makeText(GoQuestionActivity.this,"加到错题本列表!",Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.act_question_previous://点击上一题触发的方法
                 if (viewFlipper.getDisplayedChild() == 0) {

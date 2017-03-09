@@ -12,8 +12,11 @@ import android.widget.ImageView;
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.activity.CollectionActivity;
 import com.example.czz.coolquestion.activity.KnowledgeActivity;
+<<<<<<< HEAD
 import com.example.czz.coolquestion.activity.PersonalInfoActivity;
 import com.example.czz.coolquestion.activity.SetActivity;
+=======
+>>>>>>> 46cd40dc6dcc5a78c46a167faaf4d2453a0327bf
 import com.example.czz.coolquestion.activity.CTBActivity;
 
 
