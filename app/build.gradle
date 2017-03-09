@@ -30,12 +30,9 @@ dependencies {
     compile files('libs/slidingmenu.jar')
     compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
-<<<<<<< HEAD
-=======
     compile 'com.android.volley:volley:1.0.0'
     compile files('libs/xUtils-2.6.14.jar')
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     compile files('libs/universal-image-loader-1.9.5.jar')
     compile files('libs/gson.jar')
->>>>>>> d463e81687bedc919e1a5882c2edb32c6eb41ebc
 }

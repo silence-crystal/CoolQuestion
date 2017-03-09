@@ -12,15 +12,9 @@
         android:background="#4f5565">
 
         <ImageView
-<<<<<<< HEAD
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@mipmap/host_normal_bai"
-=======
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@mipmap/question_slidingmenu"
->>>>>>> d463e81687bedc919e1a5882c2edb32c6eb41ebc
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
