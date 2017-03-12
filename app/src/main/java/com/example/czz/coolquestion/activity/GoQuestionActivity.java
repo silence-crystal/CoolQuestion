@@ -67,6 +67,8 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
     private String question_kind_string="";//表示接受到的类型---答题or考试
     private Language.TypeListBean tid_bean;//用来表示传递过来的编程语言
     private Chronometer chronometer;//用来表示计时器
+    private String dati_or_kaoshi="";//用来记录是考试还是答题
+    private  Question.QuestionListBean question_bean;//用来记录当前的问题
 
 
     @Override
@@ -99,6 +101,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                         //Log.i("==2222=","答题");
                         AddDaTiData();//添加答题数据源
                         AddViewForViewFlipper(question_list);
+                        dati_or_kaoshi="答题";
                     }else if (question_kind_string.equals("kaoshi")){
                          Log.i("==2222222=","考试");
                         //添加考试数据源
@@ -107,8 +110,11 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                         for (int k =0;k<bean_list.size();k++){
                             //Log.i("list_questiontitle",list.get(k).getQuestionContent());
                             correct_list.add(bean_list.get(k).getAnswer());
+                            Log.i("correct_list",correct_list.get(k));
                         }
+
                         AddViewForViewFlipper(bean_list);
+                        dati_or_kaoshi="考试";
                         //开始计时器
                         chronometer.setVisibility(View.VISIBLE);
                         chronometer.setBase(SystemClock.elapsedRealtime());//计时器清零
@@ -346,7 +352,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                                     builder.setSpan(greencolor,correct_answer_tv_size-1,correct_answer_tv_size, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                                     correct.setText(builder);
                                     description.setVisibility(View.VISIBLE);
-                                    description.setText("解析:"+bean_list.get(i).getDeQuestion());
+                                    description.setText(bean_list.get(i).getDeQuestion());
                                 }
                             }
                             Intent intent=new Intent(GoQuestionActivity.this,ResultActivity.class);
@@ -477,13 +483,17 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
 
     //显示正确答案和问题解析的方法
     public void ShowCorrectAnswerAndDes() {
-        Question.QuestionListBean question_list_bean = question_list.get(viewFlipper.getDisplayedChild());
+        if (dati_or_kaoshi.equals("考试")){
+            question_bean = bean_list.get(viewFlipper.getDisplayedChild());
+        }else{
+            question_bean = question_list.get(viewFlipper.getDisplayedChild());
+        }
         View child_view = viewFlipper.getChildAt(viewFlipper.getDisplayedChild());
         TextView correct_answer_tv = (TextView) child_view.findViewById(R.id.act_question_viewflipper_item_correct_answer_tv);
         TextView question_description_tv = (TextView) child_view.findViewById(R.id.act_question_viewflipper_item_description);
         correct_answer_tv.setVisibility(View.VISIBLE);
         question_description_tv.setVisibility(View.VISIBLE);
-        correct_answer_tv.setText("正确答案为:" + question_list_bean.getAnswer());
+        correct_answer_tv.setText("正确答案为:" + question_bean.getAnswer());
         //设置正确选项的颜色
         int correct_answer_tv_size=correct_answer_tv.getText().toString().length();
         SpannableStringBuilder builder=new SpannableStringBuilder(correct_answer_tv.getText().toString());
@@ -491,7 +501,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
         builder.setSpan(greencolor,correct_answer_tv_size-1,correct_answer_tv_size, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         correct_answer_tv.setText(builder);
         //设置答案描述的文字内容
-        question_description_tv.setText("解析:"+question_list_bean.getDeQuestion());
+        question_description_tv.setText("解析:"+question_bean.getDeQuestion());
     }
 
     //弹出对话框的方法
