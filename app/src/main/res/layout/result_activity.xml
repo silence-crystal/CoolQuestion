@@ -63,6 +63,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="点击题号可返回查看解析"
-        android:layout_gravity="bottom|center_horizontal"
+        android:layout_gravity="center_horizontal"
         android:id="@+id/textView" />
+    <TextView
+        android:id="@+id/act_result_total_time"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用时:"
+        android:textSize="15sp"
+        android:layout_gravity="center_horizontal"
+        />
 </LinearLayout>

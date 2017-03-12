@@ -1,61 +1,90 @@
 package com.example.czz.coolquestion.bean;
 
-import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
-import android.widget.TextView;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by dell on 2017/3/1.
  */
 
 public class Language {
-    private String language_img;
-    private String language_name;
-    private String language_description;
-    private boolean language_select;
 
-    public boolean isLanguage_select() {
-        return language_select;
+    /**
+     * result : success
+     * typeList : [{"typeDescribe":"1","typeId":1,"typeName":"JAVA","typePic":""},{"typeDescribe":"1","typeId":2,"typeName":"C语言","typePic":""},{"typeDescribe":"1","typeId":3,"typeName":"C++","typePic":""},{"typeDescribe":"1","typeId":4,"typeName":"Android","typePic":""},{"typeDescribe":"1","typeId":5,"typeName":"Object-C","typePic":""},{"typeDescribe":"1","typeId":6,"typeName":"PHP","typePic":""},{"typeDescribe":"1","typeId":7,"typeName":".net","typePic":"image/food6.PNG"}]
+     */
+
+    private String result;
+    private List<TypeListBean> typeList;
+
+    public String getResult() {
+        return result;
     }
 
-    public void setLanguage_select(boolean language_select) {
-        this.language_select = language_select;
+    public void setResult(String result) {
+        this.result = result;
     }
 
-    public String getLanguage_img() {
-        return language_img;
+    public List<TypeListBean> getTypeList() {
+        return typeList;
     }
 
-    public void setLanguage_img(String language_img) {
-        this.language_img = language_img;
+    public void setTypeList(List<TypeListBean> typeList) {
+        this.typeList = typeList;
     }
 
-    public String getLanguage_description() {
-        return language_description;
-    }
+    public static class TypeListBean implements Serializable {
+        /**
+         * typeDescribe : 1
+         * typeId : 1
+         * typeName : JAVA
+         * typePic :
+         */
 
-    public void setLanguage_description(String language_description) {
-        this.language_description = language_description;
-    }
+        private String typeDescribe;
+        private int typeId;
+        private String typeName;
+        private String typePic;
+        private boolean language_select;
 
-    public String getLanguage_name() {
-        return language_name;
-    }
+        public String getTypeDescribe() {
+            return typeDescribe;
+        }
 
-    public void setLanguage_name(String language_name) {
-        this.language_name = language_name;
-    }
+        public void setTypeDescribe(String typeDescribe) {
+            this.typeDescribe = typeDescribe;
+        }
 
-    public Language(String language_img, String language_description, String language_name) {
-        this.language_img = language_img;
-        this.language_description = language_description;
-        this.language_name = language_name;
-    }
+        public int getTypeId() {
+            return typeId;
+        }
 
-    public Language(String language_img, String language_name, String language_description, boolean language_select) {
-        this.language_img = language_img;
-        this.language_name = language_name;
-        this.language_description = language_description;
-        this.language_select = language_select;
+        public void setTypeId(int typeId) {
+            this.typeId = typeId;
+        }
+
+        public String getTypeName() {
+            return typeName;
+        }
+
+        public void setTypeName(String typeName) {
+            this.typeName = typeName;
+        }
+
+        public String getTypePic() {
+            return typePic;
+        }
+
+        public void setTypePic(String typePic) {
+            this.typePic = typePic;
+        }
+
+        public boolean isLanguage_select() {
+            return language_select;
+        }
+
+        public void setLanguage_select(boolean language_select) {
+            this.language_select = language_select;
+        }
     }
 }

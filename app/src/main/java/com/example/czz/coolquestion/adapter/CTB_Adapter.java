@@ -18,13 +18,13 @@ import java.util.List;
 
 public class CTB_Adapter extends BaseAdapter {
     private Context context;
-    private List<Question> list;//用来存放集错题的集合
+    private List<Question.QuestionListBean> list;//用来存放集错题的集合
 
     public CTB_Adapter(Context context) {
         this.context = context;
     }
 
-    public void setList(List<Question> list) {
+    public void setList(List<Question.QuestionListBean> list) {
         this.list = list;
     }
 
@@ -55,8 +55,8 @@ public class CTB_Adapter extends BaseAdapter {
         }else{
             viewHolder= (ViewHolder) convertView.getTag();
         }
-        viewHolder.question_language_tv.setText(list.get(position).getQuestion_language());
-        viewHolder.question_title_tv.setText(list.get(position).getQuestion_title());
+//        viewHolder.question_language_tv.setText(list.get(position).get());
+//        viewHolder.question_title_tv.setText(list.get(position).getQuestion_title());
         return convertView;
     }
 

@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.bean.Language;
+import com.example.czz.coolquestion.url.URLConfig;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -20,16 +23,19 @@ import java.util.List;
  */
 
 public class Question_GV_Adapter extends BaseAdapter {
-    private List<Language> list;
+    private List<Language.TypeListBean> list;
     private Context context;
+    private ImageLoader imageLoader;
+    private DisplayImageOptions options;
 
-    public void setList(List<Language> list) {
+    public void setList(List<Language.TypeListBean> list) {
         this.list = list;
     }
 
-    public Question_GV_Adapter(Context context) {
+    public Question_GV_Adapter(Context context, ImageLoader imageLoader, DisplayImageOptions options) {
         this.context = context;
-
+        this.imageLoader = imageLoader;
+        this.options = options;
     }
 
     @Override
@@ -62,14 +68,14 @@ public class Question_GV_Adapter extends BaseAdapter {
             viewHolder= (ViewHolder) convertView.getTag();
         }
 
-        for (Language language:list) {
-            if (language.isLanguage_select()==true){
-                viewHolder.language_relativeLayout.setBackgroundColor(Color.rgb(248,248,248));
-            }else{
-                viewHolder.language_relativeLayout.setBackgroundColor(Color.rgb(255,255,255));
-            }
+        if (list.get(position).isLanguage_select()==true){
+            viewHolder.language_relativeLayout.setBackgroundColor(Color.rgb(248,248,248));
+            //viewHolder.language_relativeLayout.setBackgroundColor(Color.BLUE);
+        }else{
+            viewHolder.language_relativeLayout.setBackgroundColor(Color.rgb(255,255,255));
         }
-
+        viewHolder.language_name.setText(list.get(position).getTypeName());
+        imageLoader.displayImage(URLConfig.MAIN_URL+list.get(position).getTypePic(),viewHolder.language_img,options);
 
         return convertView;
     }
