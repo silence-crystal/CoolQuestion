@@ -7,6 +7,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7b563c2b748b6d53fc457f5004f43fd9baef99a3
     <application
         android:name=".application.FirstApplication"
         android:allowBackup="true"
@@ -33,6 +37,7 @@
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.NewsInfoActivity" />
         <activity android:name=".activity.LoginActivity" />
+<<<<<<< HEAD
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.KnowDetailsActivity" />
         <activity android:name=".activity.BanquanActivity" />
@@ -52,6 +57,18 @@
 
         <activity android:name=".activity.QuestionDetailActivity" />
         <activity android:name=".activity.NewsInfoColActivity"></activity>
+=======
+        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name=".activity.KnowDetailsActivity"></activity>
+        <activity android:name=".activity.BanquanActivity"></activity>
+        <activity android:name=".activity.PersonalInfoActivity"></activity>
+        <activity android:name=".activity.PingjiaActivity"></activity>
+        <activity android:name=".activity.SetActivity"></activity>
+        <activity android:name=".activity.ShuomingActivity"></activity>
+        <activity android:name=".activity.UpdateActivity"></activity>
+        <activity android:name=".activity.XieyiActivity"></activity>
+        <activity android:name=".activity.QuestionDetailActivity"></activity>
+>>>>>>> 7b563c2b748b6d53fc457f5004f43fd9baef99a3
     </application>
 
 </manifest>

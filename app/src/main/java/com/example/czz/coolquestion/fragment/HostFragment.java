@@ -238,6 +238,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
         //List<ProgrammerNews> list = new ArrayList<ProgrammerNews>();
         JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?page=1&size=10", null, new Response.Listener<JSONObject>(){
 
+<<<<<<< HEAD
             @Override
             public void onResponse(JSONObject jsonObject) {
 
@@ -274,6 +275,8 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
 
 
 
+=======
+>>>>>>> 7b563c2b748b6d53fc457f5004f43fd9baef99a3
     @Override
     public void onDestroy() {
         // 停止滚动

@@ -8,37 +8,31 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.czz.coolquestion.R;
-import com.example.czz.coolquestion.bean.Know;
+import com.example.czz.coolquestion.bean.KnowledgeCollect;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/3/1.
+ * Created by Administrator on 2017/3/11.
  */
 
-public class KnowAdapter extends BaseAdapter{
+public class KnowledgeCollectAdapter extends BaseAdapter {
+    private List<KnowledgeCollect.KnowledgeCollectListBean> list = new ArrayList<>();
     private LayoutInflater inflater;
-    private List<Know.KnowledgeListBean> list=new ArrayList<>();
-    private Context context;
-    public KnowAdapter(Context context){
-        this.context = context;
+
+    public KnowledgeCollectAdapter(Context context) {
         this.inflater = LayoutInflater.from(context);
     }
-    public List<Know.KnowledgeListBean> getList() {
+
+    public List<KnowledgeCollect.KnowledgeCollectListBean> getList() {
         return list;
     }
-    public void setList(List<Know.KnowledgeListBean> list) {
-        this.list.clear();
-        this.list.addAll(list);
+
+    public void setList(List<KnowledgeCollect.KnowledgeCollectListBean> list) {
+        this.list = list;
     }
-    //上拉加载方法
-    public void addDataToFooter(List<Know.KnowledgeListBean> list){
-        this.list.addAll(list);
-    }
-    //下拉加载方法
-    public void addDataToHeader(List<Know.KnowledgeListBean> list){
-        this.list.addAll(0,list);
-    }
+
     @Override
     public int getCount() {
         return list.size();
@@ -67,10 +61,11 @@ public class KnowAdapter extends BaseAdapter{
             vh = (ViewHolder) convertView.getTag();
         }
         //
-        vh.knowledgetitle_tv.setText(list.get(position).getKnowledgetitle());
-        vh.knowledgedescribe_tv.setText(list.get(position).getKnowledgecontent());
+        vh.knowledgetitle_tv.setText(list.get(position).getKnowledge().getKnowledgetitle());
+        vh.knowledgedescribe_tv.setText(list.get(position).getKnowledge().getKnowledgecontent());
         return convertView;
     }
+
     class ViewHolder{
         TextView knowledgetitle_tv,knowledgedescribe_tv;
     }
