@@ -1,5 +1,7 @@
 package com.example.czz.coolquestion.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/3/9.
  */
@@ -30,7 +32,7 @@ public class UserInfo {
         this.userInfo = userInfo;
     }
 
-    public static class UserInfoBean {
+    public static class UserInfoBean implements Serializable{
         /**
          * userAccount : zyw
          * userAddress :
