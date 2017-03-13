@@ -55,6 +55,18 @@ public class Question {
         private int questionID;
         private int tid;
 
+        public QuestionListBean(String ansA, String ansB, String ansC, String ansD, String answer, String deQuestion, String questionContent, int questionID, int tid) {
+            this.ansA = ansA;
+            this.ansB = ansB;
+            this.ansC = ansC;
+            this.ansD = ansD;
+            this.answer = answer;
+            this.deQuestion = deQuestion;
+            this.questionContent = questionContent;
+            this.questionID = questionID;
+            this.tid = tid;
+        }
+
         public String getAnsA() {
             return ansA;
         }
