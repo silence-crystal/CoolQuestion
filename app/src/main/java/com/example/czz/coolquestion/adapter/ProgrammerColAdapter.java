@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.czz.coolquestion.R;
-import com.example.czz.coolquestion.bean.ProgrammerNews;
+import com.example.czz.coolquestion.bean.ProgrammerNewsCol;
 import com.example.czz.coolquestion.url.URLConfig;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -18,36 +18,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/3/1.
+ * Created by Administrator on 2017/3/11.
  */
 
-public class ProgrammerAdapter extends BaseAdapter {
+public class ProgrammerColAdapter extends BaseAdapter {
+    private List<ProgrammerNewsCol.NewsCollectListBean> list=new ArrayList<ProgrammerNewsCol.NewsCollectListBean>();
     private Context context;
     private LayoutInflater inflater;
-    private List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
     private ImageLoader imageLoader;
 
-    public List<ProgrammerNews> getList() {
-        return list;
-    }
-
-    public void setList(List<ProgrammerNews> list) {
-        this.list = list;
-    }
-
-
-
-    public ProgrammerAdapter(Context context) {
+    public ProgrammerColAdapter(Context context) {
         this.context = context;
         inflater=LayoutInflater.from(context);
     }
-    //上拉加载方法
-    public void addDataToFooter(List<ProgrammerNews> list){
-        this.list.addAll(list);
+
+    public List<ProgrammerNewsCol.NewsCollectListBean> getList() {
+        return list;
     }
-    //下拉加载方法
-    public void addDataToHeader(List<ProgrammerNews> list){
-        this.list.addAll(0,list);
+
+    public void setList(List<ProgrammerNewsCol.NewsCollectListBean> list) {
+        this.list = list;
     }
 
     @Override
@@ -76,28 +66,28 @@ public class ProgrammerAdapter extends BaseAdapter {
             vh.tv_time= (TextView) view.findViewById(R.id.textView_hp_newspublishtime);
             vh.img_pic= (ImageView) view.findViewById(R.id.imageView_hp_newspic);
             view.setTag(vh);
-        }else{
+        }else {
             vh= (ViewHolder) view.getTag();
         }
         imageLoader=ImageLoader.getInstance();
-        DisplayImageOptions options=new DisplayImageOptions
-                .Builder()
-                .showImageOnLoading(R.mipmap.ic_launcher)
+        DisplayImageOptions options=new DisplayImageOptions.Builder()
                 .showImageOnFail(R.mipmap.ic_launcher)
-                .cacheInMemory(true)
+                .showImageOnLoading(R.mipmap.ic_launcher)
                 .cacheOnDisk(true)
+                .cacheInMemory(true)
                 .build();
-        imageLoader.displayImage(URLConfig.MAIN_URL+list.get(i).getNewspic(),vh.img_pic,options);
-        vh.tv_title.setText(list.get(i).getNewsTitle());
-        vh.tv_describe.setText(list.get(i).getNewsdescribe());
-        vh.tv_time.setText(list.get(i).getNewspublishtime());
-        vh.tv_publisher.setText(list.get(i).getNewspublisher());
+        imageLoader.displayImage(URLConfig.MAIN_URL+list.get(i).getNewscontent().getNewspic(),vh.img_pic,options);
+        vh.tv_title.setText(list.get(i).getNewscontent().getNewsTitle());
+        vh.tv_time.setText(list.get(i).getNewscontent().getNewspublishtime());
+        vh.tv_publisher.setText(list.get(i).getNewscontent().getNewspublisher());
+        vh.tv_describe.setText(list.get(i).getNewscontent().getNewsdescribe());
 
         return view;
     }
 
     class  ViewHolder{
         ImageView img_pic;
-        TextView tv_title,tv_publisher,tv_time,tv_describe;
+        TextView tv_title,tv_time,tv_describe,tv_publisher;
     }
+
 }

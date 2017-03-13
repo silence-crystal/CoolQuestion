@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,20 +18,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.android.volley.RequestQueue;
-//import com.android.volley.Response;
-//import com.android.volley.VolleyError;
-//import com.android.volley.toolbox.JsonObjectRequest;
-//import com.android.volley.toolbox.Volley;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.activity.MainActivity;
 import com.example.czz.coolquestion.activity.NewsInfoActivity;
 import com.example.czz.coolquestion.activity.SearchActivity;
 import com.example.czz.coolquestion.adapter.ProgrammerAdapter;
+import com.example.czz.coolquestion.bean.Programmer;
 import com.example.czz.coolquestion.bean.ProgrammerNews;
 import com.example.czz.coolquestion.utils.PullToRefreshBase;
 import com.example.czz.coolquestion.utils.PullToRefreshListView;
 import com.example.czz.coolquestion.utils.PullToRefreshScrollView;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -52,7 +55,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     private PullToRefreshScrollView sv;
     private ProgrammerAdapter adapter;
     private ImageView iv_search,iv_sm;
-    //private RequestQueue rq;
+    private RequestQueue rq;
 
 
     // 图片资源id
@@ -91,28 +94,38 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
 
        View view=inflater.inflate(R.layout.host_fra,null);
 
+        InitView(view);
+        InitViewPager(view);
+
+        return view;
+
+    }
+
+    //控件
+    public void InitView(View view){
         //科技资讯
         //lv= (ListView) view.findViewById(R.id.hp_listview);
         lv= (ListView) view.findViewById(R.id.hp_listview);
         adapter=new ProgrammerAdapter(getActivity());
 
-        //rq= Volley.newRequestQueue(getActivity());
+        rq= Volley.newRequestQueue(getActivity());
         sv= (PullToRefreshScrollView) view.findViewById(R.id.scrollView_sv);
         sv.setMode(PullToRefreshBase.Mode.BOTH);
         sv.setOnRefreshListener(this);
         lv.setOnItemClickListener(this);
         lv.setAdapter(adapter);
+        lv.setFocusable(false);
         AddData();
 
-        //搜索
-        iv_search= (ImageView) view.findViewById(R.id.imageView_hp_right_top);
-        iv_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getActivity(), SearchActivity.class);
-                startActivity(intent);
-            }
-        });
+//        //搜索
+//        iv_search= (ImageView) view.findViewById(R.id.imageView_hp_right_top);
+//        iv_search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent=new Intent(getActivity(), SearchActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
         //进入侧滑界面
@@ -127,7 +140,10 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
                 }
             }
         });
+    }
 
+    //顶部ViewPager
+    public void InitViewPager(View view){
 
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         point_group = (LinearLayout) view.findViewById(R.id.point_group);
@@ -148,7 +164,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
                     5);
             params.rightMargin = 20;
             point.setLayoutParams(params);
-           // point.setBackgroundResource(R.mipmap.pointp);
+            // point.setBackgroundResource(R.mipmap.pointp);
             if (i == R.mipmap.ic_launcher) {
                 point.setEnabled(true);
             } else {
@@ -203,45 +219,62 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
         handler.sendEmptyMessageDelayed(0, 5000);
 
 
-
-        return view;
-
     }
 
     //科技资讯list实现方法
     public void AddData() {
-        List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
-        for (int i=0;i<25;i++){
-            ProgrammerNews pn=new ProgrammerNews();
-            pn.setNewsdescribe("你们尽管去浪，能赢，算我输！你是我的小丫笑拉拉，怎么打你你都不哭，你好坚强！");
-            pn.setNewspublisher("小二哥");
-            pn.setNewspublishtime("2017--03--02");
-            pn.setNewstitle("世界这么大！");
-            list.add(pn);
-        }
-        adapter.setList(list);
-        adapter.notifyDataSetChanged();
+//        List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
+//        for (int i=0;i<25;i++){
+//            ProgrammerNews pn=new ProgrammerNews();
+//            pn.setNewsdescribe("你们尽管去浪，能赢，算我输！你是我的小丫笑拉拉，怎么打你你都不哭，你好坚强！");
+//            pn.setNewspublisher("小二哥");
+//            pn.setNewspublishtime("2017--03--02");
+//            pn.setNewsTitle("世界这么大！");
+//            list.add(pn);
+//        }
+//        adapter.setList(list);
+//        adapter.notifyDataSetChanged();
 
-//        List<ProgrammerNews> list = new ArrayList<ProgrammerNews>();
-//        JsonObjectRequest jor = new JsonObjectRequest("130.0.1.251:8080/CoolTopic/GetAllNews?page=2&size=10", null, new Response.Listener<JSONObject>(){
-//
-//            @Override
-//            public void onResponse(JSONObject jsonObject) {
+        //List<ProgrammerNews> list = new ArrayList<ProgrammerNews>();
+        JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?page=1&size=10", null, new Response.Listener<JSONObject>(){
+
+
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+
+
+                String info=jsonObject.toString();
+                Gson gson=new Gson();
+                Programmer p=gson.fromJson(info,Programmer.class);
+                List<ProgrammerNews> ll=p.getNews();
+                adapter.setList(ll);
+                adapter.notifyDataSetChanged();
+
+//                for (ProgrammerNews news:ll
+//                     ) {
+//                    Log.i("55555555555",news.getNewsTitle()+"");
+//                }
+
+
 //                try {
 //                    Toast.makeText(getActivity(),jsonObject.getString("news"),Toast.LENGTH_LONG).show();
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
 //                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError volleyError) {
-//
-//            }
-//        });
-//        rq.add(jor);
-//        rq.start();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(getActivity(),"请求失败！",Toast.LENGTH_LONG).show();
+            }
+        });
+        rq.add(jor);
+        rq.start();
     }
+
+
+
 
     @Override
     public void onDestroy() {
@@ -250,6 +283,8 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
         super.onDestroy();
     }
 
+
+    //传值监听
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent=new Intent(getActivity(), NewsInfoActivity.class);
@@ -262,41 +297,96 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     //下拉
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
-                ProgrammerNews pn=new ProgrammerNews();
-                pn.setNewsdescribe("1");
-                pn.setNewstitle("1");
-                pn.setNewspublishtime("1");
-                pn.setNewspublisher("1");
-                list.add(pn);
-                adapter.addDataToHeader(list);
-                handler.sendEmptyMessage(0);
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
+//                ProgrammerNews pn=new ProgrammerNews();
+//                pn.setNewsdescribe("1");
+//                pn.setNewstitle("1");
+//                pn.setNewspublishtime("1");
+//                pn.setNewspublisher("1");
+//                list.add(pn);
+//                adapter.addDataToHeader(list);
+//                handler.sendEmptyMessage(0);
+//            }
+//        }).start();
+
+
+
+        List<ProgrammerNews> list=adapter.getList();
+        if (list.size()!=0&&list!=null){
+
+            int currentid=adapter.getList().get(0).getNewsId()+1;
+            JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?page=1&size=1"+"&newsId="+currentid, null, new Response.Listener<JSONObject>(){
+
+                @Override
+                public void onResponse(JSONObject jsonObject) {
+
+
+                    String info=jsonObject.toString();
+                    Gson gson=new Gson();
+                    Programmer p=gson.fromJson(info,Programmer.class);
+                    List<ProgrammerNews> ll=p.getNews();
+                    adapter.addDataToHeader(ll);
+                    adapter.notifyDataSetChanged();
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    Toast.makeText(getActivity(),"请求失败！",Toast.LENGTH_LONG).show();
+                }
+            });
+            rq.add(jor);
+            rq.start();
+
+        }
     }
 
     //上拉
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
-                ProgrammerNews pn=new ProgrammerNews();
-                pn.setNewsdescribe("1");
-                pn.setNewstitle("1");
-                pn.setNewspublishtime("1");
-                pn.setNewspublisher("1");
-                list.add(pn);
-                adapter.addDataToFooter(list);
-                handler.sendEmptyMessage(0);
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
+//                ProgrammerNews pn=new ProgrammerNews();
+//                pn.setNewsdescribe("1");
+//                pn.setNewstitle("1");
+//                pn.setNewspublishtime("1");
+//                pn.setNewspublisher("1");
+//                list.add(pn);
+//                adapter.addDataToFooter(list);
+//                handler.sendEmptyMessage(0);
+//            }
+//        }).start();
 
+
+        int currentid=adapter.getList().get(adapter.getList().size()-1).getNewsId();
+        JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?page=1&size=1"+"&newsId="+currentid, null, new Response.Listener<JSONObject>(){
+
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+
+
+                String info=jsonObject.toString();
+                Gson gson=new Gson();
+                Programmer p=gson.fromJson(info,Programmer.class);
+                List<ProgrammerNews> ll=p.getNews();
+                adapter.addDataToFooter(ll);
+                adapter.notifyDataSetChanged();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(getActivity(),"请求失败！",Toast.LENGTH_LONG).show();
+            }
+        });
+        rq.add(jor);
+        rq.start();
 
     }
 

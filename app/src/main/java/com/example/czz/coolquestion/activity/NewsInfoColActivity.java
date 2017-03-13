@@ -2,12 +2,7 @@ package com.example.czz.coolquestion.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -21,25 +16,25 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.bean.ProgrammerNews;
-import com.example.czz.coolquestion.url.URLConfig;
+import com.example.czz.coolquestion.bean.ProgrammerNewsCol;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class NewsInfoActivity extends AppCompatActivity implements View.OnClickListener{
+public class NewsInfoColActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private ImageView iv_back,iv_share,iv_col;
+    private ImageView iv_back;
     private WebView wv;
-    private ProgrammerNews pn;
+    private ProgrammerNewsCol.NewsCollectListBean nb;
 
-    private RequestQueue rq;
+    //private RequestQueue rq;
 
     private int idd;//用户id
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_info);
+        setContentView(R.layout.activity_news_info_col);
 
         InitView();
         InitListener();
@@ -48,17 +43,14 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
     //各种控件
     public void InitView(){
 
-        rq=Volley.newRequestQueue(getApplicationContext());
+        //rq= Volley.newRequestQueue(getApplicationContext());
 
         iv_back= (ImageView) findViewById(R.id.imageView_newsinfo_back);
-        iv_col= (ImageView) findViewById(R.id.imageView_newsinfo_col);
-        iv_share= (ImageView) findViewById(R.id.imageView_newsinfo_right);
-
 
         wv= (WebView) findViewById(R.id.newsinfo_webview);
-        pn=(ProgrammerNews) getIntent().getSerializableExtra("info");
+        nb= (ProgrammerNewsCol.NewsCollectListBean) getIntent().getSerializableExtra("info");
         //final String path=pn.getNewsdetails();
-       // Log.i("555555555",path+"");
+        // Log.i("555555555",path+"");
 
         WebSettings settings=wv.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -101,7 +93,7 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
 
 
 
-        idd=pn.getNewsId();
+        idd=nb.getNewscontent().getNewsId();
         String path = "http://130.0.0.227:8080/CoolTopic/NewsContent.jsp?nid="+idd;
         wv.loadUrl(path);
         wv.setWebViewClient(new WebViewClient(){
@@ -118,13 +110,12 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
         });
 
 
+
     }
 
     //监听事件
     public void InitListener(){
         iv_back.setOnClickListener(this);
-        iv_share.setOnClickListener(this);
-        iv_col.setOnClickListener(this);
     }
 
     //点击事件
@@ -134,38 +125,11 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
             case R.id.imageView_newsinfo_back://返回
                 finish();
                 break;
-            case R.id.imageView_newsinfo_col://收藏
-                JsonObjectRequest jor=new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/AddNewsCollect?newsid="+idd+"&userid=1",null,new Response.Listener<JSONObject>(){
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            Toast.makeText(NewsInfoActivity.this,response.getString("reason"),Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },new Response.ErrorListener(){
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(NewsInfoActivity.this,error.getCause().toString(),Toast.LENGTH_LONG).show();
-                    }
-                });
-                rq.add(jor);
-                rq.start();
-
-                break;
-            case R.id.imageView_newsinfo_right://分享
-                finish();
-                break;
             default:
                 break;
 
         }
     }
-
-
 
 
 

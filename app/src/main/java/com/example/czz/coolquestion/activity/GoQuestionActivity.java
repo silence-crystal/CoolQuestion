@@ -38,6 +38,7 @@ import com.example.czz.coolquestion.url.URLConfig;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
@@ -333,6 +334,12 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
+                            if (!select_answer.equals("")){
+                                select_answer="";
+                                View view=viewFlipper.getChildAt(viewFlipper.getDisplayedChild());
+                                TextView textView= (TextView) view.findViewById(R.id.act_question_viewflipper_item_select_tv);
+                                textView.setText("您选择的答案是:" + select_answer);
+                            }
                             while (select_list.size()<bean_list.size()){
                                 select_list.add("");
                             }
@@ -352,7 +359,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                                     builder.setSpan(greencolor,correct_answer_tv_size-1,correct_answer_tv_size, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                                     correct.setText(builder);
                                     description.setVisibility(View.VISIBLE);
-                                    description.setText(bean_list.get(i).getDeQuestion());
+                                    description.setText("解析"+bean_list.get(i).getDeQuestion());
                                 }
                             }
                             Intent intent=new Intent(GoQuestionActivity.this,ResultActivity.class);
@@ -379,7 +386,9 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                 break;
             case R.id.act_question_addtoctb:
                 //添加到错题本的方法
-                //AddCorrectQuestion();
+                //Intent intent_ctb=new Intent(GoQuestionActivity.this,CTBActivity.class);
+                //startActivity(intent_ctb);
+                Toast.makeText(GoQuestionActivity.this,"添加错题的方法!!!",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.act_question_previous://点击上一题触发的方法
                 View child_view_previous=viewFlipper.getChildAt(viewFlipper.getDisplayedChild());
@@ -476,9 +485,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
         }
     }
 
-    private void AddCorrectQuestion(int userid,String econtent,String eanswer) {
-        //String path= URLConfig.ADDERRORQUESTION_URL+"econtent=";
-    }
+
 
 
     //显示正确答案和问题解析的方法
