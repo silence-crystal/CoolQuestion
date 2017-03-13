@@ -5,10 +5,6 @@ package com.example.czz.coolquestion.url;
  */
 
 public class URLConfig {
-<<<<<<< HEAD
-    //原始地址
-    public static String BaseUrl = "http://130.0.0.227:8080/";
-=======
 
     //主机地址
     public static String MAIN_URL="http://130.0.0.227:8080/";
@@ -25,5 +21,5 @@ public class URLConfig {
     //获取所有编程语言的路径
     public static String GETLANGUAGE_URL=MAIN_URL+"CoolTopic/GetTypeInfo";
 
->>>>>>> 7b563c2b748b6d53fc457f5004f43fd9baef99a3
+
 }

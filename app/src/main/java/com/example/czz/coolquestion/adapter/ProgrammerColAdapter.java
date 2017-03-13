@@ -76,7 +76,7 @@ public class ProgrammerColAdapter extends BaseAdapter {
                 .cacheOnDisk(true)
                 .cacheInMemory(true)
                 .build();
-        imageLoader.displayImage(URLConfig.BaseUrl+list.get(i).getNewscontent().getNewspic(),vh.img_pic,options);
+        imageLoader.displayImage(URLConfig.MAIN_URL+list.get(i).getNewscontent().getNewspic(),vh.img_pic,options);
         vh.tv_title.setText(list.get(i).getNewscontent().getNewsTitle());
         vh.tv_time.setText(list.get(i).getNewscontent().getNewspublishtime());
         vh.tv_publisher.setText(list.get(i).getNewscontent().getNewspublisher());

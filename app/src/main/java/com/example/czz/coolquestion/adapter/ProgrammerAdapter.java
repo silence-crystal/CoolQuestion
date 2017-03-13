@@ -87,7 +87,7 @@ public class ProgrammerAdapter extends BaseAdapter {
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .build();
-        imageLoader.displayImage(URLConfig.BaseUrl+list.get(i).getNewspic(),vh.img_pic,options);
+        imageLoader.displayImage(URLConfig.MAIN_URL+list.get(i).getNewspic(),vh.img_pic,options);
         vh.tv_title.setText(list.get(i).getNewsTitle());
         vh.tv_describe.setText(list.get(i).getNewsdescribe());
         vh.tv_time.setText(list.get(i).getNewspublishtime());
