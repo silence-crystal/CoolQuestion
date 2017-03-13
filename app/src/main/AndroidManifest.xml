@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.czz.coolquestion">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,8 +17,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/app_name"></activity>
-        <activity android:name=".activity.FlashActivity"></activity>
+            android:label="@string/app_name" />
+        <activity android:name=".activity.FlashActivity" />
         <activity android:name=".activity.GuideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,25 +26,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.GoQuestionActivity"></activity>
-        <activity android:name=".activity.ResultActivity"></activity>
+        <activity android:name=".activity.GoQuestionActivity" />
+        <activity android:name=".activity.ResultActivity" />
         <activity android:name=".activity.CollectionActivity" />
         <activity android:name=".activity.KnowledgeActivity" />
         <activity android:name=".activity.CTBActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.NewsInfoActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.RegisterActivity"></activity>
-        <activity android:name=".activity.KnowDetailsActivity"></activity>
-        <activity android:name=".activity.BanquanActivity"></activity>
-        <activity android:name=".activity.PersonalInfoActivity"></activity>
-        <activity android:name=".activity.PingjiaActivity"></activity>
-        <activity android:name=".activity.SetActivity"></activity>
-        <activity android:name=".activity.ShuomingActivity"></activity>
-        <activity android:name=".activity.UpdateActivity"></activity>
-        <activity android:name=".activity.XieyiActivity"></activity>
-        <activity android:name=".activity.QuestionDetailActivity"></activity>
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.KnowDetailsActivity" />
+        <activity android:name=".activity.BanquanActivity" />
+        <activity android:name=".activity.PersonalInfoActivity" />
+        <activity android:name=".activity.PingjiaActivity" />
+        <activity android:name=".activity.SetActivity" />
+        <activity android:name=".activity.ShuomingActivity" />
+        <activity android:name=".activity.UpdateActivity" />
+        <activity android:name=".activity.XieyiActivity" />
+        <activity android:name=".activity.QuestionDetailActivity" />
+        <activity android:name=".activity.NewsInfoColActivity"/>
     </application>
 
 </manifest>

@@ -21,4 +21,5 @@ public class URLConfig {
     //获取所有编程语言的路径
     public static String GETLANGUAGE_URL=MAIN_URL+"CoolTopic/GetTypeInfo";
 
+
 }

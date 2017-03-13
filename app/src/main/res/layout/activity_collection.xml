@@ -28,7 +28,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/share"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
@@ -43,7 +43,15 @@
                 android:layout_alignParentStart="true"
                 android:id="@+id/imageView2_left_col_back" />
         </RelativeLayout>
+
+        <ListView
+            android:id="@+id/listview_news_col"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
     </LinearLayout>
+
 
 
 </RelativeLayout>

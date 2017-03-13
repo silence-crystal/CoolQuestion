@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_news_info_col"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.czz.coolquestion.activity.NewsInfoColActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#4f5565">
+
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/back"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/imageView_newsinfo_back" />
+
+           <!-- <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/share"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/imageView_newsinfo_right" />-->
+
+            <TextView
+                android:textSize="20sp"
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7" />
+
+            <!--<ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/col_col"
+                android:layout_alignTop="@+id/textView7"
+                android:layout_toLeftOf="@+id/imageView_newsinfo_right"
+                android:layout_toStartOf="@+id/imageView_newsinfo_right"
+                android:layout_marginRight="7dp"
+                android:id="@+id/imageView_newsinfo_col" />-->
+        </RelativeLayout>
+
+        <WebView
+            android:id="@+id/newsinfo_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
