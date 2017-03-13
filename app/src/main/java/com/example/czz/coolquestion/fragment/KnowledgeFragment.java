@@ -7,8 +7,10 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.czz.coolquestion.R;
+import com.example.czz.coolquestion.activity.MainActivity;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -27,12 +29,24 @@ public class KnowledgeFragment extends Fragment {
     private FragmentPagerItems.Creator creator;
     private ViewPager vp_know;
     private View view;
+    private ImageView knowledge_fra_hand_img;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.knowledge_fra,null);
         InitData();
         InitPager();
+        knowledge_fra_hand_img= (ImageView) view.findViewById(R.id.knowledge_fra_hand_img);
+        knowledge_fra_hand_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (((MainActivity) getActivity()).slidingmenu.isMenuShowing()){
+                    ((MainActivity) getActivity()).slidingmenu.showContent();
+                }else {
+                    ((MainActivity) getActivity()).slidingmenu.showMenu();
+                }
+            }
+        });
         return view;
     }
     private void InitData(){
@@ -41,13 +55,10 @@ public class KnowledgeFragment extends Fragment {
         list.add("  Java语言  ");
         list.add("   C语言    ");
         list.add("  C++语言   ");
-        list.add("   C#语言   ");
         list.add(" Android语言");
-        list.add("  Php语言   ");
-        list.add(" Python语言 ");
-        list.add("  ios语言   ");
-        list.add("  Web语言   ");
-        list.add(" Html5语言  ");
+        list.add("  Object-C语言   ");
+        list.add(" PHP语言 ");
+//        list.add("  .net语言   ");
         for (int i=0;i<list.size();i++){
             creator.add(list.get(i), KnowVpFragment.class);
         }
