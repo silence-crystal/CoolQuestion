@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".application.FirstApplication"
@@ -44,11 +43,7 @@
         <activity android:name=".activity.SetActivity"></activity>
         <activity android:name=".activity.ShuomingActivity"></activity>
         <activity android:name=".activity.UpdateActivity"></activity>
-        <activity android:name=".activity.XieyiActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+        <activity android:name=".activity.XieyiActivity"></activity>
         <activity android:name=".activity.QuestionDetailActivity"></activity>
     </application>
 

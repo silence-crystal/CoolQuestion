@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
@@ -25,11 +26,14 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.czz.coolquestion.R;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.example.czz.coolquestion.bean.ChangeHeadImgRes;
+import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -46,7 +50,7 @@ import java.util.Date;
  * Created by Administrator on 2017/3/6.
  */
 
-public class PersonalInfoActivity extends Activity {
+public class PersonalInfoActivity extends AppCompatActivity implements View.OnClickListener{
     private ImageView personal_info_hand_img, personal_info_name_img;
     private View useraccount_layout;
     private View username_layout;
@@ -60,120 +64,21 @@ public class PersonalInfoActivity extends Activity {
     private TextView username_tv, userqq_tv, userphone_tv, useraddress_tv;
     private View view;
     private PopupWindow pw;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+    private RequestQueue queue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_info);
-        final View v1= LayoutInflater.from(this).inflate(R.layout.activity_personal_info,null);
-        username_tv = (TextView) findViewById(R.id.username_tv);
-        userqq_tv = (TextView) findViewById(R.id.userqq_tv);
-        userphone_tv = (TextView) findViewById(R.id.userphone_tv);
-        useraddress_tv = (TextView) findViewById(R.id.useraddress_tv);
+        InitView();
+        InitListener();
+        queue= Volley.newRequestQueue(getApplicationContext());
         httputils = new HttpUtils();
-        personal_info_name_img = (ImageView) findViewById(R.id.personal_info_name_img);
         username_tv.setText("name");
         userqq_tv.setText("222222222");
         userphone_tv.setText("222222");
         useraddress_tv.setText("的步伐加快");
-        personal_info_hand_img = (ImageView) findViewById(R.id.personal_info_hand_img);
-        personal_info_hand_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        useraccount_layout = findViewById(R.id.useraccount_layout);
-        useraccount_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                infofuzhi();
-            }
-        });
-        username_layout = findViewById(R.id.username_layout);
-        username_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                infofuzhi();
-            }
-        });
-        userqq_layout = findViewById(R.id.userqq_layout);
-        userqq_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                infofuzhi();
-            }
-        });
-        userphone_layout = findViewById(R.id.userphone_layout);
-        userphone_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                infofuzhi();
-            }
-        });
-        useraddress_layout = findViewById(R.id.useraddress_layout);
-        useraddress_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                infofuzhi();
-            }
-        });
-        view = getLayoutInflater().inflate(R.layout.touxiangpopupwindow, null);
-        personal_info_name_layout = findViewById(R.id.personal_info_name_layout);
-        personal_info_name_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                pw = new PopupWindow(view, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-
-                //设置显示动画
-                pw.setAnimationStyle(R.style.main_menu_animstyle);
-                pw.setBackgroundDrawable(getResources().getDrawable(R.mipmap.touming));
-                pw.setOutsideTouchable(true);
-                pw.showAtLocation(v1,Gravity.BOTTOM,0,0);
-            }
-        });
-        tuku_btn = (Button) view.findViewById(R.id.tuku_btn);
-        tuku_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setType("image/*");
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                startActivityForResult(intent, 1);
-
-                Intent picture = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(picture, 1);
-            }
-        });
-        paizhao_btn = (Button) view.findViewById(R.id.paizhao_btn);
-        paizhao_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fileUri = getOutputMediaFileUri(0); //得到存储地址的Uri
-                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); //此action表示进行拍照
-                i.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);  //指定图片的输出地址
-                startActivityForResult(i, 0);
-            }
-
-
-        });
-
-        quxiao_btn = (Button) view.findViewById(R.id.quxiao_btn);
-        quxiao_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               pw.dismiss();
-            }
-        });
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     //个人信息回传值方法
@@ -209,41 +114,40 @@ public class PersonalInfoActivity extends Activity {
             cursor.moveToFirst();
             path = cursor.getString(1);//图片文件路径
 
-//            //data中自带有返回的uri
-//            Uri photoUri = data.getData();
-//            //获取照片路径
-//            String[] filePathColumn={MediaStore.Audio.Media.DATA};
-//            Cursor cursor=getContentResolver().query(photoUri,filePathColumn,null,null,null);
-//            cursor.moveToFirst();
-//            path=cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
-
         }
         Log.i("this", path + "-----");
         File f = new File(path);
         Bitmap map = BitmapFactory.decodeFile(f.getPath());
         personal_info_name_img.setImageBitmap(map);
 
-        String uploadHost = "130.0.1.251:8080/CoolTopic/UpdateHeadImg";
+        String uploadHost = "http://130.0.1.251:8080/CoolTopic/UpdateHeadImg";
+
         RequestParams params = new RequestParams();
+        params.addBodyParameter("photo",f);
         httputils.send(HttpMethod.POST, uploadHost, params, new RequestCallBack<String>() {
             @Override
             public void onStart() {
                 super.onStart();
+                Toast.makeText(PersonalInfoActivity.this, "开始上传", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onLoading(long total, long current, boolean isUploading) {
                 super.onLoading(total, current, isUploading);
+                Log.i("图片正在上传",current/total+"%");
             }
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                Gson gson = new Gson();
+                ChangeHeadImgRes res = gson.fromJson(responseInfo.result, ChangeHeadImgRes.class);
+                res.getImgurl();
 
             }
 
             @Override
             public void onFailure(HttpException e, String s) {
-                Toast.makeText(PersonalInfoActivity.this, "success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PersonalInfoActivity.this, "failure", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -288,40 +192,84 @@ public class PersonalInfoActivity extends Activity {
         return mediaFile;
     }
 
+    //各种控件
+    public void InitView(){
+        username_tv = (TextView) findViewById(R.id.username_tv);
+        userqq_tv = (TextView) findViewById(R.id.userqq_tv);
+        userphone_tv = (TextView) findViewById(R.id.userphone_tv);
+        useraddress_tv = (TextView) findViewById(R.id.useraddress_tv);
+        personal_info_name_img = (ImageView) findViewById(R.id.personal_info_name_img);
+        personal_info_hand_img = (ImageView) findViewById(R.id.personal_info_hand_img);
+        useraccount_layout = findViewById(R.id.useraccount_layout);
+        username_layout = findViewById(R.id.username_layout);
+        userqq_layout = findViewById(R.id.userqq_layout);
+        userphone_layout = findViewById(R.id.userphone_layout);
+        useraddress_layout = findViewById(R.id.useraddress_layout);
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("PersonalInfo Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
+        view = getLayoutInflater().inflate(R.layout.touxiangpopupwindow, null);
+        personal_info_name_layout = findViewById(R.id.personal_info_name_layout);
+        tuku_btn = (Button) view.findViewById(R.id.tuku_btn);
+        paizhao_btn = (Button) view.findViewById(R.id.paizhao_btn);
+        quxiao_btn = (Button) view.findViewById(R.id.quxiao_btn);
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    //监听事件
+    public void InitListener(){
+        personal_info_hand_img.setOnClickListener(this);
+        useraccount_layout.setOnClickListener(this);
+        username_layout.setOnClickListener(this);
+        userqq_layout.setOnClickListener(this);
+        userphone_layout.setOnClickListener(this);
+        useraddress_layout.setOnClickListener(this);
+        personal_info_name_layout.setOnClickListener(this);
+        tuku_btn.setOnClickListener(this);
+        paizhao_btn.setOnClickListener(this);
+        quxiao_btn.setOnClickListener(this);
     }
-
     @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.personal_info_hand_img://返回上一页按钮
+                finish();
+                break;
+            case R.id.useraccount_layout://用户账户跳转修改
+                infofuzhi();
+                break;
+            case R.id.username_layout://用户昵称跳转修改
+                infofuzhi();
+                break;
+            case R.id.userqq_layout://用户QQ跳转修改
+                infofuzhi();
+                break;
+            case R.id.userphone_layout://用户电话跳转修改
+                infofuzhi();
+                break;
+            case R.id.useraddress_layout://用户地址跳转修改
+                infofuzhi();
+                break;
+            case R.id.personal_info_name_layout://点击头像更换头像
+                View v1= LayoutInflater.from(this).inflate(R.layout.activity_personal_info,null);
+                pw = new PopupWindow(view, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+                //设置显示动画
+                pw.setAnimationStyle(R.style.main_menu_animstyle);
+                pw.setBackgroundDrawable(getResources().getDrawable(R.mipmap.touming));
+                pw.setOutsideTouchable(true);
+                pw.showAtLocation(v1,Gravity.BOTTOM,0,0);
+                break;
+            case R.id.tuku_btn://使用图库
+                Intent picture = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(picture, 1);
+                break;
+            case R.id.paizhao_btn://使用拍照
+                fileUri = getOutputMediaFileUri(0); //得到存储地址的Uri
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); //此action表示进行拍照
+                i.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);  //指定图片的输出地址
+                startActivityForResult(i, 0);
+                break;
+            case R.id.quxiao_btn://点击取消
+                pw.dismiss();
+                break;
+            default:
+                break;
+        }
     }
 }

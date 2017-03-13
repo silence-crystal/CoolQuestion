@@ -18,29 +18,25 @@ import java.util.List;
 
 public class KnowAdapter extends BaseAdapter{
     private LayoutInflater inflater;
-    private List<Know> list=new ArrayList<>();
+    private List<Know.KnowledgeListBean> list=new ArrayList<>();
     private Context context;
     public KnowAdapter(Context context){
         this.context = context;
         this.inflater = LayoutInflater.from(context);
     }
-    public List<Know> getList() {
+    public List<Know.KnowledgeListBean> getList() {
         return list;
     }
-    public void setList(List<Know> list) {
+    public void setList(List<Know.KnowledgeListBean> list) {
         this.list.clear();
         this.list.addAll(list);
     }
-    //添加数据的方法
-    public void addKnowList(List<Know> list){
-        this.list=list;
-    }
-    //上啦加载数据的方法
-    public void addDataToFooter(List<Know> list){
+    //上拉加载方法
+    public void addDataToFooter(List<Know.KnowledgeListBean> list){
         this.list.addAll(list);
     }
-    //下拉加载数据的方法
-    public void addDataToHeader(List<Know> list){
+    //下拉加载方法
+    public void addDataToHeader(List<Know.KnowledgeListBean> list){
         this.list.addAll(0,list);
     }
     @Override
@@ -64,16 +60,18 @@ public class KnowAdapter extends BaseAdapter{
         if (convertView==null){
             vh = new ViewHolder();
             convertView = inflater.inflate(R.layout.know_lv,null);
-            vh.know_lv_tv = (TextView) convertView.findViewById(R.id.know_lv_tv);
+            vh.knowledgetitle_tv = (TextView) convertView.findViewById(R.id.knowledgetitle_tv);
+            vh.knowledgedescribe_tv = (TextView) convertView.findViewById(R.id.knowledgedescribe_tv);
             convertView.setTag(vh);
         }else {
             vh = (ViewHolder) convertView.getTag();
         }
         //
-        vh.know_lv_tv.setText(list.get(position).getTimu());
+        vh.knowledgetitle_tv.setText(list.get(position).getKnowledgetitle());
+        vh.knowledgedescribe_tv.setText(list.get(position).getKnowledgecontent());
         return convertView;
     }
     class ViewHolder{
-        TextView know_lv_tv;
+        TextView knowledgetitle_tv,knowledgedescribe_tv;
     }
 }

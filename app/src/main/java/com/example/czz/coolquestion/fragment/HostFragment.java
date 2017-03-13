@@ -243,15 +243,6 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
 //        rq.start();
     }
 
-
-
-
-
-
-
-
-
-
     @Override
     public void onDestroy() {
         // 停止滚动
