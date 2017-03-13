@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.bean.ProgrammerNews;
+import com.example.czz.coolquestion.url.URLConfig;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ public class ProgrammerAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
     private List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
+    private ImageLoader imageLoader;
 
     public List<ProgrammerNews> getList() {
         return list;
@@ -70,11 +74,21 @@ public class ProgrammerAdapter extends BaseAdapter {
             vh.tv_describe= (TextView) view.findViewById(R.id.textView_hp_newsdescribe);
             vh.tv_publisher= (TextView) view.findViewById(R.id.textView_hp_newspublisher);
             vh.tv_time= (TextView) view.findViewById(R.id.textView_hp_newspublishtime);
+            vh.img_pic= (ImageView) view.findViewById(R.id.imageView_hp_newspic);
             view.setTag(vh);
         }else{
             vh= (ViewHolder) view.getTag();
         }
-        vh.tv_title.setText(list.get(i).getNewstitle());
+        imageLoader=ImageLoader.getInstance();
+        DisplayImageOptions options=new DisplayImageOptions
+                .Builder()
+                .showImageOnLoading(R.mipmap.ic_launcher)
+                .showImageOnFail(R.mipmap.ic_launcher)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
+        imageLoader.displayImage(URLConfig.BaseUrl+list.get(i).getNewspic(),vh.img_pic,options);
+        vh.tv_title.setText(list.get(i).getNewsTitle());
         vh.tv_describe.setText(list.get(i).getNewsdescribe());
         vh.tv_time.setText(list.get(i).getNewspublishtime());
         vh.tv_publisher.setText(list.get(i).getNewspublisher());
@@ -83,7 +97,7 @@ public class ProgrammerAdapter extends BaseAdapter {
     }
 
     class  ViewHolder{
-        ImageView img;
+        ImageView img_pic;
         TextView tv_title,tv_publisher,tv_time,tv_describe;
     }
 }

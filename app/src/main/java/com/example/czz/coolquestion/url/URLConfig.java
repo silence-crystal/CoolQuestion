@@ -5,5 +5,6 @@ package com.example.czz.coolquestion.url;
  */
 
 public class URLConfig {
-
+    //原始地址
+    public static String BaseUrl = "http://130.0.0.227:8080/";
 }

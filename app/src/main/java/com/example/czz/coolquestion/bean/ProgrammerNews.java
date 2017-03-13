@@ -8,19 +8,28 @@ import java.io.Serializable;
 
 public class ProgrammerNews implements Serializable{
 
-    private String newstitle;//标题
+    private int newsId;
+    private String newsTitle;//标题
     private String newspublisher;//发布者
     private String newspublishtime;//时间
     private String newsdescribe;//描述
     private String newsdetails;//网址url
     private String newspic;//图片
 
-    public String getNewstitle() {
-        return newstitle;
+    public int getNewsId() {
+        return newsId;
     }
 
-    public void setNewstitle(String newstitle) {
-        this.newstitle = newstitle;
+    public void setNewsId(int newsId) {
+        this.newsId = newsId;
+    }
+
+    public String getNewsTitle() {
+        return newsTitle;
+    }
+
+    public void setNewsTitle(String newsTitle) {
+        this.newsTitle = newsTitle;
     }
 
     public String getNewspublisher() {
@@ -63,8 +72,18 @@ public class ProgrammerNews implements Serializable{
         this.newspic = newspic;
     }
 
-    public ProgrammerNews(String newstitle, String newspublisher, String newspublishtime, String newsdescribe, String newsdetails, String newspic) {
-        this.newstitle = newstitle;
+    public ProgrammerNews(String newsTitle, String newspublisher, String newspublishtime, String newsdescribe, String newsdetails, String newspic) {
+        this.newsTitle = newsTitle;
+        this.newspublisher = newspublisher;
+        this.newspublishtime = newspublishtime;
+        this.newsdescribe = newsdescribe;
+        this.newsdetails = newsdetails;
+        this.newspic = newspic;
+    }
+
+    public ProgrammerNews(int newsId, String newsTitle, String newspublisher, String newspublishtime, String newsdescribe, String newsdetails, String newspic) {
+        this.newsId = newsId;
+        this.newsTitle = newsTitle;
         this.newspublisher = newspublisher;
         this.newspublishtime = newspublishtime;
         this.newsdescribe = newsdescribe;
