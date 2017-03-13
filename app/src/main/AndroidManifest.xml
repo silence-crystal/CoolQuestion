@@ -6,11 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 2d47038dc6189342a2573470869d0a029f0957ad
     <application
         android:name=".application.FirstApplication"
         android:allowBackup="true"

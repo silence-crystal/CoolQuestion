@@ -71,7 +71,7 @@ public class ResultActivity extends Activity{
         total_time_tv.setText("用时:"+total_time);
         left_language_tv.setText(kind_of_language+"专项练习");
         //计算用户选择正确的题目的方法
-        //UserCorrect();
+        UserCorrect();
         right_correct_tv.setText("正确 "+correct_num+"/"+select_list.size());
         adapter=new Result_GV_Adapter(ResultActivity.this);
         adapter.setSelect_list(select_list);
