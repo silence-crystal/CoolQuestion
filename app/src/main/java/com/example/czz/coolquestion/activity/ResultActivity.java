@@ -25,11 +25,11 @@ import java.util.List;
 public class ResultActivity extends Activity{
     private ImageView act_result_back;//
     private GridView act_result_gridview;//
-    private TextView left_language_tv,right_correct_tv;//
+    private TextView left_language_tv,right_correct_tv,total_time_tv;//
     private ArrayList<String> select_list;//存放用户选择的答案
     private ArrayList<String> correct_list;//存放正确的答案
     private int correct_num;//用来记录用户选择正确的题目的个数
-    private String kind_of_language;
+    private String kind_of_language,total_time;
     private Intent intent;//接受上一个传递过来的intnt
     private Result_GV_Adapter adapter;//
     @Override
@@ -60,15 +60,18 @@ public class ResultActivity extends Activity{
         act_result_gridview= (GridView) findViewById(R.id.act_result_gridview);
         left_language_tv= (TextView) findViewById(R.id.act_result_left_language);
         right_correct_tv= (TextView) findViewById(R.id.act_result_right_correct);
+        total_time_tv= (TextView) findViewById(R.id.act_result_total_time);
         select_list=new ArrayList<String>();
         correct_list=new ArrayList<String>();
         intent=getIntent();
         select_list=intent.getStringArrayListExtra("select_list");
         correct_list=intent.getStringArrayListExtra("correct_list");
         kind_of_language=intent.getStringExtra("language");
-        left_language_tv.setText(kind_of_language);
+        total_time=intent.getStringExtra("total_time");
+        total_time_tv.setText("用时:"+total_time);
+        left_language_tv.setText(kind_of_language+"专项练习");
         //计算用户选择正确的题目的方法
-        UserCorrect();
+        //UserCorrect();
         right_correct_tv.setText("正确 "+correct_num+"/"+select_list.size());
         adapter=new Result_GV_Adapter(ResultActivity.this);
         adapter.setSelect_list(select_list);

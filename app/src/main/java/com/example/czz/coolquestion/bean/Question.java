@@ -1,91 +1,130 @@
 package com.example.czz.coolquestion.bean;
 
+import java.util.List;
+
 /**
  * Created by dell on 2017/3/2.
  */
 
 public class Question {
-    private String question_language;//问题所属的计算机语言
-    private String question_title;//问题题目
-    private String answerA;//答案A
-    private String answerB;//答案B
-    private String answerC;//答案C
-    private String answerD;//答案D
-    private String answer_correct;//正确答案
-    private String answer_description;//正确答案解释
 
-    public String getQuestion_language() {
-        return question_language;
+    /**
+     * questionList : [{"ansA":"1995","ansB":"1996","ansC":"1997","ansD":"1998","answer":"A","deQuestion":"测试","questionContent":"java起源与多少年？","questionID":4,"tid":1},{"ansA":"rwer","ansB":"erwer","ansC":"fewrw","ansD":"fewrw","answer":"C","deQuestion":"rererer","questionContent":"ewrwerw11","questionID":7,"tid":1},{"ansA":"dsadsa","ansB":"sad","ansC":"sadas","ansD":"daa","answer":"D","deQuestion":"sdsd","questionContent":"dsada","questionID":8,"tid":1},{"ansA":"1111","ansB":"1111","ansC":"1111","ansD":"1111","answer":"A","deQuestion":"1212122","questionContent":"qqw","questionID":9,"tid":1},{"ansA":"222","ansB":"222","ansC":"222","ansD":"222","answer":"A","deQuestion":"323233","questionContent":"eqwe","questionID":10,"tid":1}]
+     * result : success
+     */
+
+    private String result;
+    private List<QuestionListBean> questionList;
+
+    public String getResult() {
+        return result;
     }
 
-    public void setQuestion_language(String question_language) {
-        this.question_language = question_language;
+    public void setResult(String result) {
+        this.result = result;
     }
 
-    public String getQuestion_title() {
-        return question_title;
+    public List<QuestionListBean> getQuestionList() {
+        return questionList;
     }
 
-    public void setQuestion_title(String question_title) {
-        this.question_title = question_title;
+    public void setQuestionList(List<QuestionListBean> questionList) {
+        this.questionList = questionList;
     }
 
-    public String getAnswerA() {
-        return answerA;
-    }
+    public static class QuestionListBean {
+        /**
+         * ansA : 1995
+         * ansB : 1996
+         * ansC : 1997
+         * ansD : 1998
+         * answer : A
+         * deQuestion : 测试
+         * questionContent : java起源与多少年？
+         * questionID : 4
+         * tid : 1
+         */
 
-    public void setAnswerA(String answerA) {
-        this.answerA = answerA;
-    }
+        private String ansA;
+        private String ansB;
+        private String ansC;
+        private String ansD;
+        private String answer;
+        private String deQuestion;
+        private String questionContent;
+        private int questionID;
+        private int tid;
 
-    public String getAnswerB() {
-        return answerB;
-    }
+        public String getAnsA() {
+            return ansA;
+        }
 
-    public void setAnswerB(String answerB) {
-        this.answerB = answerB;
-    }
+        public void setAnsA(String ansA) {
+            this.ansA = ansA;
+        }
 
-    public String getAnswerC() {
-        return answerC;
-    }
+        public String getAnsB() {
+            return ansB;
+        }
 
-    public void setAnswerC(String answerC) {
-        this.answerC = answerC;
-    }
+        public void setAnsB(String ansB) {
+            this.ansB = ansB;
+        }
 
-    public String getAnswerD() {
-        return answerD;
-    }
+        public String getAnsC() {
+            return ansC;
+        }
 
-    public void setAnswerD(String answerD) {
-        this.answerD = answerD;
-    }
+        public void setAnsC(String ansC) {
+            this.ansC = ansC;
+        }
 
-    public String getAnswer_correct() {
-        return answer_correct;
-    }
+        public String getAnsD() {
+            return ansD;
+        }
 
-    public void setAnswer_correct(String answer_correct) {
-        this.answer_correct = answer_correct;
-    }
+        public void setAnsD(String ansD) {
+            this.ansD = ansD;
+        }
 
-    public String getAnswer_description() {
-        return answer_description;
-    }
+        public String getAnswer() {
+            return answer;
+        }
 
-    public void setAnswer_description(String answer_description) {
-        this.answer_description = answer_description;
-    }
+        public void setAnswer(String answer) {
+            this.answer = answer;
+        }
 
-    public Question(String question_language, String question_title, String answerA, String answerB, String answerC, String answerD, String answer_correct, String answer_description) {
-        this.question_language = question_language;
-        this.question_title = question_title;
-        this.answerA = answerA;
-        this.answerB = answerB;
-        this.answerC = answerC;
-        this.answerD = answerD;
-        this.answer_correct = answer_correct;
-        this.answer_description = answer_description;
+        public String getDeQuestion() {
+            return deQuestion;
+        }
+
+        public void setDeQuestion(String deQuestion) {
+            this.deQuestion = deQuestion;
+        }
+
+        public String getQuestionContent() {
+            return questionContent;
+        }
+
+        public void setQuestionContent(String questionContent) {
+            this.questionContent = questionContent;
+        }
+
+        public int getQuestionID() {
+            return questionID;
+        }
+
+        public void setQuestionID(int questionID) {
+            this.questionID = questionID;
+        }
+
+        public int getTid() {
+            return tid;
+        }
+
+        public void setTid(int tid) {
+            this.tid = tid;
+        }
     }
 }

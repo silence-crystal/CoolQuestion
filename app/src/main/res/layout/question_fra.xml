@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -49,13 +50,18 @@
                 android:id="@+id/question_gridview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:numColumns="3"></GridView>
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:numColumns="3">
+
+            </GridView>
 
             <TextView
                 android:id="@+id/question_jianjie_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
                 android:text="简介:"
                 android:textSize="20sp" />
 
@@ -63,25 +69,58 @@
                 android:id="@+id/question_description_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:textSize="17sp" />
-
-            <Button
-                android:id="@+id/question_go_btn"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/question_dati_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/go_question_sel"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:paddingTop="8dp"
+                    android:text="开始答题"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+                <Button
+                    android:id="@+id/question_kaoshi_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/go_question_sel"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:paddingTop="8dp"
+                    android:text="开始考试"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/volley_again_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="点击此处重新加载数据"
+                android:gravity="center_horizontal"
+                android:visibility="invisible"
+                />
+            <ProgressBar
+                android:id="@+id/question_progressbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/go_question_sel"
-                android:paddingBottom="8dp"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:paddingTop="8dp"
-                android:text="开始答题"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
+                android:layout_gravity="center"/>
         </LinearLayout>
-
-
     </ScrollView>
 
 </LinearLayout>

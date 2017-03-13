@@ -33,6 +33,17 @@
             android:layout_marginRight="15dp"
             android:layout_alignParentRight="true"
             android:src="@mipmap/addtoctb" />
+        <Chronometer
+            android:id="@+id/act_question_chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/act_question_addtoctb"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:textSize="15sp"
+            android:textColor="#20B2AA"
+            android:format="00:00"
+            android:visibility="invisible"/>
 
     </RelativeLayout>
 
@@ -40,7 +51,8 @@
         android:id="@+id/activity_question_viewflipper"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"></ViewFlipper>
+        android:layout_weight="10">
+    </ViewFlipper>
 
     <LinearLayout
         android:layout_width="match_parent"
