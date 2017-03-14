@@ -386,7 +386,8 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                 break;
             case R.id.act_question_addtoctb:
                 //添加到错题本的方法
-                //AddCorrectQuestion();
+                AddErrorQuestion();
+                Toast.makeText(GoQuestionActivity.this,"添加错题的方法!!!",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.act_question_previous://点击上一题触发的方法
                 View child_view_previous=viewFlipper.getChildAt(viewFlipper.getDisplayedChild());
@@ -483,8 +484,18 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
         }
     }
 
-    private void AddCorrectQuestion(int userid,String econtent,String eanswer) {
-        //String path= URLConfig.ADDERRORQUESTION_URL+"econtent=";
+    //添加到错题本的方法
+    private void AddErrorQuestion() {
+        int econtent;//用来表示错误的题的ID
+        int uid;//用来表示用户的id
+        //获取题目id
+        if (dati_or_kaoshi.equals("答题")){
+           econtent= question_list.get(viewFlipper.getDisplayedChild()).getQuestionID();
+        }else{
+            econtent=bean_list.get(viewFlipper.getDisplayedChild()).getQuestionID();
+        }
+        //获取用户id
+        uid=0;
     }
 
 

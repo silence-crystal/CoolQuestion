@@ -76,7 +76,7 @@
         android:cursorVisible="false"/>
 
     <TextView
-        android:text="确认密码："
+        android:text="确认密码 ："
         android:textColor="#000000"
         android:textSize="25sp"
         android:layout_alignLeft="@+id/textView6"
@@ -101,32 +101,47 @@
         android:layout_toEndOf="@+id/textView8"
         android:cursorVisible="false"/>
 
-    <TextView
-        android:text="完成注册"
-        android:background="@drawable/text_shap"
-        android:textColor="@color/text_color"
-        android:textSize="30sp"
-        android:gravity="center"
-        android:layout_width="155dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_reg_reg"
-        android:layout_below="@+id/editText_reg_passToo"
-        android:layout_toRightOf="@+id/textView8"
-        android:layout_toEndOf="@+id/textView8"
-        android:layout_marginTop="15dp"/>
 
         <TextView
-            android:text="返回"
+            android:text="注册"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/text_shap"
             android:textColor="@color/text_color"
             android:textSize="30sp"
             android:gravity="center"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView_reg_reg"
-            android:layout_toLeftOf="@+id/textView_reg_reg"
-            android:layout_marginRight="10dp"
-            android:id="@+id/textview_reg_back"/>
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/tv_signup"
+            android:layout_below="@+id/textView8"
+            android:layout_marginTop="20dp"
+            />
+    <!--<TextView-->
+        <!--android:text="完成注册"-->
+        <!--android:background="@drawable/text_shap"-->
+        <!--android:textColor="@color/text_color"-->
+        <!--android:textSize="30sp"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_width="155dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/textView_reg_reg"-->
+        <!--android:layout_below="@+id/editText_reg_passToo"-->
+        <!--android:layout_toRightOf="@+id/textView8"-->
+        <!--android:layout_toEndOf="@+id/textView8"-->
+        <!--android:layout_marginTop="15dp"/>-->
+
+        <!--<TextView-->
+            <!--android:text="返回"-->
+            <!--android:background="@drawable/text_shap"-->
+            <!--android:textColor="@color/text_color"-->
+            <!--android:textSize="30sp"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_width="90dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBottom="@+id/textView_reg_reg"-->
+            <!--android:layout_toLeftOf="@+id/textView_reg_reg"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:id="@+id/textview_reg_back"/>-->
     </RelativeLayout>
 
 </RelativeLayout>
