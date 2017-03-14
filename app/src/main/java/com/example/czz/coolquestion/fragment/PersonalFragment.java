@@ -19,6 +19,7 @@ import com.example.czz.coolquestion.activity.MainActivity;
 import com.example.czz.coolquestion.activity.PersonalInfoActivity;
 import com.example.czz.coolquestion.activity.SetActivity;
 import com.example.czz.coolquestion.activity.CTBActivity;
+import com.example.czz.coolquestion.utils.ACache;
 
 
 /**
@@ -35,6 +36,7 @@ public class PersonalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.personal_fra,null);
         initView();
+        //侧滑按钮
         personal_img= (ImageView) view.findViewById(R.id.personal_img);
         personal_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +51,7 @@ public class PersonalFragment extends Fragment {
         return  view;
     }
     private void initView(){
+        //用户信息块
         name_layout=view.findViewById(R.id.name_layout);
         name_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +68,7 @@ public class PersonalFragment extends Fragment {
 
             }
         });
+        //收藏块
         collect_layout= view.findViewById(R.id.collect_layout);
         collect_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +77,7 @@ public class PersonalFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        //错题块
         errorbook_layout= view.findViewById(R.id.errorbook_layout);
         errorbook_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +86,7 @@ public class PersonalFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        //知识点块
         knowledge_layout= view.findViewById(R.id.knowledges_layout);
         knowledge_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +95,7 @@ public class PersonalFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        //关于块
         about_layout= view.findViewById(R.id.about_layout);
         about_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,12 +104,16 @@ public class PersonalFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        //用户头像
         touxiang_img= (ImageView) view.findViewById(R.id.touxiang_img);
+        //用户昵称
         personal_info_nichen= (TextView) view.findViewById(R.id.personal_info_nichen);
 
     }
     //自定义登录验证方法
     public boolean isLogin(){
+        ACache aCache = ACache.get(getActivity());
+        aCache.getAsObject("user");
         return true;
     }
 }

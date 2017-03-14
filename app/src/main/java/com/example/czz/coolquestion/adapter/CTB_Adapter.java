@@ -56,7 +56,7 @@ public class CTB_Adapter extends BaseAdapter {
             viewHolder= (ViewHolder) convertView.getTag();
         }
 //        viewHolder.question_language_tv.setText(list.get(position).get());
-//        viewHolder.question_title_tv.setText(list.get(position).getQuestion_title());
+  //      viewHolder.question_title_tv.setText(list.get(position).getQuestion_title());
         return convertView;
     }
 
