@@ -30,11 +30,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.bean.Language;
 import com.example.czz.coolquestion.bean.Question;
+import com.example.czz.coolquestion.bean.UserInfo;
 import com.example.czz.coolquestion.url.URLConfig;
+import com.example.czz.coolquestion.utils.ACache;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -183,18 +186,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
 
     //加载答题题目
     private void AddDaTiData() {
-//        question_list.add(new Question("Java", "郝志雄是傻×嘛?", "是!", "就是!", "绝逼是!", "那必须是!", "A", "二逼，这道题你也能错？？？"));
-//        question_list.add(new Question("Java", "赵世祺是男神嘛?", "是!", "就是!", "绝逼是!", "那必须是!", "A", "二逼，这道题你也能错？？？"));
-//        question_list.add(new Question("Java", "编写的第san个Java程序是什么?", "Hello 3World!", "我去年买了3个表啊!", "3你瞅啥，瞅你咋滴!", "3我快抵制不住体内的洪荒之力了啊!", "A", "3这道题你也能错？？？"));
-//        question_list.add(new Question("Java", "编写的第si个Java程序是什么?", "Hello  4 World!", "我去年买了4个表啊!", "4你瞅啥，瞅你咋滴!", "4我快抵制不住体内的洪荒之力了啊!", "A", "4这道题你也能错？？？"));
-//        question_list.add(new Question("Java", "编写的第wu个Java程序是什么?", "Hello  5World!", "我去年买了5个表啊!", "5你瞅啥，瞅你咋滴!", "5我快抵制不住体内的洪荒之力了啊!", "A", "5这道题你也能错？？？"));
-//        question_list.add(new Question("Java", "编写的第liu个Java程序是什么?", "Hello 6 World!", "我去年买了6个表啊!", "6你瞅啥，瞅你咋滴!", "6我快抵制不住体内的洪荒之力了啊!", "A", "6这道题你也能错？？？"));
-//        correct_list.add("A");
-//        correct_list.add("A");
-//        correct_list.add("A");
-//        correct_list.add("A");
-//        correct_list.add("A");
-//        correct_list.add("A");
+
         //将正确答案的集合添加数据
         for (int i = 0;i<question_list.size();i++){
             correct_list.add(question_list.get(i).getAnswer());
@@ -277,7 +269,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
             question_language_tv.setText(tid_bean.getTypeName()+ "专项练习");
             String current_question=Integer.toString(i+1);
             question_num_tv.setText(current_question + "/" + list.size());
-            question_question_title.setText(list.get(i).getQuestionContent());
+            question_question_title.setText("题目:"+list.get(i).getQuestionContent());
             answerA_tv.setText(list.get(i).getAnsA());
             answerB_tv.setText(list.get(i).getAnsB());
             answerC_tv.setText(list.get(i).getAnsC());
@@ -359,7 +351,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                                     builder.setSpan(greencolor,correct_answer_tv_size-1,correct_answer_tv_size, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                                     correct.setText(builder);
                                     description.setVisibility(View.VISIBLE);
-                                    description.setText("解析"+bean_list.get(i).getDeQuestion());
+                                    description.setText("解析:"+bean_list.get(i).getDeQuestion());
                                 }
                             }
                             Intent intent=new Intent(GoQuestionActivity.this,ResultActivity.class);
@@ -387,7 +379,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
             case R.id.act_question_addtoctb:
                 //添加到错题本的方法
                 AddErrorQuestion();
-                Toast.makeText(GoQuestionActivity.this,"添加错题的方法!!!",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(GoQuestionActivity.this,"添加错题的方法!!!",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.act_question_previous://点击上一题触发的方法
                 View child_view_previous=viewFlipper.getChildAt(viewFlipper.getDisplayedChild());
@@ -494,8 +486,33 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
         }else{
             econtent=bean_list.get(viewFlipper.getDisplayedChild()).getQuestionID();
         }
-        //获取用户id
-        uid=0;
+
+        ACache aCache=ACache.get(GoQuestionActivity.this);
+        UserInfo.UserInfoBean userInfo = (UserInfo.UserInfoBean) aCache.getAsObject("user");
+
+        if (userInfo==null){//没有用户登录
+            Intent intent=new Intent(GoQuestionActivity.this,LoginActivity.class);
+            startActivity(intent);
+        }else{
+            uid=userInfo.getUserId();
+
+            StringRequest adderror_req=new StringRequest(URLConfig.ADDERRORQUESTION_URL+"econtent="+econtent+"&eanswer="+select_answer+"&uid="+uid, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Toast.makeText(GoQuestionActivity.this,"添加成功!!",Toast.LENGTH_SHORT).show();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(GoQuestionActivity.this,"添加失败!!",Toast.LENGTH_SHORT).show();
+                }
+            });
+            queue.add(adderror_req);
+            queue.start();
+        }
+
+
+
     }
 
 
