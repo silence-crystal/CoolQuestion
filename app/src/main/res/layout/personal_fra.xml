@@ -47,10 +47,10 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
-        <ImageView
+        <com.example.czz.coolquestion.view.ImageViewShape
             android:layout_width="65dp"
             android:layout_height="65dp"
-            app:srcCompat="@mipmap/touxiang"
+            android:src="@mipmap/head"
             android:id="@+id/touxiang_img"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
@@ -191,6 +191,7 @@
             android:id="@+id/knowledge_img" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -229,6 +230,26 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:id="@+id/about_img" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/white"
+        android:id="@+id/logout_layout">
+
+        <TextView
+            android:text="退出登录"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/red"
+            android:id="@+id/logout_tv" />
 
     </RelativeLayout>
 

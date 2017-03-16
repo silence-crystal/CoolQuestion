@@ -33,6 +33,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.bean.ChangeHeadImgRes;
+import com.example.czz.coolquestion.bean.UserInfo;
+import com.example.czz.coolquestion.url.URLConfig;
+import com.example.czz.coolquestion.utils.ACache;
+import com.example.czz.coolquestion.view.ImageViewShape;
 import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -41,6 +45,8 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -51,7 +57,7 @@ import java.util.Date;
  */
 
 public class PersonalInfoActivity extends AppCompatActivity implements View.OnClickListener{
-    private ImageView personal_info_hand_img, personal_info_name_img;
+    private ImageView personal_info_hand_img;
     private View useraccount_layout;
     private View username_layout;
     private View userqq_layout;
@@ -65,46 +71,41 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
     private View view;
     private PopupWindow pw;
     private RequestQueue queue;
+    private ACache aCache;
+    private UserInfo.UserInfoBean user;
+    private TextView useraccount_tv;
+    private ImageLoader imageLoader;
+    private DisplayImageOptions options;
+    private ImageViewShape personal_info_name_img;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_info);
+        aCache = ACache.get(this);
+        imageLoader = ImageLoader.getInstance();
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.head)
+                .showImageOnFail(R.mipmap.head)
+                .build();
+        queue= Volley.newRequestQueue(getApplicationContext());
         InitView();
         InitListener();
-        queue= Volley.newRequestQueue(getApplicationContext());
         httputils = new HttpUtils();
-        username_tv.setText("name");
-        userqq_tv.setText("222222222");
-        userphone_tv.setText("222222");
-        useraddress_tv.setText("的步伐加快");
+
+
     }
 
     //个人信息回传值方法
     private void infofuzhi() {
         Intent intent = new Intent(PersonalInfoActivity.this, UpdateActivity.class);
-        String name_string = username_tv.getText().toString().trim();
-        intent.putExtra("name", name_string);
-        String qq_string = userqq_tv.getText().toString().trim();
-        intent.putExtra("qq", qq_string);
-        String phone_string = userphone_tv.getText().toString().trim();
-        intent.putExtra("phone", phone_string);
-        String address_string = useraddress_tv.getText().toString().trim();
-        intent.putExtra("address", address_string);
-        startActivityForResult(intent, 2);
+        startActivity(intent);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2 && resultCode == RESULT_OK) {
-            username_tv.setText(data.getStringExtra("srt_name"));
-            userqq_tv.setText(data.getStringExtra("srt_qq"));
-            userphone_tv.setText(data.getStringExtra("srt_phone"));
-            useraddress_tv.setText(data.getStringExtra("srt_address"));
-        }
-
         String path = "";
         if (requestCode == 0) {
             path = fileUri.getPath(); //取得拍照存储的地址
@@ -118,12 +119,13 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
         Log.i("this", path + "-----");
         File f = new File(path);
         Bitmap map = BitmapFactory.decodeFile(f.getPath());
-        personal_info_name_img.setImageBitmap(map);
+//        personal_info_name_img.setImageBitmap(map);
 
-        String uploadHost = "http://130.0.1.251:8080/CoolTopic/UpdateHeadImg";
+        String uploadHost = "http://130.0.0.227:8080/CoolTopic/UpdateHeadImg";
 
         RequestParams params = new RequestParams();
         params.addBodyParameter("photo",f);
+        params.addBodyParameter("uid",user.getUserId()+"");
         httputils.send(HttpMethod.POST, uploadHost, params, new RequestCallBack<String>() {
             @Override
             public void onStart() {
@@ -141,7 +143,29 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Gson gson = new Gson();
                 ChangeHeadImgRes res = gson.fromJson(responseInfo.result, ChangeHeadImgRes.class);
-                res.getImgurl();
+                if (res.getResult().equals("success")){
+                    String imgPath = res.getImgurl();
+                    imageLoader.displayImage(URLConfig.MAIN_URL+imgPath,personal_info_name_img,options);
+                    user = getCurrentUser();
+                    user.setUserImg(imgPath);
+//                //更新服务器用户数据或者在更换头像时更换数据
+//                StringRequest updateImg = new StringRequest("", new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//
+//                    }
+//                }, new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//
+//                    }
+//                });
+//                queue.add(updateImg);
+//                queue.start();
+                    Toast.makeText(PersonalInfoActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(PersonalInfoActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
@@ -192,25 +216,59 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
         return mediaFile;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        user = getCurrentUser();
+        useraccount_tv.setText(user.getUserAccount());
+        //昵称
+        if (user.getUserName().length()==0){
+            username_tv.setText("请先完善信息");
+        }else {
+            username_tv.setText(user.getUserName());
+        }
+        //qq
+        if (user.getUserQQ().length()==0){
+            userqq_tv.setText("请先完善信息");
+        }else {
+            userqq_tv.setText(user.getUserQQ());
+        }
+        //电话
+        if (user.getUserPhone().length()==0){
+            userphone_tv.setText("请先完善信息");
+        }else {
+            userphone_tv.setText(user.getUserPhone());
+        }
+        //地址
+        if (user.getUserAddress().length()==0){
+            useraddress_tv.setText("请先完善信息");
+        }else {
+            useraddress_tv.setText(user.getUserAddress());
+        }
+    }
+
     //各种控件
     public void InitView(){
         username_tv = (TextView) findViewById(R.id.username_tv);
         userqq_tv = (TextView) findViewById(R.id.userqq_tv);
         userphone_tv = (TextView) findViewById(R.id.userphone_tv);
         useraddress_tv = (TextView) findViewById(R.id.useraddress_tv);
-        personal_info_name_img = (ImageView) findViewById(R.id.personal_info_name_img);
+        personal_info_name_img = (ImageViewShape) findViewById(R.id.personal_info_name_img);
         personal_info_hand_img = (ImageView) findViewById(R.id.personal_info_hand_img);
         useraccount_layout = findViewById(R.id.useraccount_layout);
         username_layout = findViewById(R.id.username_layout);
         userqq_layout = findViewById(R.id.userqq_layout);
         userphone_layout = findViewById(R.id.userphone_layout);
         useraddress_layout = findViewById(R.id.useraddress_layout);
+        useraccount_tv = (TextView) findViewById(R.id.useraccount_tv);
 
         view = getLayoutInflater().inflate(R.layout.touxiangpopupwindow, null);
         personal_info_name_layout = findViewById(R.id.personal_info_name_layout);
         tuku_btn = (Button) view.findViewById(R.id.tuku_btn);
         paizhao_btn = (Button) view.findViewById(R.id.paizhao_btn);
         quxiao_btn = (Button) view.findViewById(R.id.quxiao_btn);
+
+        imageLoader.displayImage(URLConfig.MAIN_URL+getCurrentUser().getUserImg(),personal_info_name_img,options);
     }
     //监听事件
     public void InitListener(){
@@ -232,17 +290,9 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
                 finish();
                 break;
             case R.id.useraccount_layout://用户账户跳转修改
-                infofuzhi();
-                break;
             case R.id.username_layout://用户昵称跳转修改
-                infofuzhi();
-                break;
             case R.id.userqq_layout://用户QQ跳转修改
-                infofuzhi();
-                break;
             case R.id.userphone_layout://用户电话跳转修改
-                infofuzhi();
-                break;
             case R.id.useraddress_layout://用户地址跳转修改
                 infofuzhi();
                 break;
@@ -271,5 +321,9 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
             default:
                 break;
         }
+    }
+
+    private UserInfo.UserInfoBean getCurrentUser(){
+        return (UserInfo.UserInfoBean) aCache.getAsObject("user");
     }
 }

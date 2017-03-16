@@ -42,33 +42,33 @@ import java.util.List;
  * 知识点问题清单
  */
 
-public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickListener,PullToRefreshBase.OnRefreshListener2{
+public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickListener, PullToRefreshBase.OnRefreshListener2 {
     private View view;
     private MyListView lv_knowVp;
     private PullToRefreshScrollView scrollView;
     private int position;
-    private List<Know.KnowledgeListBean> list=new ArrayList<Know.KnowledgeListBean>();
-    private int currentIndex=1;
+    private List<Know.KnowledgeListBean> list = new ArrayList<Know.KnowledgeListBean>();
     private KnowAdapter adapter;
     private RequestQueue queue;
-    private  Know know=null;
+    private Know know = null;
+    private int currentPage=1;
     //Java语言
     private final String Java = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=1&page=1&size=10";
     //C语言
-    private final String C = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=2&page=1&size=4";
+    private final String C = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=2&page=1&size=10";
     //C++语言
-    private final String Cadd = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=3&page=1&size=4";
+    private final String Cadd = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=3&page=1&size=10";
     //Android语言
-    private final String Android = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=4&page=1&size=4";
+    private final String Android = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=4&page=1&size=10";
     //Object-C语言
-    private final String Objectc = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=5&page=1&size=4";
+    private final String Objectc = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=5&page=1&size=10";
     //PHP语言
-    private final String PHP = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=6&page=1&size=4";
+    private final String PHP = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=6&page=1&size=10";
 
-    private Handler handler=new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(android.os.Message msg) {
-            if (msg.what==0){
+            if (msg.what == 0) {
                 adapter.notifyDataSetChanged();
                 scrollView.onRefreshComplete();
             }
@@ -78,28 +78,29 @@ public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickL
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.knowvp_far,null);
-        queue= Volley.newRequestQueue(getActivity());
+        view = inflater.inflate(R.layout.knowvp_far, null);
+        queue = Volley.newRequestQueue(getActivity());
         initRefresh();
         initListView();
         initData();
 
         return view;
     }
+
     //根据判断获取不同数据
     private void initData() {
-        position= FragmentPagerItem.getPosition(getArguments());
-        if (position==0){
+        position = FragmentPagerItem.getPosition(getArguments());
+        if (position == 0) {
             initListData(Java);
-        }else if (position==1){
+        } else if (position == 1) {
             initListData(C);
-        }else if (position==2){
+        } else if (position == 2) {
             initListData(Cadd);
-        }else if (position==3){
+        } else if (position == 3) {
             initListData(Android);
-        }else if (position==4){
+        } else if (position == 4) {
             initListData(Objectc);
-        }else if (position==5){
+        } else if (position == 5) {
             initListData(PHP);
         }
     }
@@ -107,7 +108,7 @@ public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickL
 
     //初始化刷新
     private void initRefresh() {
-        scrollView= (PullToRefreshScrollView) view.findViewById(R.id.know_la);
+        scrollView = (PullToRefreshScrollView) view.findViewById(R.id.know_la);
         scrollView.setMode(PullToRefreshBase.Mode.BOTH);
         scrollView.setOnRefreshListener(this);
     }
@@ -115,40 +116,33 @@ public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickL
 
     //获取listView数据
     private void initListData(String url) {
-
-    JsonObjectRequest request=new JsonObjectRequest(url,
-            null, new Response.Listener<JSONObject>() {
-    @Override
-    public void onResponse(JSONObject response) {
-        String info=response.toString();
-                Log.i("4324234242343242",info);
-                Gson gson=new Gson();
-                Know know=gson.fromJson(info,Know.class);
-                list=know.getKnowledgeList();
-                for (int i=0;i<list.size();i++){
-                    Log.i("================",list.get(i).getKnowledgetitle());
-                }
+        JsonObjectRequest request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                String info = response.toString();
+                Gson gson = new Gson();
+                Know know = gson.fromJson(info, Know.class);
+                list = know.getKnowledgeList();
                 adapter.setList(list);
                 adapter.notifyDataSetChanged();
-                currentIndex = 1;
-                if (scrollView.isRefreshing()){
+                if (scrollView.isRefreshing()) {
                     scrollView.onRefreshComplete();
                 }
-        }
-    }, new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            Toast.makeText(getActivity(),"请求数据失败",Toast.LENGTH_SHORT).show();
-        }
-    });
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "请求数据失败", Toast.LENGTH_SHORT).show();
+            }
+        });
         queue.add(request);
         queue.start();
     }
 
     //初始化listView
     private void initListView() {
-        lv_knowVp=(MyListView) view.findViewById(R.id.lv_knowVp);
-        adapter=new KnowAdapter(getActivity());
+        lv_knowVp = (MyListView) view.findViewById(R.id.lv_knowVp);
+        adapter = new KnowAdapter(getActivity());
         lv_knowVp.setAdapter(adapter);
         lv_knowVp.setOnItemClickListener(this);
     }
@@ -156,19 +150,56 @@ public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickL
     //下拉
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+        currentPage=1;
         initData();
-
+        Toast.makeText(getActivity(),"lalala",Toast.LENGTH_SHORT).show();
     }
+
     //上拉
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-        initData();
+        String currentUrl = null;
+        currentPage+=1;
+        if (position == 0) {
+            currentUrl = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=1&size=10&page=";
+        } else if (position == 1) {
+            currentUrl = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=2&size=10&page=";
+        } else if (position == 2) {
+            currentUrl = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=3&size=10&page=";
+        } else if (position == 3) {
+            currentUrl = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=4&size=10&page=";
+        } else if (position == 4) {
+            currentUrl = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=5&size=10&page=";
+        } else if (position == 5) {
+            currentUrl = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=6&size=10&page=";
+        }
+        JsonObjectRequest jor = new JsonObjectRequest(currentUrl+currentPage, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                String info = response.toString();
+                Gson gson = new Gson();
+                Know know = gson.fromJson(info, Know.class);
+                List<Know.KnowledgeListBean> ll = know.getKnowledgeList();
+                adapter.addDataToFooter(ll);
+                adapter.notifyDataSetChanged();
+                scrollView.onRefreshComplete();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "请求数据失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+        queue.add(jor);
+        queue.start();
+//        initData();
     }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), KnowDetailsActivity.class);
-        Know.KnowledgeListBean k= (Know.KnowledgeListBean) adapter.getItem(position);
-        intent.putExtra("content",k);
+        Know.KnowledgeListBean k = (Know.KnowledgeListBean) adapter.getItem(position);
+        intent.putExtra("content", k);
         startActivity(intent);
     }
 

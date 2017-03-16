@@ -57,10 +57,9 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
-        <ImageView
+        <com.example.czz.coolquestion.view.ImageViewShape
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:background="@mipmap/touxiang"
             android:id="@+id/personal_info_name_img"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/imageView6"

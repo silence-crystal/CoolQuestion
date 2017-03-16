@@ -61,7 +61,6 @@
             android:id="@+id/textView16" />
 
         <TextView
-            android:text="公司包括室内放你那"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
@@ -93,7 +92,6 @@
             android:layout_height="50dp"
             android:inputType="textPersonName"
             android:ems="10"
-            android:text="dddfdfdf"
             android:background="@null"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -120,7 +118,6 @@
             android:layout_height="50dp"
             android:inputType="number"
             android:ems="10"
-            android:text="2123123"
             android:background="@null"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -147,7 +144,6 @@
             android:layout_height="50dp"
             android:inputType="phone"
             android:ems="10"
-            android:text="18404968615"
             android:background="@null"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -174,7 +170,6 @@
             android:layout_height="50dp"
             android:inputType="textPersonName"
             android:ems="10"
-            android:text="点击放大看等等"
             android:background="@null"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
