@@ -1,12 +1,15 @@
 package com.example.czz.coolquestion.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
  * Created by Administrator on 2017/3/1.
  */
 
-public class ProgrammerNews implements Serializable{
+public class ProgrammerNews  implements Serializable{
 
     private int newsId;
     private String newsTitle;//标题
@@ -93,4 +96,7 @@ public class ProgrammerNews implements Serializable{
 
     public ProgrammerNews() {
     }
+
+
+
 }
