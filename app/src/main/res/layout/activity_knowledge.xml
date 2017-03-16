@@ -26,15 +26,6 @@
                 android:id="@+id/textView2" />
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@mipmap/ic_launcher"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:id="@+id/imageView1_left_knowledge_right" />
-
-            <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@mipmap/fanhui"
