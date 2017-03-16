@@ -1,6 +1,8 @@
 package com.example.czz.coolquestion.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -22,18 +24,25 @@ import com.example.czz.coolquestion.adapter.ProgrammerColAdapter;
 import com.example.czz.coolquestion.bean.Programmer;
 import com.example.czz.coolquestion.bean.ProgrammerNews;
 import com.example.czz.coolquestion.bean.ProgrammerNewsCol;
+import com.example.czz.coolquestion.bean.UserInfo;
+import com.example.czz.coolquestion.utils.ACache;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 //收藏界面
 public class CollectionActivity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemClickListener{
 
-    private ImageView iv_back;
+    private ImageView iv_back,iv_share;
     private ListView lv;
     private ProgrammerColAdapter adapter;
     private List<ProgrammerNewsCol.NewsCollectListBean> list=new ArrayList<ProgrammerNewsCol.NewsCollectListBean>();
@@ -50,6 +59,7 @@ public class CollectionActivity extends AppCompatActivity implements View.OnClic
 
     //各种控件
     public void InitView(){
+        iv_share= (ImageView) findViewById(R.id.imageView1_left_col_right);
         iv_back= (ImageView) findViewById(R.id.imageView2_left_col_back);
         lv= (ListView) findViewById(R.id.listview_news_col);
         adapter=new ProgrammerColAdapter(CollectionActivity.this);
@@ -62,6 +72,7 @@ public class CollectionActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    //长按删除
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -121,7 +132,9 @@ public class CollectionActivity extends AppCompatActivity implements View.OnClic
 
     //收藏查询
     public void InitCol(){
-        JsonObjectRequest jor=new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetNewsCollectByUid?uid=1&page=1&size=100",null,new Response.Listener<JSONObject>(){
+        ACache aCache=ACache.get(CollectionActivity.this);
+        UserInfo.UserInfoBean userInfoBean= (UserInfo.UserInfoBean) aCache.getAsObject("user");
+        JsonObjectRequest jor=new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetNewsCollectByUid?page=1&size=100&uid="+userInfoBean.getUserId(),null,new Response.Listener<JSONObject>(){
 
             @Override
             public void onResponse(JSONObject response) {
@@ -153,6 +166,7 @@ public class CollectionActivity extends AppCompatActivity implements View.OnClic
     //监听事件
     public void InitListener(){
         iv_back.setOnClickListener(this);
+        iv_share.setOnClickListener(this);
     }
 
 
@@ -162,6 +176,32 @@ public class CollectionActivity extends AppCompatActivity implements View.OnClic
         switch (view.getId()){
             case R.id.imageView2_left_col_back:
                 finish();
+                break;
+            case R.id.imageView1_left_col_right:
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.US);
+                String fname = "/sdcard/" + sdf.format(new Date()) + ".png";
+                View v = view.getRootView();
+                v.setDrawingCacheEnabled(true);
+                v.buildDrawingCache();
+                Bitmap bitmap = v.getDrawingCache();
+                if (bitmap != null) {
+                    System.out.println("bitmapgot!");
+                    try {
+                        FileOutputStream out = new FileOutputStream(fname);
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                        Uri imageUri = Uri.fromFile(new File(fname));
+                        Intent shareIntent = new Intent();
+                        shareIntent.setAction(Intent.ACTION_SEND);
+                        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                        shareIntent.setType("image/*");
+                        startActivity(Intent.createChooser(shareIntent, "分享到"));
+                        System.out.println("file" + fname + "所得图片");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("bitmap is NULL!");
+                }
                 break;
             default:
                 break;

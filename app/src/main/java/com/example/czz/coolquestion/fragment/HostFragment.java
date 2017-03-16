@@ -3,6 +3,7 @@ package com.example.czz.coolquestion.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
@@ -37,6 +38,7 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONException;
@@ -56,6 +58,8 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     private ProgrammerAdapter adapter;
     private ImageView iv_search,iv_sm;
     private RequestQueue rq;
+    private  List<ProgrammerNews> ll;
+    private  int curpage=1;
 
 
     // 图片资源id
@@ -106,6 +110,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
         //科技资讯
         //lv= (ListView) view.findViewById(R.id.hp_listview);
         lv= (ListView) view.findViewById(R.id.hp_listview);
+        ll=new ArrayList<ProgrammerNews>();
         adapter=new ProgrammerAdapter(getActivity());
 
         rq= Volley.newRequestQueue(getActivity());
@@ -117,15 +122,22 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
         lv.setFocusable(false);
         AddData();
 
-//        //搜索
-//        iv_search= (ImageView) view.findViewById(R.id.imageView_hp_right_top);
-//        iv_search.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent=new Intent(getActivity(), SearchActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        //搜索
+        iv_search= (ImageView) view.findViewById(R.id.imageView_hp_right_top);
+        iv_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (ll.size()==0){
+                    Toast.makeText(getActivity(),"当前没有新闻数据!!",Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent=new Intent(getActivity(), SearchActivity.class);
+                    intent.putExtra("news_list",(Serializable) ll);
+                    startActivity(intent);
+                }
+
+            }
+        });
 
 
         //进入侧滑界面
@@ -246,21 +258,11 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
                 String info=jsonObject.toString();
                 Gson gson=new Gson();
                 Programmer p=gson.fromJson(info,Programmer.class);
-                List<ProgrammerNews> ll=p.getNews();
+                ll=p.getNews();
                 adapter.setList(ll);
                 adapter.notifyDataSetChanged();
 
-//                for (ProgrammerNews news:ll
-//                     ) {
-//                    Log.i("55555555555",news.getNewsTitle()+"");
-//                }
 
-
-//                try {
-//                    Toast.makeText(getActivity(),jsonObject.getString("news"),Toast.LENGTH_LONG).show();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
 
             }
         }, new Response.ErrorListener() {
@@ -314,7 +316,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
 
 
 
-        List<ProgrammerNews> list=adapter.getList();
+        /*List<ProgrammerNews> list=adapter.getList();
         if (list.size()!=0&&list!=null){
 
             int currentid=adapter.getList().get(0).getNewsId()+1;
@@ -341,7 +343,45 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
             rq.add(jor);
             rq.start();
 
-        }
+        }*/
+
+
+        JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?page=1&size=10", null, new Response.Listener<JSONObject>(){
+
+
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+
+
+                String info=jsonObject.toString();
+                Gson gson=new Gson();
+                Programmer p=gson.fromJson(info,Programmer.class);
+                ll=p.getNews();
+                adapter.setList(ll);
+                adapter.notifyDataSetChanged();
+
+//                for (ProgrammerNews news:ll
+//                     ) {
+//                    Log.i("55555555555",news.getNewsTitle()+"");
+//                }
+
+
+//                try {
+//                    Toast.makeText(getActivity(),jsonObject.getString("news"),Toast.LENGTH_LONG).show();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(getActivity(),"请求失败！",Toast.LENGTH_LONG).show();
+            }
+        });
+        rq.add(jor);
+        rq.start();
+
     }
 
     //上拉
@@ -363,9 +403,8 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
 //            }
 //        }).start();
 
-
-        int currentid=adapter.getList().get(adapter.getList().size()-1).getNewsId();
-        JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?page=1&size=1"+"&newsId="+currentid, null, new Response.Listener<JSONObject>(){
+        curpage+=1;
+        JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?size=10&page="+curpage, null, new Response.Listener<JSONObject>(){
 
             @Override
             public void onResponse(JSONObject jsonObject) {

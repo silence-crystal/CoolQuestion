@@ -8,8 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.czz.coolquestion.R;
+import com.example.czz.coolquestion.bean.ErrorQuestion;
 import com.example.czz.coolquestion.bean.Question;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,13 +20,13 @@ import java.util.List;
 
 public class CTB_Adapter extends BaseAdapter {
     private Context context;
-    private List<Question.QuestionListBean> list;//用来存放集错题的集合
+    private List<ErrorQuestion.ErrorQuestionlistBean> list=new ArrayList<ErrorQuestion.ErrorQuestionlistBean>();//用来存放集错题的集合
 
     public CTB_Adapter(Context context) {
         this.context = context;
     }
 
-    public void setList(List<Question.QuestionListBean> list) {
+    public void setList(List<ErrorQuestion.ErrorQuestionlistBean> list) {
         this.list = list;
     }
 
@@ -55,8 +57,8 @@ public class CTB_Adapter extends BaseAdapter {
         }else{
             viewHolder= (ViewHolder) convertView.getTag();
         }
-//        viewHolder.question_language_tv.setText(list.get(position).get());
-  //      viewHolder.question_title_tv.setText(list.get(position).getQuestion_title());
+        viewHolder.question_language_tv.setText("专项练习:"+list.get(position).getEContent().getTid());
+        viewHolder.question_title_tv.setText("题目："+list.get(position).getEContent().getQuestionContent());
         return convertView;
     }
 

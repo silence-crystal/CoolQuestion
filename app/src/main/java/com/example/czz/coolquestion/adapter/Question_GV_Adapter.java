@@ -69,7 +69,7 @@ public class Question_GV_Adapter extends BaseAdapter {
         }
 
         if (list.get(position).isLanguage_select()==true){
-            viewHolder.language_relativeLayout.setBackgroundColor(Color.rgb(248,248,248));
+            viewHolder.language_relativeLayout.setBackgroundColor(Color.rgb(220,220,220));
             //viewHolder.language_relativeLayout.setBackgroundColor(Color.BLUE);
         }else{
             viewHolder.language_relativeLayout.setBackgroundColor(Color.rgb(255,255,255));

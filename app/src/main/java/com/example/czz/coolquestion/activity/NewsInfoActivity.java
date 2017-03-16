@@ -1,5 +1,8 @@
 package com.example.czz.coolquestion.activity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,10 +24,18 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.bean.ProgrammerNews;
+import com.example.czz.coolquestion.bean.UserInfo;
 import com.example.czz.coolquestion.url.URLConfig;
+import com.example.czz.coolquestion.utils.ACache;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class NewsInfoActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -135,29 +146,60 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.imageView_newsinfo_col://收藏
-                JsonObjectRequest jor=new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/AddNewsCollect?newsid="+idd+"&userid=1",null,new Response.Listener<JSONObject>(){
+                ACache aCache=ACache.get(NewsInfoActivity.this);
+                UserInfo.UserInfoBean userInfo= (UserInfo.UserInfoBean) aCache.getAsObject("user");
+                if (userInfo!=null){
+                    JsonObjectRequest jor=new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/AddNewsCollect?newsid="+idd+"&userid="+userInfo.getUserId(),null,new Response.Listener<JSONObject>(){
 
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            Toast.makeText(NewsInfoActivity.this,response.getString("reason"),Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Toast.makeText(NewsInfoActivity.this,response.getString("reason"),Toast.LENGTH_LONG).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                },new Response.ErrorListener(){
+                    },new Response.ErrorListener(){
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(NewsInfoActivity.this,error.getCause().toString(),Toast.LENGTH_LONG).show();
-                    }
-                });
-                rq.add(jor);
-                rq.start();
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(NewsInfoActivity.this,error.getCause().toString(),Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    rq.add(jor);
+                    rq.start();
+                }else{
+                    Intent intent=new Intent(NewsInfoActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                }
+
 
                 break;
             case R.id.imageView_newsinfo_right://分享
-                finish();
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.US);
+                String fname = "/sdcard/" + sdf.format(new Date()) + ".png";
+                View v = view.getRootView();
+                v.setDrawingCacheEnabled(true);
+                v.buildDrawingCache();
+                Bitmap bitmap = v.getDrawingCache();
+                if (bitmap != null) {
+                    System.out.println("bitmapgot!");
+                    try {
+                        FileOutputStream out = new FileOutputStream(fname);
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                        Uri imageUri = Uri.fromFile(new File(fname));
+                        Intent shareIntent = new Intent();
+                        shareIntent.setAction(Intent.ACTION_SEND);
+                        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                        shareIntent.setType("image/*");
+                        startActivity(Intent.createChooser(shareIntent, "分享到"));
+                        System.out.println("file" + fname + "所得图片");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("bitmap is NULL!");
+                }
                 break;
             default:
                 break;

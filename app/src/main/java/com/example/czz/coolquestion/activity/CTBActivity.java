@@ -13,13 +13,23 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.adapter.CTB_Adapter;
+import com.example.czz.coolquestion.bean.ErrorQuestion;
 import com.example.czz.coolquestion.bean.Question;
+import com.example.czz.coolquestion.bean.UserInfo;
+import com.example.czz.coolquestion.url.URLConfig;
+import com.example.czz.coolquestion.utils.ACache;
+import com.google.gson.Gson;
 
 import java.nio.channels.NonWritableChannelException;
 import java.util.ArrayList;
@@ -32,7 +42,8 @@ public class CTBActivity extends AppCompatActivity implements View.OnClickListen
     private SwipeMenuCreator creator;//滑动菜单创建器
     private SwipeMenuListView smListView;//滑动菜单
     private CTB_Adapter ctb_adapter;//显示错题本的适配器
-    private List<Question.QuestionListBean> ctb_question_list;//存放错题的集合
+    private RequestQueue queue;//用来请求网络数据
+    private List<ErrorQuestion.ErrorQuestionlistBean> ctb_question_list;//存放错题的集合
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +52,14 @@ public class CTBActivity extends AppCompatActivity implements View.OnClickListen
 
         InitView();
         InitListener();
+
     }
 
     //各种控件
     public void InitView(){
         iv_back= (ImageView) findViewById(R.id.imageView2_left_topic_back);
-        ctb_question_list=new ArrayList<Question.QuestionListBean>();
+        queue= Volley.newRequestQueue(CTBActivity.this);
+        ctb_question_list=new ArrayList<ErrorQuestion.ErrorQuestionlistBean>();
         creator = new SwipeMenuCreator() {
             @Override
             public void create(SwipeMenu menu) {
@@ -71,15 +84,41 @@ public class CTBActivity extends AppCompatActivity implements View.OnClickListen
         ctb_adapter=new CTB_Adapter(CTBActivity.this);
         //给适配器添加数据的方法
         AddData();
-        ctb_adapter.setList(ctb_question_list);
         smListView.setAdapter(ctb_adapter);
+
 
     }
 
     private void AddData() {
-        for (int i=0;i<14;i++){
-            Question.QuestionListBean question_bean=new Question.QuestionListBean("A","A","A","A","A","这你也能错","开发的第一个Java程序",2,1);
-            ctb_question_list.add(question_bean);
+        ACache aCache=ACache.get(CTBActivity.this);
+        UserInfo.UserInfoBean userInfo= (UserInfo.UserInfoBean) aCache.getAsObject("user");
+        if (userInfo!=null){
+            StringRequest sr=new StringRequest(URLConfig.ERRORQUESTION_URL + "userid="+userInfo.getUserId(), new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    String info=response.toString();
+                    Gson gson=new Gson();
+                    ErrorQuestion errorQuestion = gson.fromJson(info,ErrorQuestion.class);
+                    ctb_question_list=errorQuestion.getErrorQuestionlist();
+                    Toast.makeText(CTBActivity.this,"查询错题列表成功!",Toast.LENGTH_SHORT).show();
+                    Log.i("dadadsadasd",ctb_question_list.size()+"");
+                    if (ctb_question_list.size()==0){
+                    Toast.makeText(CTBActivity.this,"当前用户没有添加过错题!!",Toast.LENGTH_SHORT).show();
+                    }
+                    ctb_adapter.setList(ctb_question_list);
+                    ctb_adapter.notifyDataSetChanged();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(CTBActivity.this,"查询错题列表失败!",Toast.LENGTH_SHORT).show();
+                }
+            });
+            queue.add(sr);
+            queue.start();
+        }else{
+            Intent intent=new Intent(CTBActivity.this,LoginActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -90,7 +129,7 @@ public class CTBActivity extends AppCompatActivity implements View.OnClickListen
         //SwipeMenuListView点击子Item触发的事件
         smListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+            public boolean onMenuItemClick(final int position, SwipeMenu menu, int index) {
                 //index就是在creator中一次添加的子item,类似数组的下标
                 switch (index){
 //                    case 0:
@@ -99,7 +138,28 @@ public class CTBActivity extends AppCompatActivity implements View.OnClickListen
 //                        startActivity(intent);
 //                        break;
                     case 0:
+                    {
                         Toast.makeText(CTBActivity.this,"点击删除按钮!!!",Toast.LENGTH_SHORT).show();
+                        //获取错题id
+                        int eid=ctb_question_list.get(position).getEid();
+                        StringRequest stringRequest=new StringRequest(URLConfig.DELETEERRORQUESTION_URL+"eid="+eid, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Toast.makeText(CTBActivity.this,"删除成功!!!",Toast.LENGTH_SHORT).show();
+                                ctb_question_list.remove(position);
+                                ctb_adapter.setList(ctb_question_list);
+                                ctb_adapter.notifyDataSetChanged();
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(CTBActivity.this,"删除失败!!!",Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                        queue.add(stringRequest);
+                        queue.start();
+                    }
                         break;
                 }
 
@@ -123,6 +183,7 @@ public class CTBActivity extends AppCompatActivity implements View.OnClickListen
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(CTBActivity.this,"点击详情按钮!!!",Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(CTBActivity.this,QuestionDetailActivity.class);
+                intent.putExtra("errorquestion",ctb_question_list.get(position));
                 startActivity(intent);
             }
         });
