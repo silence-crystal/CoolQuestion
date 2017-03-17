@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#4f5565">
+        android:background="@color/daohang2">
 
         <ImageView
             android:layout_width="30dp"
@@ -36,12 +36,14 @@
         android:layout_height="wrap_content"
         android:textSize="35dp"
         android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
         android:textColor="#000000"
         android:id="@+id/textView7" />
 
     <TextView
         android:text="郑重声明：未经授权禁止转载、摘编、复制或建立镜像.如有违反，追究法律责任."
-
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:textSize="20dp"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
@@ -51,6 +53,8 @@
     <TextView
         android:text="欢迎大家访问我们的网站www.baidu.com 为我们网站建设的更好提出您宝贵的意见！"
         android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,6 +64,8 @@
         android:text="电话：0432-6551334 – 6551339 欢迎批评指正。"
         android:gravity="center"
         android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

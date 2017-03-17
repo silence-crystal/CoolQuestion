@@ -12,10 +12,15 @@ import android.widget.TextView;
 
 
 import com.example.czz.coolquestion.R;
+import com.example.czz.coolquestion.bean.UserInfo;
 import com.example.czz.coolquestion.fragment.HostFragment;
 import com.example.czz.coolquestion.fragment.KnowledgeFragment;
 import com.example.czz.coolquestion.fragment.PersonalFragment;
 import com.example.czz.coolquestion.fragment.QuestionFragment;
+import com.example.czz.coolquestion.url.URLConfig;
+import com.example.czz.coolquestion.utils.ACache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.slidingmenu.lib.SlidingMenu;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,13 +32,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Fragment host,knowledge,question,personal,current;
     private TextView tv_topic,tv_study,tv_col;
     private ImageView iv_head;
+    private ACache aCache;
+    private TextView tv_username;
+    private UserInfo.UserInfoBean user;
+    private ImageLoader imageLoader;
+    private DisplayImageOptions options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        imageLoader = imageLoader.getInstance();
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.head)
+                .showImageOnFail(R.mipmap.head)
+                .build();
 
+        aCache = ACache.get(this);
 
 
         InitView();
@@ -96,13 +112,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        question=new QuestionFragment();
 //        personal=new PersonalFragment();
 
+        tv_username = (TextView) view.findViewById(R.id.textView_left_head);
+
         //头像
         iv_head= (ImageView) view.findViewById(R.id.imageView_left_head);
         iv_head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
+                if (isLogin()){
+                    Intent intent = new Intent(MainActivity.this,PersonalInfoActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -112,8 +136,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_topic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this, CTBActivity.class);
-                startActivity(intent);
+                if (isLogin()){
+                    Intent intent=new Intent(MainActivity.this, CTBActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         //知识点
@@ -121,8 +150,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_study.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this, KnowledgeActivity.class);
-                startActivity(intent);
+                if (isLogin()){
+                    Intent intent=new Intent(MainActivity.this, KnowledgeActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         //收藏
@@ -130,18 +164,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_col.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this, CollectionActivity.class);
-                startActivity(intent);
+                if (isLogin()){
+                    Intent intent=new Intent(MainActivity.this, CollectionActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
-
-
-
-
     }
 
+    public void changeView() {
+        if (aCache.getAsObject("user")==null){
+            tv_username.setText("请先登录");
+            iv_head.setImageResource(R.mipmap.head);
+        }else {
+            user = (UserInfo.UserInfoBean) aCache.getAsObject("user");
+            imageLoader.displayImage(URLConfig.MAIN_URL+user.getUserImg(),iv_head,options);
+            if (user.getUserName().length()==0){
+                tv_username.setText("还没有设置昵称哦");
+            }else {
+                tv_username.setText(user.getUserName());
+            }
+        }
+    }
+    //判断登录状态的方法
+    private boolean isLogin(){
+        if (aCache.getAsObject("user")==null){
+            return false;
+        }else{
+            return true;
+        }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        changeView();
 
+    }
 
     //底部标签栏重置的方法
     public void InitTabColor(){
@@ -223,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (!fragment.isAdded()){//如果当前的fragment没有被添加到Fragmeent管理类中，就添加
             transaction.hide(current);
-            transaction.add(R.id.content_layout,fragment).show(fragment).commit();
+            transaction.add(R.id.content_layout,fragment,fragment.getClass().getName()).show(fragment).commit();
         }
         else
         {

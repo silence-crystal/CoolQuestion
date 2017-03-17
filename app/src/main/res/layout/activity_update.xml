@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#4f5565">
+        android:background="@color/daohang2">
 
         <ImageView
             android:layout_width="30dp"
@@ -35,7 +35,6 @@
             android:layout_height="wrap_content"
             android:textSize="25dp"
             android:textColor="@color/white"
-            android:background="#FFA500"
             android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
@@ -57,11 +56,11 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
             android:textSize="20dp"
             android:id="@+id/textView16" />
 
         <TextView
-            android:text="公司包括室内放你那"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
@@ -83,6 +82,7 @@
             android:text="用户昵称："
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -93,7 +93,6 @@
             android:layout_height="50dp"
             android:inputType="textPersonName"
             android:ems="10"
-            android:text="dddfdfdf"
             android:background="@null"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -110,6 +109,7 @@
             android:text="用户  QQ："
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -120,7 +120,6 @@
             android:layout_height="50dp"
             android:inputType="number"
             android:ems="10"
-            android:text="2123123"
             android:background="@null"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -137,6 +136,7 @@
             android:text="用户电话："
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -147,7 +147,6 @@
             android:layout_height="50dp"
             android:inputType="phone"
             android:ems="10"
-            android:text="18404968615"
             android:background="@null"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -164,6 +163,7 @@
             android:text="用户地址："
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -174,7 +174,6 @@
             android:layout_height="50dp"
             android:inputType="textPersonName"
             android:ems="10"
-            android:text="点击放大看等等"
             android:background="@null"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
