@@ -184,7 +184,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                     Intent to_question_intent = new Intent(getActivity(), GoQuestionActivity.class);
                     to_question_intent.putExtra("tid_bean", list.get(tid_num));
                     to_question_intent.putExtra("question_kind", "kaoshi");
-                    Toast.makeText(getActivity(), tid_num + "", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), tid_num + "", Toast.LENGTH_SHORT).show();
                     startActivity(to_question_intent);
                 }
                 break;

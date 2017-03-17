@@ -171,7 +171,9 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Toast.makeText(NewsInfoActivity.this,response.getString("reason"),Toast.LENGTH_LONG).show();
+                                if (response.getString("result").equals("success")){
+                                    Toast.makeText(NewsInfoActivity.this,"收藏成功",Toast.LENGTH_SHORT).show();
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

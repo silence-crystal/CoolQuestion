@@ -152,7 +152,7 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
                 ChangeHeadImgRes res = gson.fromJson(responseInfo.result, ChangeHeadImgRes.class);
                 if (res.getResult().equals("success")){
                     String imgPath = res.getImgurl();
-                    imageLoader.displayImage(URLConfig.MAIN_URL+imgPath,personal_info_name_img,options);
+                    imageLoader.displayImage("http://"+URLConfig.MAIN_URL+":8080/"+imgPath,personal_info_name_img,options);
                     user = getCurrentUser();
                     user.setUserImg(imgPath);
                     aCache.put("user",user);

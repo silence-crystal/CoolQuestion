@@ -1,5 +1,6 @@
 package com.example.czz.coolquestion.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,8 @@ public class IPActivity extends AppCompatActivity implements View.OnClickListene
         Matcher matcher = pattern.matcher(userIP);
         if (matcher.matches()){
             URLConfig.MAIN_URL = userIP;
+            Intent intent = new Intent(this,GuideActivity.class);
+            startActivity(intent);
         }else {
             Toast.makeText(this,"输入格式不正确",Toast.LENGTH_SHORT).show();
         }
