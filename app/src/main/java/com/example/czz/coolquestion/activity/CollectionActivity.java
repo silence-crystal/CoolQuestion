@@ -25,6 +25,7 @@ import com.example.czz.coolquestion.bean.Programmer;
 import com.example.czz.coolquestion.bean.ProgrammerNews;
 import com.example.czz.coolquestion.bean.ProgrammerNewsCol;
 import com.example.czz.coolquestion.bean.UserInfo;
+import com.example.czz.coolquestion.url.URLConfig;
 import com.example.czz.coolquestion.utils.ACache;
 import com.google.gson.Gson;
 
@@ -93,7 +94,7 @@ public class CollectionActivity extends AppCompatActivity implements View.OnClic
                 ProgrammerNewsCol.NewsCollectListBean nbb=list.get(id);
                 int t=nbb.getNewscollectid();
 
-                JsonObjectRequest jor=new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/DeleteNewsCollect?ncid="+t,null,new Response.Listener<JSONObject>(){
+                JsonObjectRequest jor=new JsonObjectRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/DeleteNewsCollect?ncid="+t,null,new Response.Listener<JSONObject>(){
 
                     @Override
                     public void onResponse(JSONObject response) {
@@ -134,7 +135,7 @@ public class CollectionActivity extends AppCompatActivity implements View.OnClic
     public void InitCol(){
         ACache aCache=ACache.get(CollectionActivity.this);
         UserInfo.UserInfoBean userInfoBean= (UserInfo.UserInfoBean) aCache.getAsObject("user");
-        JsonObjectRequest jor=new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetNewsCollectByUid?page=1&size=100&uid="+userInfoBean.getUserId(),null,new Response.Listener<JSONObject>(){
+        JsonObjectRequest jor=new JsonObjectRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetNewsCollectByUid?page=1&size=100&uid="+userInfoBean.getUserId(),null,new Response.Listener<JSONObject>(){
 
             @Override
             public void onResponse(JSONObject response) {

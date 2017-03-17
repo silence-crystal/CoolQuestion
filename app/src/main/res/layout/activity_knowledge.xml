@@ -9,11 +9,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@mipmap/knowledge_back1">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#4f5565">
+            android:background="@color/daohang2">
 
             <TextView
                 android:text="知识点"
@@ -25,14 +26,7 @@
                 android:layout_centerHorizontal="true"
                 android:id="@+id/textView2" />
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@mipmap/ic_launcher"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:id="@+id/imageView1_left_knowledge_right" />
+
 
             <ImageView
                 android:layout_width="30dp"

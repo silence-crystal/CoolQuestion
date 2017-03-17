@@ -3,6 +3,8 @@ package com.example.czz.coolquestion.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -17,8 +19,13 @@ import com.android.volley.toolbox.Volley;
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.adapter.KnowledgeCollectAdapter;
 import com.example.czz.coolquestion.bean.KnowledgeCollect;
+import com.example.czz.coolquestion.bean.ProgrammerNewsCol;
+import com.example.czz.coolquestion.bean.UserInfo;
+import com.example.czz.coolquestion.url.URLConfig;
+import com.example.czz.coolquestion.utils.ACache;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -37,6 +44,63 @@ public class KnowledgeActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_knowledge);
         InitView();
         InitListener();
+        registerForContextMenu(lv);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(0,1,1,"删除");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        final AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final int id= (int) info.id;
+        if (id==-1){
+            super.onContextItemSelected(item);
+        }
+
+        switch (item.getItemId()){
+            case 1:
+                KnowledgeCollect.KnowledgeCollectListBean nbb=list.get(id);
+
+                int t=nbb.getKnowledgecollectid();
+
+                JsonObjectRequest jor=new JsonObjectRequest("http://"+ URLConfig.MAIN_URL+":8080/CoolTopic/DeleteKnowledgeCollect?kcid="+t,null,new Response.Listener<JSONObject>(){
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Toast.makeText(KnowledgeActivity.this,response.getString("result"),Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },new Response.ErrorListener(){
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(KnowledgeActivity.this,error.getCause().toString(),Toast.LENGTH_LONG).show();
+                    }
+                });
+                rq.add(jor);
+                rq.start();
+
+
+                //adapter.setList(list);
+                initchaxun();
+                adapter.notifyDataSetChanged();
+                lv.setAdapter(adapter);
+
+
+                break;
+            default:
+                break;
+        }
+
+
+        return super.onContextItemSelected(item);
     }
 
     //各种控件
@@ -56,8 +120,10 @@ public class KnowledgeActivity extends AppCompatActivity implements View.OnClick
     }
     //查询数据
     public void initchaxun(){
-
-            JsonObjectRequest jor=new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetKnowledgeCollectByUid?page=1&size=3&uid=1", null,new Response.Listener<JSONObject>(){
+        ACache aCache = ACache.get(this);
+        UserInfo.UserInfoBean user = (UserInfo.UserInfoBean) aCache.getAsObject("user");
+        int uid = user.getUserId();
+            JsonObjectRequest jor=new JsonObjectRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetKnowledgeCollectByUid?page=1&size=100&uid="+uid, null,new Response.Listener<JSONObject>(){
                 public void onResponse(JSONObject response) {
                     String info=response.toString();
                     Gson gson=new Gson();

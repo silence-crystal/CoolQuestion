@@ -17,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.bean.ProgrammerNews;
 import com.example.czz.coolquestion.bean.ProgrammerNewsCol;
+import com.example.czz.coolquestion.url.URLConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,7 +95,7 @@ public class NewsInfoColActivity extends AppCompatActivity implements View.OnCli
 
 
         idd=nb.getNewscontent().getNewsId();
-        String path = "http://130.0.0.227:8080/CoolTopic/NewsContent.jsp?nid="+idd;
+        String path ="http://"+ URLConfig.MAIN_URL+":8080/CoolTopic/NewsContent.jsp?nid="+idd;
         wv.loadUrl(path);
         wv.setWebViewClient(new WebViewClient(){
             @Override

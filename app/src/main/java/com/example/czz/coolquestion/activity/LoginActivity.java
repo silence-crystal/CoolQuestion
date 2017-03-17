@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.textView_log://登录
-                StringRequest loginReq = new StringRequest(URLConfig.MAIN_URL+"CoolTopic/LoginServlet?account="+et_username.getText().toString()+"&password="+et_password.getText().toString(), new Response.Listener<String>() {
+                StringRequest loginReq = new StringRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/LoginServlet?account="+et_username.getText().toString()+"&password="+et_password.getText().toString(), new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Gson gson = new Gson();

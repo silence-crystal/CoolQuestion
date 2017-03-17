@@ -15,7 +15,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#4f5565">
+            android:background="@color/daohang2">
 
 
             <ImageView
@@ -37,6 +37,9 @@
                 android:id="@+id/imageView_newsinfo_right" />-->
 
             <TextView
+                android:text="资讯详情"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:textSize="20sp"
                 android:textColor="#ffffff"
                 android:layout_width="wrap_content"

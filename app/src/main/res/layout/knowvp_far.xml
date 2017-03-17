@@ -5,8 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-<com.example.czz.coolquestion.view.MyListView
-    android:id="@+id/lv_knowVp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.example.czz.coolquestion.view.MyListView
+            android:id="@+id/lv_knowVp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <ProgressBar
+            android:id="@+id/juhua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
 </com.example.czz.coolquestion.utils.PullToRefreshScrollView>

@@ -113,7 +113,7 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
 
 
         idd=pn.getNewsId();
-        String path = "http://130.0.0.227:8080/CoolTopic/NewsContent.jsp?nid="+idd;
+        String path ="http://"+ URLConfig.MAIN_URL+":8080/CoolTopic/NewsContent.jsp?nid="+idd;
         wv.loadUrl(path);
         wv.setWebViewClient(new WebViewClient(){
             @Override
@@ -149,7 +149,7 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
                 ACache aCache=ACache.get(NewsInfoActivity.this);
                 UserInfo.UserInfoBean userInfo= (UserInfo.UserInfoBean) aCache.getAsObject("user");
                 if (userInfo!=null){
-                    JsonObjectRequest jor=new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/AddNewsCollect?newsid="+idd+"&userid="+userInfo.getUserId(),null,new Response.Listener<JSONObject>(){
+                    JsonObjectRequest jor=new JsonObjectRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/AddNewsCollect?newsid="+idd+"&userid="+userInfo.getUserId(),null,new Response.Listener<JSONObject>(){
 
                         @Override
                         public void onResponse(JSONObject response) {

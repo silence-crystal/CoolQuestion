@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ import com.example.czz.coolquestion.activity.SearchActivity;
 import com.example.czz.coolquestion.adapter.ProgrammerAdapter;
 import com.example.czz.coolquestion.bean.Programmer;
 import com.example.czz.coolquestion.bean.ProgrammerNews;
+import com.example.czz.coolquestion.url.URLConfig;
 import com.example.czz.coolquestion.utils.PullToRefreshBase;
 import com.example.czz.coolquestion.utils.PullToRefreshListView;
 import com.example.czz.coolquestion.utils.PullToRefreshScrollView;
@@ -60,6 +62,8 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     private RequestQueue rq;
     private  List<ProgrammerNews> ll;
     private  int curpage=1;
+    private ProgressBar pb;
+
 
 
     // 图片资源id
@@ -104,7 +108,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     //控件
     public void InitView(View view){
         //科技资讯
-        //lv= (ListView) view.findViewById(R.id.hp_listview);
+        pb= (ProgressBar) view.findViewById(R.id.pb_juhua);
         lv= (ListView) view.findViewById(R.id.hp_listview);
         ll=new ArrayList<ProgrammerNews>();
         adapter=new ProgrammerAdapter(getActivity());
@@ -231,7 +235,8 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
 
     //科技资讯list实现方法
     public void AddData() {
-        JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?page=1&size=10", null, new Response.Listener<JSONObject>(){
+       pb.setVisibility(View.VISIBLE);
+        JsonObjectRequest jor = new JsonObjectRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetAllNews?page=1&size=10", null, new Response.Listener<JSONObject>(){
 
 
             @Override
@@ -244,7 +249,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
                 ll=p.getNews();
                 adapter.setList(ll);
                 adapter.notifyDataSetChanged();
-
+                pb.setVisibility(View.GONE);
 
 
             }
@@ -252,6 +257,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Toast.makeText(getActivity(),"请求失败！",Toast.LENGTH_LONG).show();
+                pb.setVisibility(View.GONE);
             }
         });
         rq.add(jor);
@@ -283,7 +289,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
         curpage=1;
-        JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?page=1&size=10", null, new Response.Listener<JSONObject>(){
+        JsonObjectRequest jor = new JsonObjectRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetAllNews?page=1&size=10", null, new Response.Listener<JSONObject>(){
 
 
             @Override
@@ -313,7 +319,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 
         curpage+=1;
-        JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?size=10&page="+curpage, null, new Response.Listener<JSONObject>(){
+        JsonObjectRequest jor = new JsonObjectRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetAllNews?size=10&page="+curpage, null, new Response.Listener<JSONObject>(){
 
             @Override
             public void onResponse(JSONObject jsonObject) {

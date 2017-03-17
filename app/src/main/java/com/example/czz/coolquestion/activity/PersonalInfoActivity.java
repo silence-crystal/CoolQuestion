@@ -121,7 +121,7 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
         Bitmap map = BitmapFactory.decodeFile(f.getPath());
 //        personal_info_name_img.setImageBitmap(map);
 
-        String uploadHost = "http://130.0.0.227:8080/CoolTopic/UpdateHeadImg";
+        String uploadHost = "http://"+URLConfig.MAIN_URL+":8080/CoolTopic/UpdateHeadImg";
 
         RequestParams params = new RequestParams();
         params.addBodyParameter("photo",f);

@@ -75,7 +75,7 @@ public class Question_GV_Adapter extends BaseAdapter {
             viewHolder.language_relativeLayout.setBackgroundColor(Color.rgb(255,255,255));
         }
         viewHolder.language_name.setText(list.get(position).getTypeName());
-        imageLoader.displayImage(URLConfig.MAIN_URL+list.get(position).getTypePic(),viewHolder.language_img,options);
+        imageLoader.displayImage("http://"+URLConfig.MAIN_URL+":8080/"+list.get(position).getTypePic(),viewHolder.language_img,options);
 
         return convertView;
     }

@@ -170,7 +170,7 @@ public class PersonalFragment extends Fragment {
         if (isLogin()){
             logout_layout.setVisibility(View.VISIBLE);
             UserInfo.UserInfoBean user = (UserInfo.UserInfoBean) aCache.getAsObject("user");
-            imageLoader.displayImage(URLConfig.MAIN_URL+user.getUserImg(),touxiang_img,options);
+            imageLoader.displayImage("http://"+URLConfig.MAIN_URL+":8080/"+user.getUserImg(),touxiang_img,options);
             //昵称显示判断
             if (user.getUserName().length()==0){
                 personal_info_nichen.setText("还没有设置昵称哦");

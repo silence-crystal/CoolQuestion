@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -25,6 +26,7 @@ import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.activity.KnowDetailsActivity;
 import com.example.czz.coolquestion.adapter.KnowAdapter;
 import com.example.czz.coolquestion.bean.Know;
+import com.example.czz.coolquestion.url.URLConfig;
 import com.example.czz.coolquestion.utils.PullToRefreshBase;
 import com.example.czz.coolquestion.utils.PullToRefreshScrollView;
 import com.example.czz.coolquestion.view.MyListView;
@@ -45,6 +47,7 @@ import java.util.List;
 public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickListener, PullToRefreshBase.OnRefreshListener2 {
     private View view;
     private MyListView lv_knowVp;
+    private ProgressBar progressBar;//读取网络数据时的进度条
     private PullToRefreshScrollView scrollView;
     private int position;
     private List<Know.KnowledgeListBean> list = new ArrayList<Know.KnowledgeListBean>();
@@ -52,18 +55,19 @@ public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickL
     private RequestQueue queue;
     private Know know = null;
     private int currentPage=1;
+    //private ProgressBar pb;
     //Java语言
-    private final String Java = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=1&page=1&size=10";
+    private final String Java = "http://"+ URLConfig.MAIN_URL+":8080/CoolTopic/GetKnowledgeByTid?tid=1&page=1&size=10";
     //C语言
-    private final String C = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=2&page=1&size=10";
+    private final String C = "http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetKnowledgeByTid?tid=2&page=1&size=10";
     //C++语言
-    private final String Cadd = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=3&page=1&size=10";
+    private final String Cadd = "http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetKnowledgeByTid?tid=3&page=1&size=10";
     //Android语言
-    private final String Android = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=4&page=1&size=10";
+    private final String Android = "http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetKnowledgeByTid?tid=4&page=1&size=10";
     //Object-C语言
-    private final String Objectc = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=5&page=1&size=10";
+    private final String Objectc = "http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetKnowledgeByTid?tid=5&page=1&size=10";
     //PHP语言
-    private final String PHP = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=6&page=1&size=10";
+    private final String PHP = "http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetKnowledgeByTid?tid=6&page=1&size=10";
 
     private Handler handler = new Handler() {
         @Override
@@ -116,6 +120,8 @@ public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickL
 
     //获取listView数据
     private void initListData(String url) {
+       // pb.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
         JsonObjectRequest request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -128,11 +134,13 @@ public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickL
                 if (scrollView.isRefreshing()) {
                     scrollView.onRefreshComplete();
                 }
+                progressBar.setVisibility(View.INVISIBLE);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getActivity(), "请求数据失败", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
         queue.add(request);
@@ -142,9 +150,11 @@ public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickL
     //初始化listView
     private void initListView() {
         lv_knowVp = (MyListView) view.findViewById(R.id.lv_knowVp);
+        progressBar= (ProgressBar) view.findViewById(R.id.juhua);
         adapter = new KnowAdapter(getActivity());
         lv_knowVp.setAdapter(adapter);
         lv_knowVp.setOnItemClickListener(this);
+        //pb= (ProgressBar) view.findViewById(R.id.pb_juhua1);
     }
 
     //下拉
@@ -161,17 +171,17 @@ public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickL
         String currentUrl = null;
         currentPage+=1;
         if (position == 0) {
-            currentUrl = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=1&size=10&page=";
+            currentUrl = "http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetKnowledgeByTid?tid=1&size=10&page=";
         } else if (position == 1) {
-            currentUrl = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=2&size=10&page=";
+            currentUrl = "http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetKnowledgeByTid?tid=2&size=10&page=";
         } else if (position == 2) {
-            currentUrl = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=3&size=10&page=";
+            currentUrl = "http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetKnowledgeByTid?tid=3&size=10&page=";
         } else if (position == 3) {
-            currentUrl = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=4&size=10&page=";
+            currentUrl = "http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetKnowledgeByTid?tid=4&size=10&page=";
         } else if (position == 4) {
-            currentUrl = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=5&size=10&page=";
+            currentUrl = "http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetKnowledgeByTid?tid=5&size=10&page=";
         } else if (position == 5) {
-            currentUrl = "http://130.0.0.227:8080/CoolTopic/GetKnowledgeByTid?tid=6&size=10&page=";
+            currentUrl = "http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetKnowledgeByTid?tid=6&size=10&page=";
         }
         JsonObjectRequest jor = new JsonObjectRequest(currentUrl+currentPage, null, new Response.Listener<JSONObject>() {
             @Override
