@@ -218,7 +218,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                 @Override
                 public void onClick(View v) {
                     if (correct_answer_tv.getVisibility() != View.VISIBLE || question_description_tv.getVisibility() != View.VISIBLE) {
-                        Toast.makeText(GoQuestionActivity.this, "您选择了A选项", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(GoQuestionActivity.this, "您选择了A选项", Toast.LENGTH_SHORT).show();
                         select_answer = "A";
                         select_answer_tv.setText("您选择的答案是:" + select_answer);
                     }
@@ -231,7 +231,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                 public void onClick(View v) {
 
                     if (correct_answer_tv.getVisibility() != View.VISIBLE || question_description_tv.getVisibility() != View.VISIBLE) {
-                        Toast.makeText(GoQuestionActivity.this, "您选择了B选项", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(GoQuestionActivity.this, "您选择了B选项", Toast.LENGTH_SHORT).show();
                         select_answer = "B";
                         select_answer_tv.setText("您选择的答案是:" + select_answer);
                     }
@@ -244,7 +244,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                 public void onClick(View v) {
 
                     if (correct_answer_tv.getVisibility() != View.VISIBLE || question_description_tv.getVisibility() != View.VISIBLE) {
-                        Toast.makeText(GoQuestionActivity.this, "您选择了C选项", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(GoQuestionActivity.this, "您选择了C选项", Toast.LENGTH_SHORT).show();
                         select_answer = "C";
                         select_answer_tv.setText("您选择的答案是:" + select_answer);
                     }
@@ -257,7 +257,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                 public void onClick(View v) {
 
                     if (correct_answer_tv.getVisibility() != View.VISIBLE || question_description_tv.getVisibility() != View.VISIBLE) {
-                        Toast.makeText(GoQuestionActivity.this, "您选择了D选项", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(GoQuestionActivity.this, "您选择了D选项", Toast.LENGTH_SHORT).show();
                         select_answer = "D";
                         select_answer_tv.setText("您选择的答案是:" + select_answer);
                     }
@@ -423,8 +423,8 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                                 ShowBuilder("您还没有选择答案!!!");
                             }else{
                                 select_list.add(select_answer);
-                                Toast.makeText(GoQuestionActivity.this,select_list.size()+"",Toast.LENGTH_SHORT).show();
-                                Toast.makeText(GoQuestionActivity.this,correct_list.size()+"",Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(GoQuestionActivity.this,select_list.size()+"",Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(GoQuestionActivity.this,correct_list.size()+"",Toast.LENGTH_SHORT).show();
                                 ShowCorrectAnswerAndDes();
                                 if (chronometer.getVisibility()==View.VISIBLE){
                                     chronometer.stop();
@@ -443,8 +443,8 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
                                 ShowBuilder("您还没有选择答案!!!");
                             }else{
                                 select_list.add(select_answer);
-                                Toast.makeText(GoQuestionActivity.this,select_list.size()+"",Toast.LENGTH_SHORT).show();
-                                Toast.makeText(GoQuestionActivity.this,correct_list.size()+"",Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(GoQuestionActivity.this,select_list.size()+"",Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(GoQuestionActivity.this,correct_list.size()+"",Toast.LENGTH_SHORT).show();
                                 ShowCorrectAnswerAndDes();
                                 if (chronometer.getVisibility()==View.VISIBLE){
                                     chronometer.stop();

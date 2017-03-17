@@ -42,7 +42,7 @@ public class ResultActivity extends Activity{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent=new Intent();
                 intent.putExtra("data_return",position);
-                Toast.makeText(ResultActivity.this,position+"",Toast.LENGTH_SHORT).show();;
+                //Toast.makeText(ResultActivity.this,position+"",Toast.LENGTH_SHORT).show();;
                 setResult(RESULT_OK,intent);
                 finish();
             }

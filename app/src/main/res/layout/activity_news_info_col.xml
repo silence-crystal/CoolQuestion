@@ -21,6 +21,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
                 android:src="@mipmap/back"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"

@@ -148,7 +148,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.question_left_slidingmenu:
-                Toast.makeText(getActivity(), "侧滑页面!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "侧滑页面!", Toast.LENGTH_SHORT).show();
                 if (mainactivity.slidingmenu.isMenuShowing()) {//侧滑页面当前显示
                     mainactivity.slidingmenu.showContent();
                     ;//显示主页面
@@ -158,7 +158,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.question_right_error_collect:
 
-                Toast.makeText(getActivity(), "错题本页面出来了!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "错题本页面出来了!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), CTBActivity.class);
                 startActivity(intent);
 
@@ -168,11 +168,11 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                 if (tid == 0) {
                     Toast.makeText(getActivity(), "请选择一种题目类型", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "前往答题页面!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "前往答题页面!", Toast.LENGTH_SHORT).show();
                     Intent to_question_intent = new Intent(getActivity(), GoQuestionActivity.class);
                     to_question_intent.putExtra("tid_bean", list.get(tid_num));
                     to_question_intent.putExtra("question_kind", "dati");
-                    Toast.makeText(getActivity(), tid_num + "", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), tid_num + "", Toast.LENGTH_SHORT).show();
                     startActivity(to_question_intent);
                 }
                 break;
@@ -180,7 +180,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                 if (tid == 0) {
                     Toast.makeText(getActivity(), "请选择一种题目类型", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "前往考试页面!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "前往考试页面!", Toast.LENGTH_SHORT).show();
                     Intent to_question_intent = new Intent(getActivity(), GoQuestionActivity.class);
                     to_question_intent.putExtra("tid_bean", list.get(tid_num));
                     to_question_intent.putExtra("question_kind", "kaoshi");

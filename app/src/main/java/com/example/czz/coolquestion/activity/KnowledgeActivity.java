@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -38,6 +39,7 @@ public class KnowledgeActivity extends AppCompatActivity implements View.OnClick
     private ListView lv;
     private RequestQueue rq;
     private List<KnowledgeCollect.KnowledgeCollectListBean> list = new ArrayList<>();
+    private ProgressBar progressBar;//加载网络数据的进度条
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +108,7 @@ public class KnowledgeActivity extends AppCompatActivity implements View.OnClick
     //各种控件
     public void InitView(){
         iv_back= (ImageView) findViewById(R.id.imageView2_left_knowledge_back);
+        progressBar= (ProgressBar) findViewById(R.id.act_know_progressbar);
         lv= (ListView) findViewById(R.id.knowledge_lv);
         adapter=new KnowledgeCollectAdapter(this);
         lv.setAdapter(adapter);
@@ -129,6 +132,7 @@ public class KnowledgeActivity extends AppCompatActivity implements View.OnClick
                     Gson gson=new Gson();
                     KnowledgeCollect knowledgeCollect = gson.fromJson(info,KnowledgeCollect.class);
                     list=knowledgeCollect.getKnowledgeCollectList();
+                    progressBar.setVisibility(View.INVISIBLE);
                     adapter.setList(list);
                     adapter.notifyDataSetChanged();
                 }
@@ -136,7 +140,8 @@ public class KnowledgeActivity extends AppCompatActivity implements View.OnClick
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(KnowledgeActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(KnowledgeActivity.this,"网络异常",Toast.LENGTH_LONG).show();
                 }
             });
             rq.add(jor);

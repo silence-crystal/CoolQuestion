@@ -1,6 +1,7 @@
 package com.example.czz.coolquestion.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -185,15 +186,33 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
 
             point_group.addView(point);
         }
+        for (int i=0;i<imageList.size();i++){
+            imageList.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(),NewsInfoActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
 
         viewPager.setAdapter(new MyPageAdapter());
         // 设置当前viewPager的位置
         viewPager.setCurrentItem(Integer.MAX_VALUE / 2
                 - (Integer.MAX_VALUE / 2 % imageList.size()));
+
+
+
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int position) {
+//                Uri uri=Uri.parse("http://www.stdaily.com");
+//                Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+//                startActivity(intent);
+
+
+
                 // 页面切换后调用， position是新的页面位置
 
                 // 实现无限制循环播放
@@ -233,6 +252,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
 
     }
 
+
     //科技资讯list实现方法
     public void AddData() {
        pb.setVisibility(View.VISIBLE);
@@ -256,7 +276,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(getActivity(),"请求失败！",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"网络异常",Toast.LENGTH_LONG).show();
                 pb.setVisibility(View.GONE);
             }
         });
@@ -306,7 +326,10 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(getActivity(),"请求失败！",Toast.LENGTH_LONG).show();
+                if (sv.isRefreshing()){
+                    sv.onRefreshComplete();
+                }
+                Toast.makeText(getActivity(),"网络异常",Toast.LENGTH_LONG).show();
             }
         });
         rq.add(jor);
@@ -334,7 +357,10 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(getActivity(),"请求失败！",Toast.LENGTH_LONG).show();
+                if (sv.isRefreshing()){
+                    sv.onRefreshComplete();
+                }
+                Toast.makeText(getActivity(),"网络异常",Toast.LENGTH_LONG).show();
             }
         });
         rq.add(jor);

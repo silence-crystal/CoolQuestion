@@ -139,6 +139,9 @@ public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickL
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                if (scrollView.isRefreshing()) {
+                    scrollView.onRefreshComplete();
+                }
                 Toast.makeText(getActivity(), "请求数据失败", Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.INVISIBLE);
             }
@@ -197,7 +200,10 @@ public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickL
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "请求数据失败", Toast.LENGTH_SHORT).show();
+                if (scrollView.isRefreshing()) {
+                    scrollView.onRefreshComplete();
+                }
+                Toast.makeText(getActivity(), "网络异常", Toast.LENGTH_SHORT).show();
             }
         });
         queue.add(jor);

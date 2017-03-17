@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -48,6 +49,7 @@ public class CollectionActivity extends AppCompatActivity implements View.OnClic
     private ProgrammerColAdapter adapter;
     private List<ProgrammerNewsCol.NewsCollectListBean> list=new ArrayList<ProgrammerNewsCol.NewsCollectListBean>();
     private RequestQueue rq;
+    private ProgressBar progressBar;//加载网络数据的进度条
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class CollectionActivity extends AppCompatActivity implements View.OnClic
         iv_share= (ImageView) findViewById(R.id.imageView1_left_col_right);
         iv_back= (ImageView) findViewById(R.id.imageView2_left_col_back);
         lv= (ListView) findViewById(R.id.listview_news_col);
+        progressBar= (ProgressBar) findViewById(R.id.act_collect_progressbar);
         adapter=new ProgrammerColAdapter(CollectionActivity.this);
         lv.setOnItemClickListener(this);
         lv.setAdapter(adapter);
@@ -143,19 +146,16 @@ public class CollectionActivity extends AppCompatActivity implements View.OnClic
                 Gson gson=new Gson();
                 ProgrammerNewsCol pnc=gson.fromJson(info,ProgrammerNewsCol.class);
                 List<ProgrammerNewsCol.NewsCollectListBean> ll=pnc.getNewsCollectList();
-
-//                Programmer p=gson.fromJson(info,Programmer.class);
-//                List<ProgrammerNews> ll=p.getNews();
                 list=ll;
+                progressBar.setVisibility(View.INVISIBLE);
                 adapter.setList(ll);
                 adapter.notifyDataSetChanged();
             }
         },new Response.ErrorListener(){
-
-
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(CollectionActivity.this,error.getCause().toString(),Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(CollectionActivity.this,"网络异常",Toast.LENGTH_LONG).show();
             }
         });
         rq.add(jor);
