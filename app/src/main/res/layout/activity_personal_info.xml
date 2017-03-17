@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#4f5565">
+        android:background="@color/daohang2">
 
         <ImageView
             android:layout_width="30dp"
@@ -42,6 +42,7 @@
             android:text="用户头像"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -79,6 +80,7 @@
             android:text="用户账号"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:id="@+id/textView17"
             android:textSize="20dp"
             android:layout_centerVertical="true"
@@ -117,6 +119,7 @@
             android:text="用户昵称"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:id="@+id/username_tv_p"
             android:textSize="20dp"
             android:layout_centerVertical="true"
@@ -155,6 +158,7 @@
             android:text="用户QQ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:id="@+id/userqq_tv_p"
             android:textSize="20dp"
             android:layout_centerVertical="true"
@@ -193,6 +197,7 @@
             android:text="用户电话"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:id="@+id/userphone_tv_p"
             android:textSize="20dp"
             android:layout_centerVertical="true"
@@ -231,6 +236,7 @@
             android:text="用户地址"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:id="@+id/useraddress_tv_p"
             android:textSize="20dp"
             android:layout_centerVertical="true"

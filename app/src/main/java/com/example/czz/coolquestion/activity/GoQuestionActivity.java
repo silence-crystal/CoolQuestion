@@ -33,6 +33,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.czz.coolquestion.R;
+import com.example.czz.coolquestion.bean.AddErrorQuestion;
 import com.example.czz.coolquestion.bean.Language;
 import com.example.czz.coolquestion.bean.Question;
 import com.example.czz.coolquestion.bean.UserInfo;
@@ -499,7 +500,13 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
             StringRequest adderror_req=new StringRequest(URLConfig.ADDERRORQUESTION_URL+"econtent="+econtent+"&eanswer="+select_answer+"&uid="+uid, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Toast.makeText(GoQuestionActivity.this,"添加成功!!",Toast.LENGTH_SHORT).show();
+                    Gson gson=new Gson();
+                    AddErrorQuestion question=gson.fromJson(response,AddErrorQuestion.class);
+                    if (question.getResult().equals("success")){
+                        Toast.makeText(GoQuestionActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(GoQuestionActivity.this,question.getReason(),Toast.LENGTH_SHORT).show();
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override

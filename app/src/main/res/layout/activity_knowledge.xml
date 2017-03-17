@@ -26,8 +26,11 @@
                 android:layout_centerHorizontal="true"
                 android:id="@+id/textView2" />
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> ce74efed7f4a097c965db32467cbebad9aaba3ab
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"

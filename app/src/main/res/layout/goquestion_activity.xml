@@ -6,9 +6,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#4F5565">
+        android:layout_height="50dp"
+        android:background="@color/daohang2">
 
         <ImageView
             android:id="@+id/act_question_back"
@@ -16,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:src="@mipmap/act_question_back" />
+            android:src="@mipmap/back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,7 +40,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:textSize="15sp"
-            android:textColor="#20B2AA"
+            android:textColor="#FFFFFF"
             android:format="00:00"
             android:visibility="invisible"/>
 
@@ -56,9 +55,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#4F5565"
+        android:layout_height="50dp"
+        android:background="@color/daohang2"
         android:orientation="horizontal">
 
 
@@ -69,9 +67,9 @@
             android:gravity="center"
             android:layout_centerInParent="true"
             android:layout_weight="1"
-            android:drawableTop="@mipmap/go_question_left"
+            android:drawableTop="@mipmap/left"
             android:text="上一题"
-            android:textColor="#20B2AA" />
+            android:textColor="#FFFFFF" />
 
 
         <TextView
@@ -81,9 +79,9 @@
             android:gravity="center"
             android:layout_centerInParent="true"
             android:layout_weight="1"
-            android:drawableTop="@mipmap/go_question_right"
+            android:drawableTop="@mipmap/right"
             android:text="下一题"
-            android:textColor="#20B2AA" />
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
