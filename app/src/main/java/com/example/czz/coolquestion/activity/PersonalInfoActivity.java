@@ -106,6 +106,7 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        pw.dismiss();
         String path = "";
         if (requestCode == 0) {
             path = fileUri.getPath(); //取得拍照存储的地址
@@ -148,6 +149,7 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
                     imageLoader.displayImage(URLConfig.MAIN_URL+imgPath,personal_info_name_img,options);
                     user = getCurrentUser();
                     user.setUserImg(imgPath);
+                    aCache.put("user",user);
 //                //更新服务器用户数据或者在更换头像时更换数据
 //                StringRequest updateImg = new StringRequest("", new Response.Listener<String>() {
 //                    @Override
