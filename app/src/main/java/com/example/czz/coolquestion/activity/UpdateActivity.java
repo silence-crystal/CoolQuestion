@@ -93,7 +93,7 @@ public class UpdateActivity extends Activity{
                     e.printStackTrace();
                 }
 
-                StringRequest updateReq = new StringRequest(URLConfig.MAIN_URL+"CoolTopic/UpdateUserInfo?userid="+user.getUserId()+"&username="+name+"&userqq="+qq+"&userphone="+phone+"&useraddress="+address, new Response.Listener<String>() {
+                StringRequest updateReq = new StringRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/UpdateUserInfo?userid="+user.getUserId()+"&username="+name+"&userqq="+qq+"&userphone="+phone+"&useraddress="+address, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Gson gson = new Gson();

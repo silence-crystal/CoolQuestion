@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#4f5565">
+        android:background="@color/daohang2">
 
         <TextView
             android:id="@+id/textView2"
@@ -32,20 +32,31 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:src="@mipmap/back" />
     </RelativeLayout>
 
-    <com.baoyz.swipemenulistview.SwipeMenuListView
-        android:layout_marginTop="30dp"
-        android:id="@+id/act_ctb_listview"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:listSelector="@android:color/transparent"
-        android:cacheColorHint="@android:color/transparent"
-        android:divider="@null"
-        android:dividerHeight="30dp"
-        />
+        android:layout_height="match_parent">
+        <com.baoyz.swipemenulistview.SwipeMenuListView
+            android:layout_marginTop="30dp"
+            android:id="@+id/act_ctb_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@android:color/transparent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:dividerHeight="30dp"
+            />
+        <ProgressBar
+            android:id="@+id/ctb_act_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+
 
 
 </LinearLayout>

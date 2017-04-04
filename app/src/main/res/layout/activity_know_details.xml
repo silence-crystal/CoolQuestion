@@ -8,37 +8,45 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#4f5565">
+        android:background="@color/daohang2">
 
         <ImageView
+            android:id="@+id/know_details_hand_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@mipmap/fanhui"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="11dp"
             android:layout_marginStart="11dp"
-            android:id="@+id/know_details_hand_img" />
+            android:src="@mipmap/back" />
 
         <TextView
-            android:text="知识点详情"
-            android:textColor="@color/white"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:textSize="25dp"
-            android:id="@+id/textView2" />
+            android:layout_centerVertical="true"
+            android:text="知识点详情"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
 
         <ImageView
-            android:layout_width="35dp"
+            android:id="@+id/know_share"
+            android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@mipmap/sangedian"
-            android:id="@+id/you_img"
             android:layout_centerVertical="true"
+            android:src="@mipmap/share"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            />
+        <ImageView
+            android:id="@+id/know_col"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/col_col"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/know_share"/>
 
     </RelativeLayout>
 
@@ -46,25 +54,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
-            android:text="title"
-            android:layout_width="wrap_content"
-            android:textSize="35dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="wrap_content"
-            android:id="@+id/knowledge_title"
-             />
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-        <TextView
-            android:text="content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:id="@+id/knowledge_content"
-            />
-</ScrollView>
+
+        <WebView
+            android:id="@+id/wv_knowledge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 </LinearLayout>

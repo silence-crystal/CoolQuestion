@@ -51,6 +51,26 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         lv.setOnItemClickListener(this);
         //输入框
         et_search= (EditText) findViewById(R.id.editText_search);
+        et_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                    if (editable.length()==0){
+                        List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
+                        adapter.setList(list);
+                        adapter.notifyDataSetChanged();
+                    }
+            }
+        });
         //搜索按钮
         iv_search= (ImageView) findViewById(R.id.imageView_search_cai);
         iv_search.setOnClickListener(new View.OnClickListener() {

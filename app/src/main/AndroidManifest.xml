@@ -18,13 +18,7 @@
             android:name=".activity.MainActivity"
             android:label="@string/app_name" />
         <activity android:name=".activity.FlashActivity" />
-        <activity android:name=".activity.GuideActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activity.GuideActivity"/>
         <activity android:name=".activity.GoQuestionActivity" />
         <activity android:name=".activity.ResultActivity" />
         <activity android:name=".activity.CollectionActivity" />
@@ -44,7 +38,13 @@
         <activity android:name=".activity.XieyiActivity" />
         <activity android:name=".activity.QuestionDetailActivity" />
         <activity android:name=".activity.NewsInfoColActivity" />
-        <activity android:name=".activity.IPActivity"></activity>
+        <activity android:name=".activity.IPActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

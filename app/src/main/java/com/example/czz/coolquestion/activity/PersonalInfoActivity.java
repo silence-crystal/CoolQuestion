@@ -109,8 +109,14 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
         pw.dismiss();
         String path = "";
         if (requestCode == 0) {
+            if (data.toString().equals("Intent {  }")){
+                return;
+            }
             path = fileUri.getPath(); //取得拍照存储的地址
         } else if (requestCode == 1) { //解析得到所选相册图片的地址
+            if (data==null){
+                return;
+            }
             Uri uri = data.getData();
             Cursor cursor = this.getContentResolver().query(uri, null, null, null, null);
             cursor.moveToFirst();
@@ -122,7 +128,7 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
         Bitmap map = BitmapFactory.decodeFile(f.getPath());
 //        personal_info_name_img.setImageBitmap(map);
 
-        String uploadHost = "http://130.0.0.227:8080/CoolTopic/UpdateHeadImg";
+        String uploadHost = "http://"+URLConfig.MAIN_URL+":8080/CoolTopic/UpdateHeadImg";
 
         RequestParams params = new RequestParams();
         params.addBodyParameter("photo",f);
@@ -146,7 +152,7 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
                 ChangeHeadImgRes res = gson.fromJson(responseInfo.result, ChangeHeadImgRes.class);
                 if (res.getResult().equals("success")){
                     String imgPath = res.getImgurl();
-                    imageLoader.displayImage(URLConfig.MAIN_URL+imgPath,personal_info_name_img,options);
+                    imageLoader.displayImage("http://"+URLConfig.MAIN_URL+":8080/"+imgPath,personal_info_name_img,options);
                     user = getCurrentUser();
                     user.setUserImg(imgPath);
                     aCache.put("user",user);
@@ -270,7 +276,7 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
         paizhao_btn = (Button) view.findViewById(R.id.paizhao_btn);
         quxiao_btn = (Button) view.findViewById(R.id.quxiao_btn);
 
-        imageLoader.displayImage(URLConfig.MAIN_URL+getCurrentUser().getUserImg(),personal_info_name_img,options);
+        imageLoader.displayImage("http://"+URLConfig.MAIN_URL+":8080/"+getCurrentUser().getUserImg(),personal_info_name_img,options);
     }
     //监听事件
     public void InitListener(){

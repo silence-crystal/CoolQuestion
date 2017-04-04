@@ -9,11 +9,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@mipmap/knowledge_back1">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#4f5565">
+            android:background="@color/daohang2">
 
             <TextView
                 android:text="知识点"
@@ -28,17 +29,28 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@mipmap/fanhui"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/back"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:id="@+id/imageView2_left_knowledge_back" />
         </RelativeLayout>
 
-        <ListView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/knowledge_lv"/>
+            android:layout_height="match_parent">
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/knowledge_lv"/>
+            <ProgressBar
+                android:id="@+id/act_know_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
 
     </LinearLayout>
 

@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             iv_head.setImageResource(R.mipmap.head);
         }else {
             user = (UserInfo.UserInfoBean) aCache.getAsObject("user");
-            imageLoader.displayImage(URLConfig.MAIN_URL+user.getUserImg(),iv_head,options);
+            imageLoader.displayImage("http://"+URLConfig.MAIN_URL+":8080/"+user.getUserImg(),iv_head,options);
             if (user.getUserName().length()==0){
                 tv_username.setText("还没有设置昵称哦");
             }else {

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -42,6 +43,7 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
     private ImageView iv_back,iv_share,iv_col;
     private WebView wv;
     private ProgrammerNews pn;
+    private String path;
 
     private RequestQueue rq;
 
@@ -112,8 +114,14 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
 
 
 
-        idd=pn.getNewsId();
-        String path = "http://130.0.0.227:8080/CoolTopic/NewsContent.jsp?nid="+idd;
+
+        if (pn==null){
+            path = "http://www.stdaily.com";
+        }else {
+            idd=pn.getNewsId();
+            path ="http://"+ URLConfig.MAIN_URL+":8080/CoolTopic/NewsContent.jsp?nid="+idd;
+        }
+
         wv.loadUrl(path);
         wv.setWebViewClient(new WebViewClient(){
             @Override
@@ -129,6 +137,15 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
         });
 
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && wv.canGoBack()) {
+            wv.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     //监听事件
@@ -149,12 +166,14 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
                 ACache aCache=ACache.get(NewsInfoActivity.this);
                 UserInfo.UserInfoBean userInfo= (UserInfo.UserInfoBean) aCache.getAsObject("user");
                 if (userInfo!=null){
-                    JsonObjectRequest jor=new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/AddNewsCollect?newsid="+idd+"&userid="+userInfo.getUserId(),null,new Response.Listener<JSONObject>(){
+                    JsonObjectRequest jor=new JsonObjectRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/AddNewsCollect?newsid="+idd+"&userid="+userInfo.getUserId(),null,new Response.Listener<JSONObject>(){
 
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Toast.makeText(NewsInfoActivity.this,response.getString("reason"),Toast.LENGTH_LONG).show();
+                                if (response.getString("result").equals("success")){
+                                    Toast.makeText(NewsInfoActivity.this,"收藏成功",Toast.LENGTH_SHORT).show();
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

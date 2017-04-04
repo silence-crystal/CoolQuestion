@@ -6,8 +6,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -21,6 +24,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.czz.coolquestion.R;
 import com.example.czz.coolquestion.bean.Know;
 import com.example.czz.coolquestion.bean.KnowledgeCollect;
+import com.example.czz.coolquestion.bean.UserInfo;
+import com.example.czz.coolquestion.url.URLConfig;
+import com.example.czz.coolquestion.utils.ACache;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,68 +44,87 @@ import java.util.Locale;
 
 public class KnowDetailsActivity extends AppCompatActivity implements View.OnClickListener{
     private ImageView know_details_hand_img,you_img;
-    private TextView k_title,k_content,know_collect_tv,know_fenxiang_tv;
-    private View popview;
-    private PopupWindow pw;
+    private TextView know_collect_tv,know_fenxiang_tv;
+   // private View popview;
+    //private PopupWindow pw;
     private RequestQueue rq;
     private Volley volley;
     private int id1;
+    private WebView wv_knowledge;
+    private ImageView iv_share,iv_col;
 //    private KnowledgeCollect.KnowledgeCollectListBean.KnowledgeBean know1=new KnowledgeCollect.KnowledgeCollectListBean.KnowledgeBean();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_know_details);
-        InitView();
-        InitListener();
-        rq=Volley.newRequestQueue(getApplicationContext());
+        //接收传递的参数
         Intent intent = getIntent();
+        setContentView(R.layout.activity_know_details);
         Know.KnowledgeListBean know = (Know.KnowledgeListBean) intent.getSerializableExtra("content");
         KnowledgeCollect.KnowledgeCollectListBean.KnowledgeBean knowCol = (KnowledgeCollect.KnowledgeCollectListBean.KnowledgeBean) intent.getSerializableExtra("colContent");
         if (know!=null){
             id1=know.getKnowledgeid();
-            k_title.setText(know.getKnowledgetitle());
-            k_content.setText(know.getKnowledgedescribe());
         }else {
             id1 = knowCol.getKnowledgeid();
-            k_title.setText(knowCol.getKnowledgetitle());
-            k_content.setText(knowCol.getKnowledgedescribe());
         }
+
+        InitView();
+        InitListener();
+        rq=Volley.newRequestQueue(getApplicationContext());
+
+
 
     }
     //各种控件
     public void InitView(){
         know_details_hand_img= (ImageView) findViewById(R.id.know_details_hand_img);
-        k_title=(TextView) findViewById(R.id.knowledge_title);
-        k_content=(TextView) findViewById(R.id.knowledge_content);
-        you_img= (ImageView) findViewById(R.id.you_img);
-        popview=getLayoutInflater().inflate(R.layout.know_xiangqing_popupwindow,null);
-        know_collect_tv= (TextView) popview.findViewById(R.id.know_collect_tv);
-        know_fenxiang_tv= (TextView) popview.findViewById(R.id.know_fenxiang_tv);
+        wv_knowledge = (WebView) findViewById(R.id.wv_knowledge);
+        //you_img= (ImageView) findViewById(R.id.you_img);
+
+        iv_col= (ImageView) findViewById(R.id.know_col);
+        iv_share= (ImageView) findViewById(R.id.know_share);
+        //popview=getLayoutInflater().inflate(R.layout.know_xiangqing_popupwindow,null);
+//        know_collect_tv= (TextView) popview.findViewById(R.id.know_collect_tv);
+//        know_fenxiang_tv= (TextView) popview.findViewById(R.id.know_fenxiang_tv);
+
+        String path ="http://"+ URLConfig.MAIN_URL+":8080/CoolTopic/KnowledgeContent.jsp?kid="+id1;
+        Log.d("333",path);
+        wv_knowledge.loadUrl(path);
+        wv_knowledge.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
     }
     //监听事件
     public void InitListener(){
         know_details_hand_img.setOnClickListener(this);
-        you_img.setOnClickListener(this);
-        know_collect_tv.setOnClickListener(this);
-        know_fenxiang_tv.setOnClickListener(this);
+        iv_share.setOnClickListener(this);
+        iv_col.setOnClickListener(this);
+        //you_img.setOnClickListener(this);
+//        know_collect_tv.setOnClickListener(this);
+//        know_fenxiang_tv.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.know_details_hand_img:
+            case R.id.know_details_hand_img://返回
                 finish();
                 break;
-            case R.id.you_img:
-                pw = new PopupWindow(popview, 150, ViewGroup.LayoutParams.WRAP_CONTENT);
-                pw.setBackgroundDrawable(getResources().getDrawable(R.mipmap.know_popupwindow));
-                pw.setOutsideTouchable(true);
-                pw.showAsDropDown(you_img);
-                break;
-            case R.id.know_collect_tv:
-                if(isLogin()==true){
+//            case R.id.you_img:
+////                pw = new PopupWindow(popview, 150, ViewGroup.LayoutParams.WRAP_CONTENT);
+////                pw.setBackgroundDrawable(getResources().getDrawable(R.mipmap.know_popupwindow));
+////                pw.setOutsideTouchable(true);
+////                pw.showAsDropDown(you_img);
+//                break;
+            case R.id.know_col://收藏
+                ACache aCache=ACache.get(KnowDetailsActivity.this);
+                UserInfo.UserInfoBean userInfo= (UserInfo.UserInfoBean) aCache.getAsObject("user");
+                if(userInfo!=null){
                     //
-                    JsonObjectRequest jor=new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/AddKnowledgeCollect?kid="+id1+"&uid=1",
+                    JsonObjectRequest jor=new JsonObjectRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/AddKnowledgeCollect?kid="+id1+"&uid="+userInfo.getUserId(),
                             null,new Response.Listener<JSONObject>(){
                         public void onResponse(JSONObject response) {
                             try {
@@ -121,7 +146,7 @@ public class KnowDetailsActivity extends AppCompatActivity implements View.OnCli
                     startActivity(intent);
                 }
                 break;
-            case R.id.know_fenxiang_tv:
+            case R.id.know_share://分享
                 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.US);
                 String fname = "/sdcard/" + sdf.format(new Date()) + ".png";
                 View view = v.getRootView();
@@ -152,8 +177,5 @@ public class KnowDetailsActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    //自定义登录验证方法
-    public boolean isLogin(){
-        return true;
-    }
+
 }

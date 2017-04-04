@@ -1,6 +1,7 @@
 package com.example.czz.coolquestion.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -16,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ import com.example.czz.coolquestion.activity.SearchActivity;
 import com.example.czz.coolquestion.adapter.ProgrammerAdapter;
 import com.example.czz.coolquestion.bean.Programmer;
 import com.example.czz.coolquestion.bean.ProgrammerNews;
+import com.example.czz.coolquestion.url.URLConfig;
 import com.example.czz.coolquestion.utils.PullToRefreshBase;
 import com.example.czz.coolquestion.utils.PullToRefreshListView;
 import com.example.czz.coolquestion.utils.PullToRefreshScrollView;
@@ -60,6 +63,8 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     private RequestQueue rq;
     private  List<ProgrammerNews> ll;
     private  int curpage=1;
+    private ProgressBar pb;
+
 
 
     // 图片资源id
@@ -76,10 +81,6 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     private boolean isRunning = true;
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
-            if (msg.what==0){
-                adapter.notifyDataSetChanged();
-                sv.onRefreshComplete();
-            }
             // 执行滑动到下一个页面
             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
             if (isRunning) {
@@ -108,7 +109,7 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     //控件
     public void InitView(View view){
         //科技资讯
-        //lv= (ListView) view.findViewById(R.id.hp_listview);
+        pb= (ProgressBar) view.findViewById(R.id.pb_juhua);
         lv= (ListView) view.findViewById(R.id.hp_listview);
         ll=new ArrayList<ProgrammerNews>();
         adapter=new ProgrammerAdapter(getActivity());
@@ -185,15 +186,33 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
 
             point_group.addView(point);
         }
+        for (int i=0;i<imageList.size();i++){
+            imageList.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(),NewsInfoActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
 
         viewPager.setAdapter(new MyPageAdapter());
         // 设置当前viewPager的位置
         viewPager.setCurrentItem(Integer.MAX_VALUE / 2
                 - (Integer.MAX_VALUE / 2 % imageList.size()));
+
+
+
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int position) {
+//                Uri uri=Uri.parse("http://www.stdaily.com");
+//                Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+//                startActivity(intent);
+
+
+
                 // 页面切换后调用， position是新的页面位置
 
                 // 实现无限制循环播放
@@ -233,22 +252,11 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
 
     }
 
+
     //科技资讯list实现方法
     public void AddData() {
-//        List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
-//        for (int i=0;i<25;i++){
-//            ProgrammerNews pn=new ProgrammerNews();
-//            pn.setNewsdescribe("你们尽管去浪，能赢，算我输！你是我的小丫笑拉拉，怎么打你你都不哭，你好坚强！");
-//            pn.setNewspublisher("小二哥");
-//            pn.setNewspublishtime("2017--03--02");
-//            pn.setNewsTitle("世界这么大！");
-//            list.add(pn);
-//        }
-//        adapter.setList(list);
-//        adapter.notifyDataSetChanged();
-
-        //List<ProgrammerNews> list = new ArrayList<ProgrammerNews>();
-        JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?page=1&size=10", null, new Response.Listener<JSONObject>(){
+       pb.setVisibility(View.VISIBLE);
+        JsonObjectRequest jor = new JsonObjectRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetAllNews?page=1&size=10", null, new Response.Listener<JSONObject>(){
 
 
             @Override
@@ -261,14 +269,15 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
                 ll=p.getNews();
                 adapter.setList(ll);
                 adapter.notifyDataSetChanged();
-
+                pb.setVisibility(View.GONE);
 
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(getActivity(),"请求失败！",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"网络异常",Toast.LENGTH_LONG).show();
+                pb.setVisibility(View.GONE);
             }
         });
         rq.add(jor);
@@ -299,59 +308,12 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     //下拉
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
-//                ProgrammerNews pn=new ProgrammerNews();
-//                pn.setNewsdescribe("1");
-//                pn.setNewstitle("1");
-//                pn.setNewspublishtime("1");
-//                pn.setNewspublisher("1");
-//                list.add(pn);
-//                adapter.addDataToHeader(list);
-//                handler.sendEmptyMessage(0);
-//            }
-//        }).start();
-
-
-
-        /*List<ProgrammerNews> list=adapter.getList();
-        if (list.size()!=0&&list!=null){
-
-            int currentid=adapter.getList().get(0).getNewsId()+1;
-            JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?page=1&size=1"+"&newsId="+currentid, null, new Response.Listener<JSONObject>(){
-
-                @Override
-                public void onResponse(JSONObject jsonObject) {
-
-
-                    String info=jsonObject.toString();
-                    Gson gson=new Gson();
-                    Programmer p=gson.fromJson(info,Programmer.class);
-                    List<ProgrammerNews> ll=p.getNews();
-                    adapter.addDataToHeader(ll);
-                    adapter.notifyDataSetChanged();
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError volleyError) {
-                    Toast.makeText(getActivity(),"请求失败！",Toast.LENGTH_LONG).show();
-                }
-            });
-            rq.add(jor);
-            rq.start();
-
-        }*/
-
-
-        JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?page=1&size=10", null, new Response.Listener<JSONObject>(){
+        curpage=1;
+        JsonObjectRequest jor = new JsonObjectRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetAllNews?page=1&size=10", null, new Response.Listener<JSONObject>(){
 
 
             @Override
             public void onResponse(JSONObject jsonObject) {
-
 
                 String info=jsonObject.toString();
                 Gson gson=new Gson();
@@ -359,24 +321,15 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
                 ll=p.getNews();
                 adapter.setList(ll);
                 adapter.notifyDataSetChanged();
-
-//                for (ProgrammerNews news:ll
-//                     ) {
-//                    Log.i("55555555555",news.getNewsTitle()+"");
-//                }
-
-
-//                try {
-//                    Toast.makeText(getActivity(),jsonObject.getString("news"),Toast.LENGTH_LONG).show();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-
+                sv.onRefreshComplete();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(getActivity(),"请求失败！",Toast.LENGTH_LONG).show();
+                if (sv.isRefreshing()){
+                    sv.onRefreshComplete();
+                }
+                Toast.makeText(getActivity(),"网络异常",Toast.LENGTH_LONG).show();
             }
         });
         rq.add(jor);
@@ -388,40 +341,26 @@ public class HostFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                List<ProgrammerNews> list=new ArrayList<ProgrammerNews>();
-//                ProgrammerNews pn=new ProgrammerNews();
-//                pn.setNewsdescribe("1");
-//                pn.setNewstitle("1");
-//                pn.setNewspublishtime("1");
-//                pn.setNewspublisher("1");
-//                list.add(pn);
-//                adapter.addDataToFooter(list);
-//                handler.sendEmptyMessage(0);
-//            }
-//        }).start();
-
         curpage+=1;
-        JsonObjectRequest jor = new JsonObjectRequest("http://130.0.0.227:8080/CoolTopic/GetAllNews?size=10&page="+curpage, null, new Response.Listener<JSONObject>(){
+        JsonObjectRequest jor = new JsonObjectRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetAllNews?size=10&page="+curpage, null, new Response.Listener<JSONObject>(){
 
             @Override
             public void onResponse(JSONObject jsonObject) {
-
-
                 String info=jsonObject.toString();
                 Gson gson=new Gson();
                 Programmer p=gson.fromJson(info,Programmer.class);
                 List<ProgrammerNews> ll=p.getNews();
                 adapter.addDataToFooter(ll);
                 adapter.notifyDataSetChanged();
-
+                sv.onRefreshComplete();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(getActivity(),"请求失败！",Toast.LENGTH_LONG).show();
+                if (sv.isRefreshing()){
+                    sv.onRefreshComplete();
+                }
+                Toast.makeText(getActivity(),"网络异常",Toast.LENGTH_LONG).show();
             }
         });
         rq.add(jor);

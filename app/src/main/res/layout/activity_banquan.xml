@@ -11,11 +11,11 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@mipmap/fanhui"
+            android:background="@mipmap/back"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="11dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginStart="11dp"
             android:id="@+id/banquan_fanhui_img" />
 
