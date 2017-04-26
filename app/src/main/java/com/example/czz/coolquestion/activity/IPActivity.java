@@ -21,6 +21,7 @@ public class IPActivity extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ip);
+        CloseAllActivitys.list.add(this);
         initView();
     }
 

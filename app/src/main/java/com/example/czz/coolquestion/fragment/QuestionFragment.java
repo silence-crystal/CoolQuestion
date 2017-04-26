@@ -114,8 +114,8 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
     //给list集合中添加数据
     private void AddData() {
-
-        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, URLConfig.GETLANGUAGE_URL, null, new Response.Listener<JSONObject>() {
+        //Toast.makeText(getActivity(),URLConfig.GETLANGUAGE_URL,Toast.LENGTH_SHORT).show();
+        JsonObjectRequest jor = new JsonObjectRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetTypeInfo", null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("volley", response.toString());

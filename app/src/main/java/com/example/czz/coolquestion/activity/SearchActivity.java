@@ -93,16 +93,16 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         search_list=new ArrayList<ProgrammerNews>();
         adapter=new ProgrammerAdapter(SearchActivity.this);
         ll=(List<ProgrammerNews>)getIntent().getSerializableExtra("news_list");
-        if (ll==null){
-            Toast.makeText(SearchActivity.this,"传递过来的集合weinull",Toast.LENGTH_SHORT).show();
-        }else{
-            if (ll.size()==0){
-                Toast.makeText(SearchActivity.this,ll.size()+"传递过来的集合没有数据",Toast.LENGTH_SHORT).show();
-
-            }else{
-                Toast.makeText(SearchActivity.this,ll.size()+"",Toast.LENGTH_SHORT).show();
-            }
-        }
+//        if (ll==null){
+//            Toast.makeText(SearchActivity.this,"传递过来的集合weinull",Toast.LENGTH_SHORT).show();
+//        }else{
+//            if (ll.size()==0){
+//                Toast.makeText(SearchActivity.this,ll.size()+"传递过来的集合没有数据",Toast.LENGTH_SHORT).show();
+//
+//            }else{
+//                Toast.makeText(SearchActivity.this,ll.size()+"",Toast.LENGTH_SHORT).show();
+//            }
+//        }
         lv.setAdapter(adapter);
 
 

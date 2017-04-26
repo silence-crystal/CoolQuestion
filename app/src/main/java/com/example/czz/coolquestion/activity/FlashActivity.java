@@ -22,6 +22,7 @@ public class FlashActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash);
+        CloseAllActivitys.list.add(this);
         iv= (ImageView) findViewById(R.id.activity_flash_iv);
         //加载动画
         Animation animation= AnimationUtils.loadAnimation(this,R.anim.alpha);

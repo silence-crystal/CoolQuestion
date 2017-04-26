@@ -91,7 +91,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
     private void AddNetData() {
 //        Log.i("volley================",
 //                URLConfig.GETQUESTION_URL+"tid="+tid_bean.getTypeId());
-        JsonObjectRequest jor=new JsonObjectRequest(Request.Method.POST, URLConfig.GETQUESTION_URL + "tid=" + tid_bean.getTypeId(), null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jor=new JsonObjectRequest(Request.Method.POST,"http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetQuestionByType?"+ "tid=" + tid_bean.getTypeId(), null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("volley================",response.toString());
@@ -497,7 +497,7 @@ public class GoQuestionActivity extends Activity implements View.OnClickListener
         }else{
             uid=userInfo.getUserId();
 
-            StringRequest adderror_req=new StringRequest(URLConfig.ADDERRORQUESTION_URL+"econtent="+econtent+"&eanswer="+select_answer+"&uid="+uid, new Response.Listener<String>() {
+            StringRequest adderror_req=new StringRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/AddErrorQuestionCollect?"+"econtent="+econtent+"&eanswer="+select_answer+"&uid="+uid, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Gson gson=new Gson();

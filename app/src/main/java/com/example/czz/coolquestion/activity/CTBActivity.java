@@ -96,7 +96,7 @@ public class CTBActivity extends AppCompatActivity implements View.OnClickListen
         ACache aCache=ACache.get(CTBActivity.this);
         UserInfo.UserInfoBean userInfo= (UserInfo.UserInfoBean) aCache.getAsObject("user");
         if (userInfo!=null){
-            StringRequest sr=new StringRequest(URLConfig.ERRORQUESTION_URL + "userid="+userInfo.getUserId(), new Response.Listener<String>() {
+            StringRequest sr=new StringRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/GetAllErrorQuestion?" + "userid="+userInfo.getUserId(), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     String info=response.toString();
@@ -147,7 +147,7 @@ public class CTBActivity extends AppCompatActivity implements View.OnClickListen
                         //Toast.makeText(CTBActivity.this,"点击删除按钮!!!",Toast.LENGTH_SHORT).show();
                         //获取错题id
                         int eid=ctb_question_list.get(position).getEid();
-                        StringRequest stringRequest=new StringRequest(URLConfig.DELETEERRORQUESTION_URL+"eid="+eid, new Response.Listener<String>() {
+                        StringRequest stringRequest=new StringRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/DeleteErrorQuestion?"+"eid="+eid, new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 Toast.makeText(CTBActivity.this,"删除成功!!!",Toast.LENGTH_SHORT).show();

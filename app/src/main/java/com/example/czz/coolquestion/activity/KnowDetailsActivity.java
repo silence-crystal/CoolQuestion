@@ -128,14 +128,18 @@ public class KnowDetailsActivity extends AppCompatActivity implements View.OnCli
                             null,new Response.Listener<JSONObject>(){
                         public void onResponse(JSONObject response) {
                             try {
-                                Toast.makeText(KnowDetailsActivity.this,response.getString("reason"),Toast.LENGTH_LONG).show();
+                                if (response.getString("reason").length()==0){
+                                    Toast.makeText(KnowDetailsActivity.this,"收藏成功",Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(KnowDetailsActivity.this,response.getString("reason"),Toast.LENGTH_SHORT).show();
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
                     },new Response.ErrorListener(){
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(KnowDetailsActivity.this,error.getCause().toString(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(KnowDetailsActivity.this,error.getCause().toString(),Toast.LENGTH_SHORT).show();
                         }
                     });
                     rq.add(jor);

@@ -35,6 +35,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"
                 android:id="@+id/imageView_newsinfo_right" />
 
             <TextView
@@ -66,5 +67,10 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/pb_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

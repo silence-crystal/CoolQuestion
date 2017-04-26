@@ -16,6 +16,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -48,6 +49,7 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
     private RequestQueue rq;
 
     private int idd;//用户id
+    private ProgressBar pb_progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
         iv_back= (ImageView) findViewById(R.id.imageView_newsinfo_back);
         iv_col= (ImageView) findViewById(R.id.imageView_newsinfo_col);
         iv_share= (ImageView) findViewById(R.id.imageView_newsinfo_right);
+        pb_progress = (ProgressBar) findViewById(R.id.pb_progress);
 
 
         wv= (WebView) findViewById(R.id.newsinfo_webview);
@@ -117,6 +120,8 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
 
         if (pn==null){
             path = "http://www.stdaily.com";
+            //path = "http://www.baidu.com";
+            iv_col.setVisibility(View.GONE);
         }else {
             idd=pn.getNewsId();
             path ="http://"+ URLConfig.MAIN_URL+":8080/CoolTopic/NewsContent.jsp?nid="+idd;
@@ -134,6 +139,19 @@ public class NewsInfoActivity extends AppCompatActivity implements View.OnClickL
                 view.loadUrl(url);
                 return true;
             }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                pb_progress.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                pb_progress.setVisibility(View.GONE);
+            }
+
         });
 
 

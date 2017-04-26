@@ -30,4 +30,15 @@
             android:id="@+id/textView2" />
     </RelativeLayout>
 
+    <TextView
+        android:text="请联系我们！把您的意见发送到邮箱1181022703@qq.com"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:id="@+id/textView3" />
+
 </LinearLayout>

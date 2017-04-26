@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()){
             case R.id.tv_signup:
                 if (et_password.getText().toString().equals(et_surepass.getText().toString())){
-                    StringRequest signupReq = new StringRequest(URLConfig.MAIN_URL+"CoolTopic/Signup?useraccount="+et_useraccount.getText().toString()+"&password="+et_password.getText().toString(), new Response.Listener<String>() {
+                    StringRequest signupReq = new StringRequest("http://"+URLConfig.MAIN_URL+":8080/CoolTopic/Signup?useraccount="+et_useraccount.getText().toString()+"&password="+et_password.getText().toString(), new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             Gson gson = new Gson();
@@ -65,6 +65,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     });
                     queue.add(signupReq);
                     queue.start();
+                    //Toast.makeText(this,"注册成功！",Toast.LENGTH_SHORT).show();
+
                 }else {
                     Toast.makeText(this,"两次输入密码不一致，请重新输入",Toast.LENGTH_SHORT).show();
                 }

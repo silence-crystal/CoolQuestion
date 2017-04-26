@@ -34,6 +34,7 @@ public class GuideActivity extends FragmentActivity{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
+        CloseAllActivitys.list.add(this);
         sp=getSharedPreferences("mode",MODE_PRIVATE);
         int number = sp.getInt("flag", 0);
         if (number == 0) {

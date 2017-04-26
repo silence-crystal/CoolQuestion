@@ -165,7 +165,7 @@ public class KnowVpFragment extends Fragment implements AdapterView.OnItemClickL
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
         currentPage=1;
         initData();
-        Toast.makeText(getActivity(),"lalala",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),"刷新成功",Toast.LENGTH_SHORT).show();
     }
 
     //上拉

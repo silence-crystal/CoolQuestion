@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.czz.coolquestion.R;
@@ -37,11 +39,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private UserInfo.UserInfoBean user;
     private ImageLoader imageLoader;
     private DisplayImageOptions options;
+    private long time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        CloseAllActivitys.list.add(this);
 
         imageLoader = imageLoader.getInstance();
         options = new DisplayImageOptions.Builder()
@@ -293,5 +297,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             transaction.hide(current).show(fragment).commit();
         }
         current=fragment;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (System.currentTimeMillis()-time<2000){
+            CloseAllActivitys.closeAllActivity();
+        }else {
+            time = System.currentTimeMillis();
+            Toast.makeText(MainActivity.this,"再按一次退出本程序",Toast.LENGTH_SHORT).show();
+        }
+        return true;
     }
 }
