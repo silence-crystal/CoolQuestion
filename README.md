@@ -1,1 +1,1 @@
-"# CoolQuestion" 
+#CoolQuestion
